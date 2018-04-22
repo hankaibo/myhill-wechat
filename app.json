@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/python/python"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#4d82e6",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "python",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light"
+  },
+  "debug": false
+}
