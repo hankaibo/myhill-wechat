@@ -43,7 +43,6 @@ Page({
     this.data.answers.allList[this.data.swiper.active].options = list
     this.tapSelect(e)
   },
-
   //答案判断逻辑
   tapSelect: function (e) {
     if (!this.data.isFirst || this.data.answers.allList[this.data.answers.start + this.data.swiper.active].isAnswer) {
@@ -84,7 +83,7 @@ Page({
       setTimeout(() => this.onSwiper('left'), 200)
     } else {
       // 结束了
-      alert('已经扯到底了。')
+      console.log('已经扯到底了。')
     }
   },
   //页码切换列表效果
@@ -264,20 +263,7 @@ Page({
     }
   },
   getSubject: function () {
-    let start = 0
-    let end = 0
-    // 数据来源本地还是网络
-    if (this.data.isLocal) {
-      start = this.data.answers.activeNum
-      end = this.data.answers.allList.length
-    } else {
-      start = this.data.answers.activeNum - this.data.answers.onceLoadLength
-      end = this.data.answers.activeNum + this.data.answers.onceLoadLength
-      start = start > 0 ? start : 0
-      end = end > this.data.answers.allList.length ? this.data.answers.allList.length : end
-    }
-    this.data.answers.start = start
-    this.data.answers.end = end
+    this.data.answers.end = this.data.answers.allList.length
 
     //注册滑动结束回调
     if (this.$isLock) {
