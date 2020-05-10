@@ -1,6 +1,19 @@
 <!--pages/hub/index.wxml-->
 <view class="page">
-    <view class="page__bd">
-        <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
-    </view>
+	<view class="page__bd">
+		<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+		<mp-tabs 
+			tabs="{{tabs}}" 
+			swiperClass="weui-tabs-swiper" 
+			activeClass="tab-bar-title__selected"
+			tabActiveTextColor="#07c160"
+			activeTab="{{activeTab}}" 
+			bindtabclick="onTabCLick" 
+			bindchange="onChange" 
+			>
+			<block wx:for="{{tabs}}" wx:key="title">
+				<view class="tab-content" slot="tab-content-{{index}}"> {{item.title}} </view>
+			</block>
+		</mp-tabs>
+	</view>
 </view>
