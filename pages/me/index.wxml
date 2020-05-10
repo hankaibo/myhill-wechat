@@ -10,7 +10,6 @@
 					<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
 						<view class="weui-media-box__title">{{userInfo.nickName}}</view>
 						<view class="weui-media-box__desc">微信号：{{userInfo.nickName}}</view>
-						<view class="weui-cell__ft weui-cell__ft_in-access"></view>
 					</view>
 				</navigator>
 			</view>

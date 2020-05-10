@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import '/weui-wxss/dist/style/weui.wxss';
 
 .main {
   height: 100vh;
