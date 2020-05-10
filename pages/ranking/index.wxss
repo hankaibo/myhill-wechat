@@ -1,0 +1,4 @@
+/* pages/ranking/index.wxss */
+.page {
+  min-height: 100vh;
+}

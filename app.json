@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/demo/index",
+    "pages/ranking/index",
     "pages/hub/index",
     "pages/me/index",
     "pages/logs/logs"
@@ -29,6 +30,10 @@
         "text": "index"
       },
       {
+        "pagePath": "pages/ranking/index",
+        "text": "排行榜"
+      },
+      {
         "pagePath": "pages/hub/index",
         "text": "题库"
       },
@@ -44,7 +49,6 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "useExtendedLib": {
-    "kbone": true,
     "weui": true
   }
 }
