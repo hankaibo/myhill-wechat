@@ -1,0 +1,7 @@
+/* pages/me/index.wxss */
+.page {
+  background-color: lightgray;
+}
+.weui-panel {
+  margin-bottom: 5rpx;
+}

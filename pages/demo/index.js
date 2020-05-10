@@ -1,4 +1,4 @@
-// pages/python/python.js
+// pages/demo/demo.js
 const questionData = require('../../utils/data.js')
 //获取应用实例
 const app = getApp()
@@ -9,6 +9,10 @@ Page({
    */
   data: {
     userInfo: {},
+    storageData: {
+      swiper: {},
+      answers: {}
+    },
     hasUserInfo: false,
     isLoading: false,
     isFirst: true,
@@ -232,11 +236,6 @@ Page({
     this.data.swiper.animationNext = animationNext
     this.setData(this.data)
 
-    //调用加载数据方法
-    // if ((this.data.swiper.active == 2 && this.data.answers.start > 0) || (this.data.swiper.active + 2 == this.data.answers.list.length && this.data.answers.end < this.data.answers.allList.length)) {
-    //   // this.getSubject()
-    // }
-
     //调用滑动结束回调
     if (this.isLockCall && typeof this.isLockCall == 'function') {
       this.isLockCall()
@@ -263,20 +262,19 @@ Page({
     }
   },
   getSubject: function () {
-    this.data.answers.end = this.data.answers.allList.length
-
+    Object.assign(this.data.answers.activeNum, this.data.storageData.swiper.active)
     //注册滑动结束回调
     if (this.$isLock) {
       this.isLockCall = function () {
         this.data.swiper.active = this.data.answers.activeNum - this.data.answers.start
-        this.data.answers.allList = questionData.data
+        this.data.answers.allList = this.data.answers.allList
         this.data.isLoading = false
         this.data.isFirst = true
         this.setData(this.data)
       }
     } else {
       this.data.swiper.active = this.data.answers.activeNum - this.data.answers.start
-      this.data.answers.allList = questionData.data
+      this.data.answers.allList = this.data.answers.allList
       this.data.isLoading = false
       this.data.isFirst = true
       this.setData(this.data)
@@ -295,18 +293,26 @@ Page({
     }
     // 获取数据
     if (this.data.isLocal) {
-      questionData.data.map((item, index) => {
-        // TODO 利用本地缓存实现收藏与已完成功能
-        return item
-      })
+      try {
+        let localData = wx.getStorageSync('mini-python')
+        if (localData) {
+          Object.assign(this.data.storageData.answers, localData['answers'])
+          Object.assign(this.data.storageData.swiper, localData['swiper'])
+        } else {
+          this.data.storageData.answers['allList'] = questionData.data
+        }
+      } catch (e) {
+        console.log('获取本地缓存数据失败，' + e)
+      }
     } else {
 
     }
     // 
-    this.data.answers.allList = questionData.data
-    this.data.answers.success = 0
-    this.data.answers.error = 0
+    this.data.answers.allList = this.data.storageData.answers['allList']
+    this.data.answers.success = this.data.storageData.answers['success'] || 0
+    this.data.answers.error = this.data.storageData.answers['error'] || 0
     this.data.answers.loading = false
+    this.data.swiper.active = this.data.storageData.swiper['active'] || 0
     this.setData(this.data)
     this.getSubject()
   },
@@ -329,14 +335,26 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    try {
+      this.data.storageData.answers = this.data.answers
+      this.data.storageData.swiper = this.data.swiper
+      wx.setStorageSync('mini-python', this.data.storageData)
+    } catch (e) {
+      console.log('onHide写入本地缓存失败，' + e)
+    }
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    try {
+      this.data.storageData.answers = this.data.answers
+      this.data.storageData.swiper = this.data.swiper
+      wx.setStorageSync('mini-python', this.data.storageData)
+    } catch (e) {
+      console.log('onUnload写入本地缓存失败，' + e)
+    }
   },
 
   /**

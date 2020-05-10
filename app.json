@@ -1,15 +1,50 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/python/python"
+    "pages/demo/index",
+    "pages/hub/index",
+    "pages/me/index",
+    "pages/logs/logs"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#4d82e6",
+    "navigationBarBackgroundColor": "#292929",
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "python",
-    "backgroundColor": "#ffffff",
+    "navigationBarTitleText": "Demo",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#f2f2f2",
     "backgroundTextStyle": "light"
   },
-  "debug": false
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#f9f027",
+    "borderStyle": "white",
+    "backgroundColor": "#292929",
+    "list": [
+      {
+        "pagePath": "pages/demo/index",
+        "text": "Demo"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "index"
+      },
+      {
+        "pagePath": "pages/hub/index",
+        "text": "题库"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "iconPath": "images/avatar.png",
+        "selectedIconPath": "images/avatar-active.png",
+        "text": "我"
+      }
+    ]
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "useExtendedLib": {
+    "kbone": true,
+    "weui": true
+  }
 }

@@ -12,6 +12,6 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-    <navigator class="navigator" url="/pages/python/python" hover-class="navigator-hover">{{enter}}</navigator>
+    <navigator class="navigator" url="/pages/demo/index" hover-class="navigator-hover">{{enter}}</navigator>
   </view>
 </view>
