@@ -71,7 +71,7 @@ Page({
 
   },
 
-  themeChanged: function(theme) {
+  themeChanged: function (theme) {
     this.setData({
       theme
     })

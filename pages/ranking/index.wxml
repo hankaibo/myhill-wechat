@@ -7,7 +7,7 @@
 				<view>{{item.nickName}}</view>
 				<view slot="footer">
 					<text>{{item.score}}</text>
-          <mp-icon type="outline" icon="like" color="black"></mp-icon>
+					<mp-icon type="outline" icon="like" color="black"></mp-icon>
 				</view>
 			</mp-cell>
 		</mp-cells>

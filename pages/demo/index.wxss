@@ -61,7 +61,8 @@ page {
   color: #6c0;
 }
 
-.list.error .number, .list.success .number {
+.list.error .number,
+.list.success .number {
   display: none;
 }
 

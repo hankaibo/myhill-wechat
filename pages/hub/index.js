@@ -92,11 +92,15 @@ Page({
   },
   onTabCLick(e) {
     const index = e.detail.index
-    this.setData({activeTab: index})
+    this.setData({
+      activeTab: index
+    })
   },
 
   onChange(e) {
     const index = e.detail.index
-    this.setData({activeTab: index})
+    this.setData({
+      activeTab: index
+    })
   }
 })

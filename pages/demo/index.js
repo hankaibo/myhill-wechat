@@ -20,17 +20,17 @@ Page({
       active: 0
     },
     layerlayer: {
-      isLayerShow: false,//默认弹窗
-      layerAnimation: {},//弹窗动画
+      isLayerShow: false, //默认弹窗
+      layerAnimation: {}, //弹窗动画
     },
     isLocal: true,
     answers: {
-      start: 0,//初始题号
-      end: 0,//结束题号
-      allList: [],//题号数据
-      activeNum: 0,//当前显示条数
-      onceLoadLength: 5,//一次向俩端加载条数，因我使用本地数据，此属性未实际使用
-      isShowTip: false//默认是否显示提示
+      start: 0, //初始题号
+      end: 0, //结束题号
+      allList: [], //题号数据
+      activeNum: 0, //当前显示条数
+      onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
+      isShowTip: false //默认是否显示提示
     }
   },
   //单选逻辑
@@ -168,7 +168,7 @@ Page({
       timingFunction: 'ease',
       delay: 0
     })
-    if (!this.$isLock) {//锁屏控制
+    if (!this.$isLock) { //锁屏控制
       this.$isLock = true
       if (dire == 'bottom' || dire == 'top' || !dire) {
         this.$isLock = false
@@ -178,7 +178,7 @@ Page({
         animationPre.translate3d('0', 0, 0).step()
         animationT.translate3d('100%', 0, 0).step()
         if (this.data.answers.activeNum > this.data.answers.start) {
-          active = - 1
+          active = -1
         } else {
           this.$isLock = false
           return
