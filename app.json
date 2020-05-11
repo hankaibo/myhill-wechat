@@ -25,10 +25,6 @@
         "text": "Demo"
       },
       {
-        "pagePath": "pages/index/index",
-        "text": "index"
-      },
-      {
         "pagePath": "pages/ranking/index",
         "text": "排行榜"
       },

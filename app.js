@@ -33,6 +33,9 @@ App({
       }
     })
   },
+  onThemeChange: function (theme) {
+    console.log(theme);
+  },
   globalData: {
     userInfo: null
   }
