@@ -20,8 +20,7 @@
     "selectedColor": "#f9f027",
     "borderStyle": "white",
     "backgroundColor": "#292929",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/demo/index",
         "text": "Demo"
       },
