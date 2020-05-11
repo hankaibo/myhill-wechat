@@ -27,7 +27,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.98",
+	"libVersion": "2.11.0",
 	"appid": "wx611662881d49cc12",
 	"projectname": "mini-python",
 	"isGameTourist": false,
