@@ -1,4 +1,8 @@
 <!--index.wxml-->
-<view class="container">
-	<image class="welcome" src="{{welcomeUrl}}"></image>
+<view class="container" data-weui-theme="{{theme}}">
+	<!-- <image class="welcome" src="{{welcomeUrl}}"></image> -->
+	<mp-gallery show="{{show}}" bindchange="change" img-urls="{{imgUrls}}" showDelete="{{showDelete}}" current="0"></mp-gallery>
+	<view wx:if="{{idx==imgUrls.length-1}}" class="enter">
+		<button type="default" plain="true" bindtap="handleEnter">进入</button>
+	</view>
 </view>

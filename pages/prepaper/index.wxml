@@ -1,0 +1,6 @@
+<!--pages/prepaper/index.wxml-->
+<view class="container" bindtap="close">
+	<view class="select-wrap">
+		<select id="select" options="{{options}}" key="id" text="name" bind:change="change"></select>
+	</view>
+</view>

@@ -1,11 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/prepaper/index",
     "pages/demo/index",
     "pages/ranking/index",
     "pages/hub/index",
     "pages/me/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "components/select/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#292929",
@@ -21,7 +23,7 @@
     "borderStyle": "white",
     "backgroundColor": "#292929",
     "list": [{
-        "pagePath": "pages/demo/index",
+        "pagePath": "pages/prepaper/index",
         "text": "Demo"
       },
       {
