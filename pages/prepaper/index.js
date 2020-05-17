@@ -62,6 +62,13 @@ Page({
     // 关闭select
     this.selectComponent('#select').close()
   },
+  handleSelect(e) {
+    const item = e.currentTarget.dataset;
+    console.log(item);
+    wx.navigateTo({
+      url: '../paper/index',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

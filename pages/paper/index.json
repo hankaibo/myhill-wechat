@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "mp-halfScreenDialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
+    "mp-icon": "weui-miniprogram/icon/icon",
+    "calendar": "/components/calendar/index"
+  }
+}

@@ -5,7 +5,7 @@
 	</view>
 	<view class="page__bd page__bd_spacing">
 		<view class="weui-flex">
-			<view class="weui-flex__item" wx:for="{{list}}" wx:key="id">
+			<view class="weui-flex__item" wx:for="{{list}}" wx:key="id" wx:for-item="item" data-item="{{item}}" bindtap="handleSelect">
 				<view class="placeholder">#{{item.name}}</view>
 			</view>
 		</view>

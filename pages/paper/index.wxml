@@ -1,0 +1,10 @@
+<!--pages/paper/index.wxml-->
+<view bindtap="openCalendar">今天</view>
+<mp-icon type="outline" icon="time" color="black" size="{{25}}"></mp-icon>
+<import src="../common/python-list.wxml" />
+<loading hidden="{{!isLoading}}">加载中...</loading>
+<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
+<mp-halfScreenDialog show="{{showCalendar}}">
+	<view slot="title">每日一题</view>
+	<view slot="desc"><calendar calendarConfig="{{calendarConfig}}" bind:onTapDay="onTapDay" bind:afterTapDay="afterTapDay" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:afterCalendarRender="afterCalendarRender"></calendar></view>
+</mp-halfScreenDialog>
