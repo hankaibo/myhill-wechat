@@ -23,7 +23,28 @@ Page({
       id: '6',
       name: '六年级'
     }],
-    selected: {}
+    selected: {},
+    list: [{
+        id: 1,
+        name: '语文'
+      },
+      {
+        id: 2,
+        name: '数学'
+      },
+      {
+        id: 3,
+        name: '英语'
+      },
+      {
+        id: 4,
+        name: '音乐'
+      },
+      {
+        id: 5,
+        name: '美术'
+      },
+    ]
   },
   change(e) {
     this.setData({

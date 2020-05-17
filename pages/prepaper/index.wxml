@@ -3,4 +3,11 @@
 	<view class="select-wrap">
 		<select id="select" options="{{options}}" key="id" text="name" bind:change="change"></select>
 	</view>
+	<view class="page__bd page__bd_spacing">
+		<view class="weui-flex">
+			<view class="weui-flex__item" wx:for="{{list}}" wx:key="id">
+				<view class="placeholder">#{{item.name}}</view>
+			</view>
+		</view>
+	</view>
 </view>
