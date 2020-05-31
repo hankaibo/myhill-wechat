@@ -5,6 +5,6 @@
 <loading hidden="{{!isLoading}}">加载中...</loading>
 <template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
 <mp-halfScreenDialog show="{{showCalendar}}">
-	<view slot="title">每日一题</view>
+	<view slot="title">每日一练</view>
 	<view slot="desc"><calendar calendarConfig="{{calendarConfig}}" bind:onTapDay="onTapDay" bind:afterTapDay="afterTapDay" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:afterCalendarRender="afterCalendarRender"></calendar></view>
 </mp-halfScreenDialog>

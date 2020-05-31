@@ -2,18 +2,3 @@
 page {
   height: 100%;
 }
-
-.select-wrap {
-  width: 300rpx;
-}
-
-.selected {
-  margin-top: 50%;
-}
-
-.enter {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 1001;
-}

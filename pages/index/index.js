@@ -4,25 +4,39 @@ const app = getApp()
 
 Page({
   data: {
-    imgUrls: [
-      'https://inews.gtimg.com/newsapp_bt/0/2653313955/641',
-      'http://desk-fd.zol-img.com.cn/g5/M00/02/05/ChMkJ1bKyZmIWCwZABEwe5zfvyMAALIQABa1z4AETCT730.jpg'
-    ],
+    // 画廊属性
     show: true,
-    showDelete: false,
-    idx: 0,
+    imgUrls: [],
+    current: 0,
+    // 主题
     theme: app.globalData.theme
   },
-  change(e) {
+  // 画廊事件
+  handleChange(e) {
     console.log('current index has changed', e.detail);
     this.setData({
       idx: e.detail.current
     })
   },
-  handleEnter: function () {
+  handleEnter() {
     wx.switchTab({
       url: '../prepaper/index',
     })
   },
-  onLoad: function () {},
+  // 页面生命周期函数
+  onLoad() {
+    const that = this;
+    wx.request({
+      url: 'http://192.168.1.102:8080/api/v1/mini/splash-screen?current=1&pageSize=10',
+      success: function ({
+        data
+      }) {
+        const remoteIp = 'http://192.168.1.102:8080';
+        const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => remoteIp + item.imgUrl);
+        that.setData({
+          imgUrls
+        })
+      }
+    })
+  },
 })

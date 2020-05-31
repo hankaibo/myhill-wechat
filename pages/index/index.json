@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "mp-gallery": "weui-miniprogram/gallery/gallery"
+    "hill-gallery": "/components/gallery/index"
   }
 }

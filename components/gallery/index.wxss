@@ -1,0 +1,24 @@
+/* components/gallery/index.wxss */
+.weui-gallery {
+  display: none;
+}
+
+.weui-gallery_show.weui-gallery {
+  display: flex;
+}
+
+.weui-gallery__footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.weui-gallery__opr {
+  background-color: transparent;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.weui-gallery__opr .text {
+  margin-right: 5px;
+}
