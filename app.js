@@ -53,6 +53,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    theme: 'light'
+    theme: 'light',
+    remote: 'http://192.168.1.105:8080'
   }
 })

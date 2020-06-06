@@ -27,12 +27,11 @@ Page({
   onLoad() {
     const that = this;
     wx.request({
-      url: 'http://192.168.1.102:8080/api/v1/mini/splash-screen?current=1&pageSize=10',
+      url: `${app.globalData.remote}/api/v1/mini/splash-screen?current=1&pageSize=10`,
       success: function ({
         data
       }) {
-        const remoteIp = 'http://192.168.1.102:8080';
-        const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => remoteIp + item.imgUrl);
+        const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
         that.setData({
           imgUrls
         })
