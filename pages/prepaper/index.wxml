@@ -1,7 +1,7 @@
 <!--pages/prepaper/index.wxml-->
 <view class="container" bindtap="close">
 	<view class="select-wrap">
-		<select id="select" options="{{options}}" key="id" text="name" bind:change="change"></select>
+		<hill-select id="select" options="{{gradeList}}" key="id" text="name" bind:change="change"></hill-select>
 	</view>
 	<view class="page__bd page__bd_spacing">
 		<view class="weui-flex">

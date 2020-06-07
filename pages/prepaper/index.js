@@ -1,28 +1,10 @@
 // pages/prepaper/index.js
+// 获取应用实例
+const app = getApp()
+
 Page({
   data: {
-    options: [{
-      id: '0',
-      name: '幼儿园'
-    }, {
-      id: '1',
-      name: '一年级'
-    }, {
-      id: '2',
-      name: '二年级'
-    }, {
-      id: '3',
-      name: '三年级'
-    }, {
-      id: '4',
-      name: '四年级'
-    }, {
-      id: '5',
-      name: '五年级'
-    }, {
-      id: '6',
-      name: '六年级'
-    }],
+    gradeList: [],
     selected: {},
     list: [{
         id: 1,
@@ -74,7 +56,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const that = this;
+    wx.request({
+      url: `${app.globalData.remote}/api/v1/mini/grades?current=1&pageSize=10`,
+      success: function ({
+        data
+      }) {
+        const list = data.list.map(item => ({
+          ...item,
+          id: item.id + ''
+        })).sort((a, b) => a.sequence - b.sequence);
+        that.setData({
+          gradeList: list
+        })
+      }
+    })
   },
 
   /**

@@ -10,7 +10,7 @@
 		</text>
 		<text class="option"
       wx:for="{{result}}"
-      wx:key="{{item.id}}"
+      wx:key="id"
       data-id="{{item.id}}"
       data-name="{{item.name}}">{{item.name}}
 		</text>

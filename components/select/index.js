@@ -79,5 +79,12 @@ Component({
         result: result
       })
     }
+  },
+  observers: {
+    'options': function (options) {
+      this.setData({
+        result: options
+      })
+    }
   }
 })
