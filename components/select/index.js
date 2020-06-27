@@ -11,8 +11,8 @@ Component({
     defaultOption: {
       type: Object,
       value: {
-        id: '0',
-        name: '年级'
+        id: '--',
+        name: '请选择年级'
       },
     },
     key: {
@@ -56,13 +56,11 @@ Component({
       this.setData({
         isShow: false
       })
-    }
-  },
-  lifetimes: {
-    attached() {
+    },
+    formatData(dataList) {
       let result = [];
       if (this.data.key !== 'id' || this.data.text !== 'name') {
-        for (let item of this.data.options) {
+        for (let item of dataList) {
           let {
             [this.data.key]: id, [this.data.text]: name
           } = item;
@@ -72,8 +70,14 @@ Component({
           })
         }
       } else {
-        result = [...this.data.options]
+        result = [...dataList]
       }
+      return result;
+    },
+  },
+  lifetimes: {
+    attached() {
+      const result = this.formatData(this.data.options);
       this.setData({
         current: Object.assign({}, this.data.defaultOption),
         result: result
@@ -82,8 +86,9 @@ Component({
   },
   observers: {
     'options': function (options) {
+      const result = this.formatData(options);
       this.setData({
-        result: options
+        result
       })
     }
   }
