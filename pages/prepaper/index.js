@@ -5,37 +5,19 @@ const app = getApp()
 Page({
   data: {
     gradeList: [],
-    selected: {},
-    list: [{
-        id: 1,
-        name: '语文'
-      },
-      {
-        id: 2,
-        name: '数学'
-      },
-      {
-        id: 3,
-        name: '英语'
-      },
-      {
-        id: 4,
-        name: '音乐'
-      },
-      {
-        id: 5,
-        name: '美术'
-      },
-    ]
+    gradeSelected: {},
+    courseList: [],
+    // 主题
+    theme: app.globalData.theme
   },
   change(e) {
     this.setData({
-      selected: {
+      gradeSelected: {
         ...e.detail
       }
     })
     wx.showToast({
-      title: `${this.data.selected.id} - ${this.data.selected.name}`,
+      title: `${this.data.gradeSelected.id} - ${this.data.gradeSelected.name}`,
       icon: 'success',
       duration: 1000
     })
@@ -45,11 +27,10 @@ Page({
     this.selectComponent('#select').close()
   },
   handleSelect(e) {
-    const item = e.currentTarget.dataset;
-    console.log(item);
+    const {item} = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '../paper/index',
-    })
+      url: `../paper/index?g=${this.data.gradeSelected.id}&c=${item.value}`
+    });
   },
 
   /**
@@ -57,20 +38,38 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    wx.request({
-      url: `${app.globalData.remote}/api/v1/mini/grades?current=1&pageSize=10`,
-      success: function ({
-        data
-      }) {
-        const list = data.list.map(item => ({
-          ...item,
-          id: item.id + ''
-        })).sort((a, b) => a.sequence - b.sequence);
-        that.setData({
-          gradeList: list
-        })
-      }
-    })
+    // 非登录用户查询所有年级及课程
+    if (app.userInfo == null) {
+      wx.request({
+        url: `${app.globalData.remote}/api/v1/mini/grades?current=1&pageSize=10`,
+        success: function ({
+          data
+        }) {
+          const list = data.list.map(item => ({
+            ...item,
+            id: item.id + ''
+          })).sort((a, b) => a.sequence - b.sequence);
+          that.setData({
+            gradeList: list,
+          })
+        }
+      })
+      wx.request({
+        url: `${app.globalData.remote}/api/v1/mini/courses?current=1&pageSize=10`,
+        success: function ({
+          data
+        }) {
+          const list = data.list.map(item => ({
+            ...item,
+            id: item.id + ''
+          }));
+          that.setData({
+            courseList: list
+          })
+        }
+      })
+    }
+
   },
 
   /**

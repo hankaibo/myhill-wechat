@@ -1,12 +1,34 @@
 <!--pages/prepaper/index.wxml-->
-<view class="container" bindtap="close">
-	<view class="select-wrap">
-		<hill-select id="select" options="{{gradeList}}" key="id" text="name" bind:change="change"></hill-select>
+<view class="container" bindtap="close" data-weui-theme="{{theme}}">
+	<view class="card card-bordered card-contain-grid">
+		<view class="card-head">
+			<view class="card-head-wrapper">
+			<mp-cell title="年级" ext-class="weui-cell_vcode">
+				<view class="select-wrap">
+					<hill-select id="select" options="{{gradeList}}" key="value" text="name" bind:change="change" />
+				</view>
+			</mp-cell>
+			</view>
+		</view>
+		<view class="card-body">
+			<view class="card-grid">
+				<text>累计做题</text>
+				<view><text>0</text>题</view>
+			</view>
+			<view class="card-grid">
+				<text>正确率</text>
+				<view><text>0</text>%</view>
+			</view>
+		</view>
 	</view>
+
 	<view class="page__bd page__bd_spacing">
 		<view class="weui-flex">
-			<view class="weui-flex__item" wx:for="{{list}}" wx:key="id" wx:for-item="item" data-item="{{item}}" bindtap="handleSelect">
-				<view class="placeholder">#{{item.name}}</view>
+			<view class="weui-flex__item" wx:for="{{courseList}}" wx:key="id" wx:for-item="item" data-item="{{item}}" bindtap="handleSelect">
+				<view wx:if="{{item.coverUrl}}">
+					<image style="width: 120px; height: 150px; background-color: #eeeeee;" mode="scaleToFill" src="{{item.coverUrl}}"></image>
+				</view>
+				<view class="placeholder" wx:else>#{{item.name}}</view>
 			</view>
 		</view>
 	</view>

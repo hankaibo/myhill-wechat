@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-    "hill-select": "/components/select/index"
+    "hill-select": "/components/select/index",
+    "mp-form": "weui-miniprogram/form/form",
+    "mp-cells": "weui-miniprogram/cells/cells",
+    "mp-cell": "weui-miniprogram/cell/cell"
   }
 }
