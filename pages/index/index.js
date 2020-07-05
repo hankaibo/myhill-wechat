@@ -27,7 +27,7 @@ Page({
   onLoad() {
     const that = this;
     wx.request({
-      url: `${app.globalData.remote}/api/v1/mini/splash-screen?current=1&pageSize=10`,
+      url: `${app.globalData.remote}/api/v1/mini/splash-screen?status=1&current=1&pageSize=10`,
       success: function ({
         data
       }) {
