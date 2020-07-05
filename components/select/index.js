@@ -11,7 +11,7 @@ Component({
     defaultOption: {
       type: Object,
       value: {
-        id: '--',
+        id: '',
         name: '请选择年级'
       },
     },
