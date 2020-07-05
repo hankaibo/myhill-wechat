@@ -1,12 +1,20 @@
 // pages/prepaper/index.js
 // 获取应用实例
 const app = getApp()
+const {
+  request
+} = require('../../utils/request.js')
 
 Page({
   data: {
     gradeList: [],
     gradeSelected: {},
     courseList: [],
+    //
+    isShow: false,
+    btnValue: [{
+      text: '确定'
+    }],
     // 主题
     theme: app.globalData.theme
   },
@@ -16,21 +24,36 @@ Page({
         ...e.detail
       }
     })
-    wx.showToast({
-      title: `${this.data.gradeSelected.id} - ${this.data.gradeSelected.name}`,
-      icon: 'success',
-      duration: 1000
-    })
+    if (this.data.gradeSelected.id) {
+      wx.showToast({
+        title: `${this.data.gradeSelected.name}`,
+        icon: 'success',
+        duration: 1000
+      })
+    }
   },
   close() {
     // 关闭select
     this.selectComponent('#select').close()
   },
   handleSelect(e) {
-    const {item} = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: `../paper/index?g=${this.data.gradeSelected.id}&c=${item.value}`
-    });
+    const {
+      item
+    } = e.currentTarget.dataset;
+    if (this.data.gradeSelected && this.data.gradeSelected.id) {
+      wx.navigateTo({
+        url: `../paper/index?g=${this.data.gradeSelected.id}&c=${item.value}`
+      });
+    } else {
+      this.setData({
+        isShow: true
+      })
+    }
+  },
+  handleDialog(e) {
+    this.setData({
+      isShow: false
+    })
   },
 
   /**
@@ -40,11 +63,10 @@ Page({
     const that = this;
     // 非登录用户查询所有年级及课程
     if (app.userInfo == null) {
-      wx.request({
-        url: `${app.globalData.remote}/api/v1/mini/grades?current=1&pageSize=10`,
-        success: function ({
+      request(`${app.globalData.remote}/api/v1/mini/grades?status=1&current=1&pageSize=10`, 'get')
+        .then(({
           data
-        }) {
+        }) => {
           const list = data.list.map(item => ({
             ...item,
             id: item.id + ''
@@ -52,10 +74,9 @@ Page({
           that.setData({
             gradeList: list,
           })
-        }
-      })
+        })
       wx.request({
-        url: `${app.globalData.remote}/api/v1/mini/courses?current=1&pageSize=10`,
+        url: `${app.globalData.remote}/api/v1/mini/courses?status=1&current=1&pageSize=10`,
         success: function ({
           data
         }) {

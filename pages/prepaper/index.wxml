@@ -3,11 +3,11 @@
 	<view class="card card-bordered card-contain-grid">
 		<view class="card-head">
 			<view class="card-head-wrapper">
-			<mp-cell title="年级" ext-class="weui-cell_vcode">
-				<view class="select-wrap">
-					<hill-select id="select" options="{{gradeList}}" key="value" text="name" bind:change="change" />
-				</view>
-			</mp-cell>
+				<mp-cell title="年级" ext-class="weui-cell_vcode">
+					<view class="select-wrap">
+						<hill-select id="select" options="{{gradeList}}" key="value" text="name" bind:change="change" />
+					</view>
+				</mp-cell>
 			</view>
 		</view>
 		<view class="card-body">
@@ -32,4 +32,8 @@
 			</view>
 		</view>
 	</view>
+
+	<mp-dialog show="{{isShow}}" bindbuttontap="handleDialog" buttons="{{btnValue}}">
+		<view>您还未选择年级，请先选择。</view>
+	</mp-dialog>
 </view>
