@@ -42,7 +42,16 @@ Page({
     } = e.currentTarget.dataset;
     if (this.data.gradeSelected && this.data.gradeSelected.id) {
       wx.navigateTo({
-        url: `../paper/index?g=${this.data.gradeSelected.id}&c=${item.value}`
+        url: '../paper/index',
+        success: res => {
+          res.eventChannel.emit("acceptDataFromOpenerPage", {
+            grade: {
+              name: this.data.gradeSelected.name,
+              value: this.data.gradeSelected.id,
+            },
+            course: item
+          })
+        }
       });
     } else {
       this.setData({
