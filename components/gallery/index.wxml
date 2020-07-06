@@ -8,6 +8,6 @@
     </block>
   </swiper>
   <view class="weui-gallery__footer" bindtap="enter" wx:if="{{current==currentImgs.length-1}}">
-		<view class="weui-gallery__opr"><text class="text">进入</text><mp-icon icon="arrow" color="white" size="{{14}}"></mp-icon></view>
+		<view class="weui-gallery__opr"><text class="text">进入</text><mp-icon icon="arrow" color="#666" size="{{14}}"></mp-icon></view>
   </view>
 </view>

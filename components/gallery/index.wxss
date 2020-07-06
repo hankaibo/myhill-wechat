@@ -21,4 +21,5 @@
 
 .weui-gallery__opr .text {
   margin-right: 5px;
+  color: #666;
 }
