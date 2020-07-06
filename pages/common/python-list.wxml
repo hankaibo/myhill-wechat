@@ -1,6 +1,6 @@
 <!-- 渲染普通的单项数据 -->
 <template name="radio">
-	<view class="container">
+	<view class="body">
 		<block wx:for="{{item.options}}" wx:for-item="subItem" wx:key="index">
 			<view class="list" data-option="{{[subItem,index,idx]}}" bindtap="tapRadio">
 				<view class="number"> {{subItem.label}}</view> {{subItem.text}}
@@ -43,7 +43,7 @@
 <!-- 页面题目模板 -->
 <template name="question">
 	<view class="header">
-		<view class="xuanz">{{item.type}}</view> {{item.q}}
+		<view class="type">{{item.type}}</view> {{item.q}}
 	</view>
 	<template wx:if="{{item.type == '多选'}}" is="checkbox" data="{{item,idx}}" />
 	<template wx:else is="radio" data="{{item,idx}}" />

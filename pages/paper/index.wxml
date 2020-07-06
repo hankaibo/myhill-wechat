@@ -1,10 +1,27 @@
 <!--pages/paper/index.wxml-->
-<view bindtap="openCalendar">今天</view>
-<mp-icon type="outline" icon="time" color="black" size="{{25}}"></mp-icon>
-<import src="../common/python-list.wxml" />
-<loading hidden="{{!isLoading}}">加载中...</loading>
-<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
-<mp-halfScreenDialog show="{{showCalendar}}">
-	<view slot="title">每日一练</view>
-	<view slot="desc"><calendar calendarConfig="{{calendarConfig}}" bind:onTapDay="onTapDay" bind:afterTapDay="afterTapDay" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:afterCalendarRender="afterCalendarRender"></calendar></view>
-</mp-halfScreenDialog>
+<view class="container" data-weui-theme="{{theme}}">
+	<view class="title">
+		<view>
+			<mp-icon type="outline" icon="note" color="black" size='{{21}}'></mp-icon>
+			<text>{{grade.name}}-{{course.name}}</text>
+		</view>
+		<view>
+			<mp-icon type="outline" icon="time" color="black" size="{{21}}"></mp-icon>
+			<text bindtap="openCalendar">{{selectedDay}}</text>
+		</view>
+	</view>
+	<import src="../common/python-list.wxml" />
+
+	<view class="main">
+		<loading hidden="{{!isLoading}}">加载中...</loading>
+		<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
+	</view>
+
+	<mp-halfScreenDialog show="{{showCalendar}}">
+		<view slot="title">每日一练</view>
+		<view slot="desc">
+			<calendar calendarConfig="{{calendarConfig}}" bind:onTapDay="onTapDay" bind:afterCalendarRender="afterCalendarRender"></calendar>
+		</view>
+	</mp-halfScreenDialog>
+
+</view>

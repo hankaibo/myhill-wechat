@@ -8,31 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 用户与主题
     userInfo: {},
-    storageData: {
-      swiper: {},
-      answers: {}
-    },
     hasUserInfo: false,
-    isLoading: false,
-    isFirst: true,
-    swiper: {
-      active: 0
-    },
-    layerlayer: {
-      isLayerShow: false, //默认弹窗
-      layerAnimation: {}, //弹窗动画
-    },
-    isLocal: true,
-    answers: {
-      start: 0, //初始题号
-      end: 0, //结束题号
-      allList: [], //题号数据
-      activeNum: 0, //当前显示条数
-      onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
-      isShowTip: false //默认是否显示提示
-    },
-    // 此处为日历自定义配置字段
+    theme: 'dark',
+    // 年级与课程
+    grade: {},
+    course: {},
+    // 日历自定义配置
     showCalendar: false,
     calendarConfig: {
       multi: false, // 是否开启多选,
@@ -53,64 +36,69 @@ Page({
         type: 'after', // [‘before’, 'after']
         date: false, // 无该属性或该属性值为假，则默认为当天
       },
-    }
+    },
+    selectedDay: '',
+    // 问题
+    storageData: {
+      swiper: {},
+      answers: {}
+    },
+    isLoading: false,
+    isFirst: true,
+    swiper: {
+      active: 0
+    },
+    layerlayer: {
+      isLayerShow: false, //默认弹窗
+      layerAnimation: {}, //弹窗动画
+    },
+    isLocal: true,
+    answers: {
+      start: 0, //初始题号
+      end: 0, //结束题号
+      allList: [], //题号数据
+      activeNum: 0, //当前显示条数
+      onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
+      isShowTip: false //默认是否显示提示
+    },
   },
-  openCalendar(){
+  openCalendar() {
     this.setData({
-      showCalendar:true
+      showCalendar: true
     })
-  },
-  /**
-   * 选择日期后执行的事件
-   * currentSelect 当前点击的日期
-   * allSelectedDays 选择的所有日期（当multi为true时，allSelectedDays有值）
-   */
-  afterTapDay(e) {
-    console.log('afterTapDay', e.detail); // => { currentSelect: {}, allSelectedDays: [] }
-  },
-  /**
-   * 当日历滑动时触发(适用于周/月视图)
-   * 可在滑动时按需在该方法内获取当前日历的一些数据
-   */
-  onSwipe(e) {
-    console.log('onSwipe', e.detail);
-    const dates = this.calendar.getCalendarDates();
-  },
-  /**
-   * 当改变月份时触发
-   * => current 当前年月 / next 切换后的年月
-   */
-  whenChangeMonth(e) {
-    console.log('whenChangeMonth', e.detail);
-    // => { current: { month: 3, ... }, next: { month: 4, ... }}
-  },
-  /**
-   * 周视图下当改变周时触发
-   * => current 当前周信息 / next 切换后周信息
-   */
-  whenChangeWeek(e) {
-    console.log('whenChangeWeek', e.detail);
-    // {
-    //    current: { currentYM: {year: 2019, month: 1 }, dates: [{}] },
-    //    next: { currentYM: {year: 2019, month: 1}, dates: [{}] },
-    //    directionType: 'next_week'
-    // }
   },
   /**
    * 日期点击事件（此事件会完全接管点击事件），需自定义配置 takeoverTap 值为真才能生效
    * currentSelect 当前点击的日期
    */
   onTapDay(e) {
-    console.log('onTapDay', e.detail); // => { year: 2019, month: 12, day: 3, ...}
+    const {
+      year,
+      month,
+      day
+    } = e.detail;
+    this.setData({
+      selectedDay: `${year}-${month}-${day}`,
+      showCalendar: false
+    })
   },
   /**
    * 日历初次渲染完成后触发事件，如设置事件标记
    */
   afterCalendarRender(e) {
+    const selectedDay = this.calendar.getSelectedDay()[0];
+    const {
+      year,
+      month,
+      day
+    } = selectedDay;
+    this.setData({
+      selectedDay: `${year}-${month}-${day}`
+    })
     console.log('afterCalendarRender', e);
   },
   //单选逻辑
-  tapRadio: function (e) {
+  tapRadio(e) {
     let thisOption = e.currentTarget.dataset.option
     let list = this.data.answers.allList[thisOption[2]].options.map(function (option, i) {
       if (thisOption[1] == i && option.class != 'active') {
@@ -124,7 +112,7 @@ Page({
     this.tapSelect(e)
   },
   //答案判断逻辑
-  tapSelect: function (e) {
+  tapSelect(e) {
     if (!this.data.isFirst || this.data.answers.allList[this.data.answers.start + this.data.swiper.active].isAnswer) {
       return false
     }
@@ -167,7 +155,7 @@ Page({
     }
   },
   //页码切换列表效果
-  pageClick: function () {
+  pageClick() {
     let layerAnimation = wx.createAnimation({
       transformOrigin: '50% 50%',
       duration: 500,
@@ -184,7 +172,7 @@ Page({
     this.setData(this.data)
   },
   //页码切换列表收缩
-  layerFooterClick: function () {
+  layerFooterClick() {
     let layerAnimation = wx.createAnimation({
       transformOrigin: '50% 50%',
       duration: 500,
@@ -197,13 +185,13 @@ Page({
     this.setData(this.data)
   },
   //收藏逻辑
-  collectList: function () {
+  collectList() {
     let index = this.data.answers.activeNum
     this.data.answers.allList[index].isStore = !this.data.answers.allList[index].isStore
     this.setData(this.data)
   },
   //题号变更逻辑
-  setActiveNum: function (e) {
+  setActiveNum(e) {
     let thisOption = e.currentTarget.dataset.option - 0
     this.data.answers.activeNum = thisOption
     this.data.isFirst = false
@@ -212,17 +200,17 @@ Page({
     this.getSubject()
   },
   //swiper切换
-  setEvent: function (e) {
+  setEvent(e) {
     this.data.swiper.touchstartEvent = e
     return false
   },
   //滑动结束
-  touchEnd: function (e) {
+  touchEnd(e) {
     this.onSwiper(this.getDirection(this.data.swiper.touchstartEvent, e))
     return false
   },
   //swiper切换
-  onSwiper: function (dire) {
+  onSwiper(dire) {
     let that = this
     let active = 0
     let storeSetTime
@@ -284,7 +272,7 @@ Page({
     }
   },
   //修改页面至正常位置
-  setHtmlsetHtml: function (active) {
+  setHtmlsetHtml(active) {
     let animationPre = wx.createAnimation({
       transformOrigin: '50% 50%',
       duration: 0,
@@ -320,7 +308,7 @@ Page({
     this.$isLock = false
   },
   //获得手势方向
-  getDirection: function (startEvent, endEvent) {
+  getDirection(startEvent, endEvent) {
     let x = endEvent.changedTouches[0].clientX - startEvent.changedTouches[0].clientX
     let y = endEvent.changedTouches[0].clientY - startEvent.changedTouches[0].clientY
     let pi = 360 * Math.atan(y / x) / (2 * Math.PI)
@@ -337,7 +325,7 @@ Page({
       return 'top'
     }
   },
-  getSubject: function () {
+  getSubject() {
     Object.assign(this.data.answers.activeNum, this.data.storageData.swiper.active)
     //注册滑动结束回调
     if (this.$isLock) {
@@ -364,9 +352,18 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
+        theme: app.globalData.theme,
         hasUserInfo: true
       })
     }
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.on('acceptDataFromOpenerPage', data => {
+      this.setData({
+        grade: data.grade,
+        course: data.course
+      })
+    })
     // 获取数据
     if (this.data.isLocal) {
       try {
@@ -381,7 +378,7 @@ Page({
         console.log('获取本地缓存数据失败，' + e)
       }
     } else {
-
+      console.log(params);
     }
     // 
     this.data.answers.allList = this.data.storageData.answers['allList']
@@ -396,8 +393,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onReady: function () { // 
   },
 
   /**
