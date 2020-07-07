@@ -13,7 +13,6 @@ Page({
   },
   // 画廊事件
   handleChange(e) {
-    console.log('current index has changed', e.detail);
     this.setData({
       idx: e.detail.current
     })
@@ -25,14 +24,13 @@ Page({
   },
   // 页面生命周期函数
   onLoad() {
-    const that = this;
     wx.request({
       url: `${app.globalData.remote}/api/v1/mini/splash-screen?status=1&current=1&pageSize=10`,
-      success: function ({
+      success: ({
         data
-      }) {
+      }) => {
         const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
-        that.setData({
+        this.setData({
           imgUrls
         })
       }
