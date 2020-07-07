@@ -10,12 +10,10 @@
     "components/select/index"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#292929",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "Demo",
+    "navigationBarBackgroundColor": "#f7f7f7",
+    "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true,
-    "backgroundColor": "#666666",
-    "backgroundTextStyle": "light"
+    "backgroundColor": "#f7f7f7"
   },
   "tabBar": {
     "color": "#191919",
