@@ -14,30 +14,36 @@
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "Demo",
     "enablePullDownRefresh": true,
-    "backgroundColor": "#f2f2f2",
+    "backgroundColor": "#666666",
     "backgroundTextStyle": "light"
   },
   "tabBar": {
-    "color": "#6e6d6b",
-    "selectedColor": "#f9f027",
+    "color": "#191919",
+    "selectedColor": "#07c160",
     "borderStyle": "white",
-    "backgroundColor": "#292929",
+    "backgroundColor": "#f7f7f7",
     "list": [{
         "pagePath": "pages/prepaper/index",
+        "iconPath": "images/icon_tabbar.png",
+        "selectedIconPath": "images/icon_tabbar.png",
         "text": "Demo"
       },
       {
         "pagePath": "pages/ranking/index",
+        "iconPath": "images/icon_tabbar.png",
+        "selectedIconPath": "images/icon_tabbar.png",
         "text": "排行榜"
       },
       {
         "pagePath": "pages/hub/index",
+        "iconPath": "images/icon_tabbar.png",
+        "selectedIconPath": "images/icon_tabbar.png",
         "text": "题库"
       },
       {
         "pagePath": "pages/me/index",
-        "iconPath": "images/avatar.png",
-        "selectedIconPath": "images/avatar-active.png",
+        "iconPath": "images/icon_tabbar.png",
+        "selectedIconPath": "images/icon_tabbar.png",
         "text": "我"
       }
     ]
