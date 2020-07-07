@@ -4,11 +4,12 @@ page {
 }
 
 .container {
-  padding: 16rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
 }
 
 .card {
-  box-sizing: border-box;
+  position: relative;
   margin: 0;
   padding: 0;
   color: rgba(0, 0, 0, .65);
@@ -17,13 +18,13 @@ page {
   line-height: 1.5715;
   list-style: none;
   font-feature-settings: 'tnum';
-  position: relative;
   background: #fff;
-  border-radius: 2px;
+  box-sizing: border-box;
 }
 
 .card-bordered {
   border: 1px solid #f0f0f0;
+  border-radius: 2px;
 }
 
 .card-head {
@@ -39,8 +40,7 @@ page {
 }
 
 .card-head-wrapper {
-  display: flex;
-  align-items: center;
+  line-height: 48px;
 }
 
 .card-body {
@@ -60,6 +60,9 @@ page {
   border-radius: 0;
   box-shadow: 1px 0 0 0 #f0f0f0, 0 1px 0 0 #f0f0f0, 1px 1px 0 0 #f0f0f0, 1px 0 0 0 #f0f0f0 inset, 0 1px 0 0 #f0f0f0 inset;
   transition: all .3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .select-wrap {
@@ -70,15 +73,15 @@ page {
   margin-top: 50%;
 }
 
-
 .weui-flex {
   flex-flow: row wrap;
   align-content: flex-start;
+  margin: 0 -24rpx;
 }
 
 .weui-flex__item {
   flex: 0 0 50%;
-  padding: 20rpx;
+  padding: 24rpx;
   box-sizing: border-box;
 }
 
