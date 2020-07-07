@@ -5,7 +5,7 @@
 			<view class="card-head-wrapper">
 				<mp-cell title="年级" ext-class="weui-cell_vcode">
 					<view class="select-wrap">
-						<hill-select id="select" options="{{gradeList}}" key="value" text="name" bind:change="change" />
+						<mp-select id="select" options="{{gradeList}}" key="value" text="name" bind:change="change" />
 					</view>
 				</mp-cell>
 			</view>

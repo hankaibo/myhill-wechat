@@ -42,7 +42,7 @@ Page({
     } = e.currentTarget.dataset;
     if (this.data.gradeSelected && this.data.gradeSelected.id) {
       wx.navigateTo({
-        url: '../paper/index',
+        url: '../python/index',
         success: res => {
           res.eventChannel.emit("acceptDataFromOpenerPage", {
             grade: {

@@ -1,0 +1,10 @@
+{
+  "backgroundColor": "#0078d6",
+  "navigationBarTitleText": "每日一练",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "mp-halfScreenDialog": "/components/half-screen-dialog/index",
+    "mp-icon": "weui-miniprogram/icon/icon",
+    "calendar": "/components/calendar/index"
+  }
+}

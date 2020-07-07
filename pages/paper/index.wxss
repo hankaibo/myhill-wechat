@@ -5,9 +5,10 @@ page {
 }
 
 .container {
-  padding: 16rpx;
   display: flex;
   flex-direction: column;
+  padding: 24rpx;
+  box-sizing: border-box;
 }
 
 .title {
@@ -141,11 +142,12 @@ page {
 
 .footer {
   position: fixed;
-  box-sizing: border-box;
   bottom: 0;
   width: 100%;
+  margin: 0 -24rpx;
   transform: translate3d(0, 100%, 0px);
   z-index: 100;
+  box-sizing: border-box;
 }
 
 .count {

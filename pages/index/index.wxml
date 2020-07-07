@@ -1,4 +1,4 @@
 <!--index.wxml-->
-<view class="container" data-weui-theme="{{theme}}">
-	<hill-gallery show="{{show}}" img-urls="{{imgUrls}}" current="{{current}}" bindgoto="handleEnter" bindchange="handleChange"></hill-gallery>
+<view class="container">
+	<mp-gallery show="{{show}}" img-urls="{{imgUrls}}" current="{{current}}" bindgoto="handleEnter" bindchange="handleChange"></mp-gallery>
 </view>

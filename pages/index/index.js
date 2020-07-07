@@ -8,8 +8,6 @@ Page({
     show: true,
     imgUrls: [],
     current: 0,
-    // 主题
-    theme: app.globalData.theme
   },
   // 画廊事件
   handleChange(e) {
