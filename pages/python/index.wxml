@@ -10,7 +10,7 @@
 			<text bindtap="openCalendar">{{selectedDay}}</text>
 		</view>
 	</view>
-	<import src="../common/python-list.wxml" />
+	<import src="./paper-template.wxml" />
 
 	<loading hidden="{{!isLoading}}">加载中...</loading>
 	<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
