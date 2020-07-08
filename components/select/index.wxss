@@ -19,7 +19,7 @@
   position: absolute;
   display: block;
   right: 16rpx;
-  top: 30rpx;
+  top: 50%;
   content: '';
   width: 0;
   height: 0;

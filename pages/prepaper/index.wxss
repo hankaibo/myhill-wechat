@@ -1,8 +1,4 @@
 /* pages/prepaper/index.wxss */
-page {
-  height: 100%;
-}
-
 .container {
   padding: 24rpx;
   box-sizing: border-box;
@@ -66,7 +62,7 @@ page {
 }
 
 .select-wrap {
-  width: 300rpx;
+  width: 100%;
 }
 
 .selected {
