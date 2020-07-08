@@ -12,16 +12,14 @@
 	</view>
 	<import src="../common/python-list.wxml" />
 
-	<view class="main">
-		<loading hidden="{{!isLoading}}">加载中...</loading>
-		<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
-	</view>
+	<loading hidden="{{!isLoading}}">加载中...</loading>
+	<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
 
-	<mp-halfScreenDialog show="{{showCalendar}}">
-		<view slot="title">每日一练</view>
-		<view slot="desc">
+	<view hidden="{{!calendarLayer.isLayerShow}}" class="date-mask" bindtap="closeCalendar"></view>
+	<view class="footer" animation="{{calendarLayer.layerAnimation}}">
+		<view class="calendar">
 			<calendar calendarConfig="{{calendarConfig}}" bind:onTapDay="onTapDay" bind:afterCalendarRender="afterCalendarRender"></calendar>
 		</view>
-	</mp-halfScreenDialog>
+	</view>
 
 </view>

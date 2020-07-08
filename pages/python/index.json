@@ -1,5 +1,4 @@
 {
-  "backgroundColor": "#0078d6",
   "navigationBarTitleText": "每日一练",
   "enablePullDownRefresh": false,
   "usingComponents": {

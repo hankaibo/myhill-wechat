@@ -16,7 +16,10 @@ Page({
     grade: {},
     course: {},
     // 日历自定义配置
-    showCalendar: false,
+    calendarLayer: {
+      isLayerShow: false, //默认弹窗
+      layerAnimation: {}, //弹窗动画
+    },
     calendarConfig: {
       multi: false, // 是否开启多选,
       theme: 'elegant', // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题在 theme 文件夹扩展
@@ -63,9 +66,32 @@ Page({
     }
   },
   openCalendar() {
-    this.setData({
-      showCalendar: true
+    let layerAnimation = wx.createAnimation({
+      transformOrigin: '50% 50%',
+      duration: 500,
+      timingFunction: 'ease',
+      delay: 0
     })
+    if (!this.data.calendarLayer.isLayerShow) {
+      layerAnimation.translateY(0).step()
+    } else {
+      layerAnimation.translateY('100%').step()
+    }
+    this.data.calendarLayer.isLayerShow = !this.data.calendarLayer.isLayerShow
+    this.data.calendarLayer.layerAnimation = layerAnimation
+    this.setData(this.data)
+  },
+  closeCalendar() {
+    let layerAnimation = wx.createAnimation({
+      transformOrigin: '50% 50%',
+      duration: 500,
+      timingFunction: 'ease',
+      delay: 0
+    })
+    layerAnimation.translateY('100%').step();
+    this.data.calendarLayer.isLayerShow = false;
+    this.data.calendarLayer.layerAnimation = layerAnimation;
+    this.setData(this.data)
   },
   /**
    * 日期点击事件（此事件会完全接管点击事件），需自定义配置 takeoverTap 值为真才能生效
@@ -77,10 +103,17 @@ Page({
       month,
       day
     } = e.detail;
-    this.setData({
-      selectedDay: `${year}-${month}-${day}`,
-      showCalendar: false
+    let layerAnimation = wx.createAnimation({
+      transformOrigin: '50% 50%',
+      duration: 500,
+      timingFunction: 'ease',
+      delay: 0
     })
+    layerAnimation.translateY('100%').step();
+    this.data.calendarLayer.isLayerShow = false;
+    this.data.calendarLayer.layerAnimation = layerAnimation;
+    this.data.selectedDay = `${year}-${month}-${day}`;
+    this.setData(this.data)
   },
   /**
    * 日历初次渲染完成后触发事件，如设置事件标记
@@ -95,7 +128,6 @@ Page({
     this.setData({
       selectedDay: `${year}-${month}-${day}`
     })
-    console.log('afterCalendarRender', e);
   },
   //单选逻辑
   tapRadio(e) {
@@ -200,7 +232,7 @@ Page({
     this.getSubject()
   },
   //swiper切换
-  setEvent(e) {
+  touchStart(e) {
     this.data.swiper.touchstartEvent = e
     return false
   },

@@ -1,8 +1,8 @@
 <!-- 渲染普通的单项数据 -->
 <template name="radio">
-	<view class="body">
+	<view class="answer">
 		<block wx:for="{{item.options}}" wx:for-item="subItem" wx:key="index">
-			<view class="list" data-option="{{[subItem,index,idx]}}" bindtap="tapRadio">
+			<view class="option" data-option="{{[subItem,index,idx]}}" bindtap="tapRadio">
 				<view class="number"> {{subItem.label}}</view> {{subItem.text}}
 			</view>
 		</block>
@@ -13,7 +13,7 @@
 <template name="checkbox">
 	<view class="container">
 		<block wx:for="{{item.options}}" wx:for-item="subItem" wx:key="index">
-			<view class="list {{subItem.class}}" data-option="{{[subItem,index,idx]}}" bindtap="tapCheckbox">
+			<view class="option {{subItem.class}}" data-option="{{[subItem,index,idx]}}" bindtap="tapCheckbox">
 				<view class="number"> {{subItem.label}}</view> {{subItem.text}}
 			</view>
 		</block>
@@ -42,7 +42,7 @@
 
 <!-- 页面题目模板 -->
 <template name="question">
-	<view class="header">
+	<view class="question">
 		<view class="type">{{item.type}}</view> {{item.q}}
 	</view>
 	<template wx:if="{{item.type == '多选'}}" is="checkbox" data="{{item,idx}}" />
@@ -51,7 +51,7 @@
 
 <!-- 题目展示页面 -->
 <template name="question-list">
-	<view class='swiper-lists' bind:touchend='touchEnd' bind:touchstart='setEvent'>
+	<view class='swiper-lists' bind:touchend='touchEnd' bind:touchstart='touchStart'>
 		<block wx:for="{{answers.allList}}" wx:for-index="idx" wx:key="idx">
 			<view wx:if="{{idx == swiper.active-1}}" class='swiper-list prev' animation="{{swiper.animationPre}}">
 				<template is="question" data="{{idx,item,answers,layerlayer}}" />
@@ -65,7 +65,7 @@
 		</block>
 	</view>
 
-	<view hidden="{{!layerlayer.isLayerShow}}" class="footer-layer" bindtap="layerFooterClick"></view>
+	<view hidden="{{!layerlayer.isLayerShow}}" class="footer-mask" bindtap="layerFooterClick"></view>
 	<view class="footer" animation="{{layerlayer.layerAnimation}}">
 		<view class="count">
 			<view class="collect" wx:if="{{!answers.allList[answers.activeNum].isStore}}" bindtap="collectList">收藏</view>
