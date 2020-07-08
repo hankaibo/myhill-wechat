@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/prepaper/index",
-    "pages/paper/index",
     "pages/ranking/index",
     "pages/hub/index",
     "pages/me/index",
