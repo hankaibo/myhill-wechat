@@ -2,11 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/prepaper/index",
+    "pages/paper/index",
     "pages/ranking/index",
     "pages/hub/index",
     "pages/me/index",
-    "pages/logs/logs",
-    "pages/python/index"
+    "pages/logs/logs"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f7f7f7",
