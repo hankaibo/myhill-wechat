@@ -24,9 +24,8 @@
 }
 
 .card-head {
-  min-height: 48px;
   margin-bottom: -1px;
-  padding: 0 24rpx;
+  padding: 24rpx;
   color: rgba(0, 0, 0, .85);
   font-weight: 500;
   font-size: 16px;

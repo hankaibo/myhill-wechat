@@ -8,11 +8,14 @@
 .select-current {
   position: relative;
   width: 100%;
+  height: 32px;
+  line-height: 32px;
   padding: 0 10rpx;
-  line-height: 70rpx;
+  font-size: 14px;
   border: 1rpx solid #ddd;
   border-radius: 6rpx;
   box-sizing: border-box;
+  caret-color: #07C160;
 }
 
 .select-current::after {
