@@ -84,11 +84,10 @@ Page({
             gradeList: list,
           })
         })
-      wx.request({
-        url: `${app.globalData.remote}/api/v1/mini/courses?status=1&current=1&pageSize=10`,
-        success: function ({
+      request(`${app.globalData.remote}/api/v1/mini/courses?status=1&current=1&pageSize=10`, 'get')
+        .then(({
           data
-        }) {
+        }) => {
           const list = data.list.map(item => ({
             ...item,
             id: item.id + ''
@@ -96,8 +95,7 @@ Page({
           that.setData({
             courseList: list
           })
-        }
-      })
+        })
     }
 
   },
