@@ -1,7 +1,13 @@
 // pages/python/python.js
-const questionData = require('../../utils/data.js')
 //获取应用实例
 const app = getApp()
+const {
+  request
+} = require('../../utils/request.js')
+const {
+  formatDate
+} = require('../../utils/util')
+
 Page({
 
   /**
@@ -40,7 +46,7 @@ Page({
         date: false, // 无该属性或该属性值为假，则默认为当天
       },
     },
-    selectedDay: '',
+    selectedDay: formatDate(new Date()),
     // 问题
     storageData: {
       swiper: {},
@@ -55,13 +61,11 @@ Page({
       isLayerShow: false, //默认弹窗
       layerAnimation: {}, //弹窗动画
     },
-    isLocal: true,
     answers: {
       start: 0, //初始题号
       end: 0, //结束题号
       allList: [], //题号数据
       activeNum: 0, //当前显示条数
-      onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
       isShowTip: false //默认是否显示提示
     }
   },
@@ -112,8 +116,9 @@ Page({
     layerAnimation.translateY('100%').step();
     this.data.calendarLayer.isLayerShow = false;
     this.data.calendarLayer.layerAnimation = layerAnimation;
-    this.data.selectedDay = `${year}-${month}-${day}`;
+    this.data.selectedDay = formatDate(new Date(`${year}-${month}-${day}`));
     this.setData(this.data)
+    this.getData();
   },
   /**
    * 日历初次渲染完成后触发事件，如设置事件标记
@@ -132,7 +137,7 @@ Page({
   //单选逻辑
   tapRadio(e) {
     let thisOption = e.currentTarget.dataset.option
-    let list = this.data.answers.allList[thisOption[2]].options.map(function (option, i) {
+    let list = this.data.answers.allList[thisOption[2]].optionList.map(function (option, i) {
       if (thisOption[1] == i && option.class != 'active') {
         option.Select = true
       } else {
@@ -151,17 +156,17 @@ Page({
 
     this.data.isFirst = false
     let bool = true
-    let correct = this.data.answers.allList[this.data.swiper.active]['a']
-    let data = this.data.answers.allList[this.data.swiper.active].options.map((option, i) => {
-      if (option.Select && option.label != correct) {
+    let correct = this.data.answers.allList[this.data.swiper.active]['answerList'][0].value;
+    let data = this.data.answers.allList[this.data.swiper.active].optionList.map((option, i) => {
+      if (option.Select && option.name != correct) {
         option.class = 'error'
         bool = false
       }
-      if (!option.Select && option.label === correct) {
+      if (!option.Select && option.name === correct) {
         option.class = 'active-success'
         bool = false
       }
-      if (option.Select && option.label === correct) {
+      if (option.Select && option.name === correct) {
         option.class = 'success'
       }
       return option
@@ -175,7 +180,7 @@ Page({
       this.data.answers.error++
     }
 
-    this.data.answers.allList[this.data.answers.start + this.data.swiper.active].options = data
+    this.data.answers.allList[this.data.answers.start + this.data.swiper.active].optionList = data
     this.data.answers.isShowTip = !bool
     this.setData(this.data)
     //延迟加载滑动
@@ -245,7 +250,6 @@ Page({
   onSwiper(dire) {
     let that = this
     let active = 0
-    let storeSetTime
     let animationPre = wx.createAnimation({
       transformOrigin: '50% 50%',
       duration: 300,
@@ -283,7 +287,7 @@ Page({
       if (dire == 'left') {
         animationT.translate3d('-100%', 0, 0).step()
         animationNext.translate3d('0', 0, 0).step()
-        if (this.data.answers.activeNum < this.data.answers.end - 1) {
+        if (this.data.answers.activeNum < this.data.answers.allList.length - 1) {
           active = 1
         } else {
           this.$isLock = false
@@ -363,24 +367,42 @@ Page({
     }
   },
   getSubject: function () {
-    this.data.answers.end = this.data.answers.allList.length
-
     //注册滑动结束回调
     if (this.$isLock) {
       this.isLockCall = function () {
         this.data.swiper.active = this.data.answers.activeNum - this.data.answers.start
-        this.data.answers.allList = questionData.data
         this.data.isLoading = false
         this.data.isFirst = true
         this.setData(this.data)
       }
     } else {
       this.data.swiper.active = this.data.answers.activeNum - this.data.answers.start
-      this.data.answers.allList = questionData.data
       this.data.isLoading = false
       this.data.isFirst = true
       this.setData(this.data)
     }
+  },
+  // 获取数据
+  getData: function () {
+    const {
+      grade,
+      course,
+      selectedDay
+    } = this.data;
+    request(`${app.globalData.remote}/api/v1/mini/papers/detail?gradeValue=${grade.value}&courseValue=${course.value}&date=${selectedDay}`, 'get')
+      .then(({
+        data
+      }) => {
+        this.data.answers.allList = data.questionList;
+        this.data.answers.success = data.correctNumber || 0;
+        this.data.answers.error = data.errorNumber || 0;
+        this.data.answers.loading = false;
+        this.setData(this.data);
+        this.getSubject();
+      })
+      .catch(e => {
+        console.log(e)
+      })
   },
 
   /**
@@ -402,22 +424,9 @@ Page({
         course: data.course
       })
     })
-    // 获取数据
-    if (this.data.isLocal) {
-      questionData.data.map((item, index) => {
-        // TODO 利用本地缓存实现收藏与已完成功能
-        return item
-      })
-    } else {
 
-    }
-    // 
-    this.data.answers.allList = questionData.data
-    this.data.answers.success = 0
-    this.data.answers.error = 0
-    this.data.answers.loading = false
-    this.setData(this.data)
-    this.getSubject()
+    this.getData();
+
   },
 
   /**

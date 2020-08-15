@@ -13,7 +13,8 @@
 	<import src="./paper-template.wxml" />
 
 	<loading hidden="{{!isLoading}}">加载中...</loading>
-	<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
+	<template wx:if="{{!isLoading && answers.allList.length>0}}" is="question-list" data="{{answers,layerlayer,swiper}}" />
+	<block wx:else>没有数据</block>
 
 	<view hidden="{{!calendarLayer.isLayerShow}}" class="date-mask" bindtap="closeCalendar"></view>
 	<view class="footer" animation="{{calendarLayer.layerAnimation}}">

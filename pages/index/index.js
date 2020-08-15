@@ -1,6 +1,9 @@
 // pages/index/index.js
 // 获取应用实例
 const app = getApp()
+const {
+  request
+} = require('../../utils/request.js')
 
 Page({
   data: {
@@ -22,16 +25,15 @@ Page({
   },
   // 页面生命周期函数
   onLoad() {
-    wx.request({
-      url: `${app.globalData.remote}/api/v1/mini/splash-screen?status=1&current=1&pageSize=10`,
-      success: ({
+    request(`${app.globalData.remote}/api/v1/mini/splash-screen?status=1&current=1&pageSize=10`, 'get')
+      .then(({
         data
       }) => {
         const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
         this.setData({
           imgUrls
         })
-      }
-    })
-  },
+      })
+  }
+
 })
