@@ -55,5 +55,6 @@ App({
     userInfo: null,
     theme: 'dark',
     remote: 'https://wantongcun.com'
+    // remote: 'http://localhost:8080'
   }
 })
