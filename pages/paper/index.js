@@ -63,7 +63,6 @@ Page({
     },
     answers: {
       start: 0, //初始题号
-      end: 0, //结束题号
       allList: [], //题号数据
       activeNum: 0, //当前显示条数
       isShowTip: false //默认是否显示提示
@@ -117,6 +116,7 @@ Page({
     this.data.calendarLayer.isLayerShow = false;
     this.data.calendarLayer.layerAnimation = layerAnimation;
     this.data.selectedDay = formatDate(new Date(`${year}-${month}-${day}`));
+    this.data.answers.activeNum = 0;
     this.setData(this.data)
     this.getData();
   },
