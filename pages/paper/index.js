@@ -423,9 +423,8 @@ Page({
         grade: data.grade,
         course: data.course
       })
+      this.getData();
     })
-
-    this.getData();
 
   },
 
