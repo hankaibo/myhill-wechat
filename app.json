@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/prepaper/index",
     "pages/paper/index",
-    "pages/ranking/index",
+    "pages/circle/index",
     "pages/hub/index",
     "pages/me/index",
     "pages/logs/logs"
@@ -26,10 +26,10 @@
         "text": "Demo"
       },
       {
-        "pagePath": "pages/ranking/index",
+        "pagePath": "pages/circle/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
-        "text": "排行榜"
+        "text": "圈子"
       },
       {
         "pagePath": "pages/hub/index",
