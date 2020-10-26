@@ -72,11 +72,11 @@ Page({
     const that = this;
     // 非登录用户查询所有年级及课程
     if (app.userInfo == null) {
-      request(`${app.globalData.remote}/api/v1/mini/grades?status=1&current=1&pageSize=10`, 'get')
+      request(`${app.globalData.remote}/mini/api/v1/grades`, 'get')
         .then(({
           data
         }) => {
-          const list = data.list.map(item => ({
+          const list = data.map(item => ({
             ...item,
             id: item.id + ''
           })).sort((a, b) => a.sequence - b.sequence);
@@ -84,11 +84,11 @@ Page({
             gradeList: list,
           })
         })
-      request(`${app.globalData.remote}/api/v1/mini/courses?status=1&current=1&pageSize=10`, 'get')
+      request(`${app.globalData.remote}/mini/api/v1/courses`, 'get')
         .then(({
           data
         }) => {
-          const list = data.list.map(item => ({
+          const list = data.map(item => ({
             ...item,
             id: item.id + ''
           }));

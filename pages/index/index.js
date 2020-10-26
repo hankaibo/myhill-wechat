@@ -25,11 +25,11 @@ Page({
   },
   // 页面生命周期函数
   onLoad() {
-    request(`${app.globalData.remote}/api/v1/mini/splash-screen?status=1&current=1&pageSize=10`, 'get')
+    request(`${app.globalData.remote}/mini/api/v1/splash-screen`, 'get')
       .then(({
         data
       }) => {
-        const imgUrls = data.list.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
+        const imgUrls = data.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
         this.setData({
           imgUrls
         })

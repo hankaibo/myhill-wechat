@@ -389,7 +389,7 @@ Page({
       course,
       selectedDay
     } = this.data;
-    request(`${app.globalData.remote}/api/v1/mini/papers/detail?gradeValue=${grade.value}&courseValue=${course.value}&date=${selectedDay}`, 'get')
+    request(`${app.globalData.remote}/mini/api/v1/papers/detail?gradeValue=${grade.value}&courseValue=${course.value}&date=${selectedDay}`, 'get')
       .then(({
         data
       }) => {
