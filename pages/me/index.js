@@ -11,6 +11,26 @@ Page({
     userInfo: {},
   },
 
+  handleScan() {
+    wx.checkSession({
+      success: (res) => {
+        console.log('ok')
+      },
+      fail() {
+        wx.login({
+          timeout: 0,
+        })
+      }
+    })
+    wx.scanCode({
+      onlyFromCamera: false,
+      scanType: ['qrCode'],
+      success: (res) => {
+        console.log(res, '小程序扫码成功。');
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
