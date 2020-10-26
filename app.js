@@ -1,4 +1,8 @@
 //app.js
+const {
+  request
+} = require('./utils/request.js')
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,20 +15,17 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res)
-        // wx.request({
-        //   url: 'http://127.0.0.1:8080/api/v1/wx/login',
-        //   data: {
-        //     code: res.code
-        //   },
-        //   method: 'post',
-        //   success:function(response){
-        //     const data=response.data;
-        //     wx.setStorage({
-        //       data: data.openid,
-        //       key: 'key',
-        //     })
-        //   }
-        // })
+        if (res.code) {
+          request(`http://127.0.0.1:8080/mini/api/v1/login?code=${res.code}`)
+            .then(response => {
+              wx.setStorage({
+                data: JSON.stringify(response.data),
+                key: 'userInfo',
+              })
+            }).catch(err => {
+              console.log('登录失败' + err)
+            })
+        }
       }
     })
     // 获取用户信息
@@ -54,7 +55,7 @@ App({
   globalData: {
     userInfo: null,
     theme: 'dark',
-    remote: 'https://wantongcun.com'
-    // remote: 'http://localhost:8080'
+    // remote: 'https://wantongcun.com'
+    remote: 'http://localhost:8080'
   }
 })
