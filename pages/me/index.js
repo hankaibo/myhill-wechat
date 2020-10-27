@@ -7,28 +7,43 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dialogShow: false,
     theme: 'light',
     userInfo: {},
   },
 
+  handleAuth(res) {
+    if (res && res.detail && res.detail.userInfo) {
+      this.setData({
+        userInfo: res.detail.userInfo
+      });
+      app.globalData.userInfo = res.detail.userInfo
+      this.setData({
+        dialogShow: false
+      })
+    }
+  },
+
+  handleClose() {
+    this.setData({
+      dialogShow: false
+    })
+  },
+
   handleScan() {
-    wx.checkSession({
-      success: (res) => {
-        console.log('ok')
-      },
-      fail() {
-        wx.login({
-          timeout: 0,
-        })
-      }
-    })
-    wx.scanCode({
-      onlyFromCamera: false,
-      scanType: ['qrCode'],
-      success: (res) => {
-        console.log(res, '小程序扫码成功。');
-      }
-    })
+    if (this.data.userInfo) {
+      wx.scanCode({
+        onlyFromCamera: false,
+        scanType: ['qrCode'],
+        success: (res) => {
+          console.log(res, '小程序扫码成功。');
+        }
+      })
+    } else {
+      this.setData({
+        dialogShow: true
+      })
+    }
   },
 
   /**
