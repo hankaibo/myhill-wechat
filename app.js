@@ -16,11 +16,11 @@ App({
         // 发送 res.code 到后台换取 openid, sessionKey, unionId
         console.log(res)
         if (res.code) {
-          request(`http://127.0.0.1:8080/mini/api/v1/login?code=${res.code}`)
+          request(`${this.globalData.remote}/mini/api/v1/login?code=${res.code}`)
             .then(response => {
               wx.setStorage({
                 data: JSON.stringify(response.data),
-                key: 'userInfo',
+                key: 'miniToken',
               })
             }).catch(err => {
               console.log('登录失败' + err)
@@ -57,6 +57,6 @@ App({
     userInfo: null,
     theme: 'dark',
     // remote: 'https://wantongcun.com'
-    remote: 'http://localhost:8080'
+    remote: 'http://192.168.0.101:8080'
   }
 })

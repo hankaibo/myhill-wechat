@@ -1,4 +1,7 @@
 // pages/me/index.js
+const {
+  request
+} = require('../../utils/request.js')
 //获取应用实例
 const app = getApp()
 Page({
@@ -36,7 +39,38 @@ Page({
         onlyFromCamera: false,
         scanType: ['qrCode'],
         success: (res) => {
-          console.log(res, '小程序扫码成功。');
+          if (res.errMsg === 'scanCode:ok') {
+            console.log(res, '小程序扫码成功。');
+            const uuid = res.result;
+            const miniTokenStr = wx.getStorageSync('miniToken');
+            let miniToken;
+            let openid;
+            if (miniTokenStr) {
+              miniToken = JSON.parse(miniTokenStr);
+              openid = miniToken.openid;
+            }
+            const {
+              avatarUrl,
+              city,
+              country,
+              gender,
+              language,
+              nickName,
+              province
+            } = this.data.userInfo;
+            const user = {
+              avatar: avatarUrl,
+              city,
+              country,
+              sex: gender,
+              language,
+              nickname: nickName,
+              province,
+              openid,
+              uuid
+            };
+            request(`${app.globalData.remote}/mini/api/v1/token`, 'post', user);
+          }
         }
       })
     } else {
