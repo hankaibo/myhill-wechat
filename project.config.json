@@ -35,7 +35,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.11.3",
+  "libVersion": "2.13.2",
   "appid": "wx611662881d49cc12",
   "projectname": "mini-python",
   "isGameTourist": false,
