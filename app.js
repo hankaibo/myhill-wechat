@@ -56,7 +56,7 @@ App({
   globalData: {
     userInfo: null,
     theme: 'dark',
-    // remote: 'https://wantongcun.com'
-    remote: 'http://192.168.0.101:8080'
+    remote: 'https://wantongcun.com'
+    // remote: 'http://192.168.0.101:8080'
   }
 })
