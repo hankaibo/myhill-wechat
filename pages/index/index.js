@@ -29,10 +29,16 @@ Page({
       .then(({
         data
       }) => {
-        const imgUrls = data.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
-        this.setData({
-          imgUrls
-        })
+        if (Array.isArray(data)) {
+          const imgUrls = data.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
+          this.setData({
+            imgUrls
+          })
+        } else {
+          wx.switchTab({
+            url: '../prepaper/index',
+          })
+        }
       })
   }
 
