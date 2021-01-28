@@ -1,15 +1,16 @@
 <!--pages/ranking/index.wxml-->
-<view class="page">
-	<view class="page__bd">
-		<mp-cells>
-			<mp-cell wx:for="{{userList}}" wx:key="openid">
-				<image slot="icon" src="{{userInfo.avatarUrl}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-				<view>{{item.nickName}}</view>
-				<view slot="footer">
-					<text>{{item.score}}</text>
-					<mp-icon type="outline" icon="like" color="black"></mp-icon>
-				</view>
-			</mp-cell>
-		</mp-cells>
-	</view>
+<view class="page" data-weui-theme="dark">
+	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected"
+		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" bindtabclick="onTabCLick" bindchange="onChange">
+		<view class="tab-content" slot="tab-content-0">
+			<button bindtap="handleSelect">新建圈子</button>
+			<view class="page__bd">
+				
+			</view>
+		</view>
+
+		<view class="tab-content" slot="tab-content-1">
+			test
+		</view>
+	</mp-tabs>
 </view>

@@ -3,7 +3,7 @@
 const app = getApp()
 const {
   request
-} = require('../../utils/request.js')
+} = require('../../../utils/request.js')
 
 Page({
   data: {
@@ -16,7 +16,7 @@ Page({
       text: '确定'
     }],
     // 主题
-    theme: app.globalData.theme
+    theme: 'dark' || app.globalData.theme
   },
   change(e) {
     this.setData({
@@ -42,7 +42,7 @@ Page({
     } = e.currentTarget.dataset;
     if (this.data.gradeSelected && this.data.gradeSelected.id) {
       wx.navigateTo({
-        url: '../paper/index',
+        url: '../index',
         success: res => {
           res.eventChannel.emit("acceptDataFromOpenerPage", {
             grade: {

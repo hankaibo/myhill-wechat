@@ -7,286 +7,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userList: [{
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-      {
-        openid: 1,
-        avatarUrl: '',
-        nickName: '张三',
-        score: 100,
-        like: 1
-      },
-    ],
-    userInfo: {},
+    tabs: [],
+    activeTab: 0,
+    myCircleList: [],
+    userInfo: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const titles = ['我的圈子', '你的圈子']
+    const tabs = titles.map(item => ({
+      title: item
+    }))
     //调用应用实例的方法获取全局数据
     this.setData({
-      userInfo: app.globalData.userInfo
+      tabs,
+      userInfo: app.globalData.userInfo,
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -334,5 +74,29 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  handleSelect(e) {
+    const {
+      item
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: './add/index',
+    });
+  },
+
+  onTabCLick(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
+  },
+
+  onChange(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
   }
+
 })

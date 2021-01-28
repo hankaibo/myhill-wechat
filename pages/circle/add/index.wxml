@@ -1,0 +1,49 @@
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">新建圈子</view>
+  </view>
+  <view class="page__bd">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+      <mp-cells>
+        <mp-cell prop="radio" title="" ext-class="">
+          <radio-group bindchange="radioChange">
+            <radio wx:for="{{radioItems}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
+          </radio-group>
+        </mp-cell>
+        <mp-cell prop="name" title="名称" ext-class="">
+          <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" />
+        </mp-cell>
+        <mp-cell prop="date" title="日期" ext-class="">
+          <picker data-field="date" mode="date" value="{{date}}" start="2021-01-01" end="2021-12-31"
+            bindchange="bindDatetimeChange">
+            <view class="weui-input">{{date}}</view>
+          </picker>
+        </mp-cell>
+        <mp-cell prop="time" title="时间" ext-class="">
+          <picker data-field="time" mode="time" value="{{time}}" start="00:00" end="23:59"
+            bindchange="bindDatetimeChange">
+            <view class="weui-input">{{time}}</view>
+          </picker>
+        </mp-cell>
+        <mp-cell prop="place" title="地点" ext-class="">
+          <input bindinput="formInputChange" data-field="place" class="weui-input" placeholder="请输入地点" />
+        </mp-cell>
+        <mp-cell prop="isOpen" title="是否开放" ext-class="">
+          <switch checked bindchange="formSwitchChange" />
+        </mp-cell>
+        <mp-cell prop="description" title="简介" ext-class="">
+          <textarea bindinput="formInputChange" data-field="description" class="weui-textarea" placeholder="请输入文本"
+            style="height: 5em" />
+          <view class="weui-textarea-counter">0/200</view>
+        </mp-cell>
+        <mp-cell prop="imgUrl" title="封面图片" ext-class="">
+            <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}"  max-count="5" title="" files="{{files}}"></mp-uploader>
+        </mp-cell>
+      </mp-cells>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+      </view>
+    </mp-form>
+  </view>
+</view>

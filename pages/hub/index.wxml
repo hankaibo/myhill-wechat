@@ -1,5 +1,5 @@
 <!--pages/hub/index.wxml-->
-<view class="page">
+<view class="page" data-weui-theme="dark">
 	<view class="page__bd">
 		<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
 		<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected" tabActiveTextColor="#07c160" activeTab="{{activeTab}}" bindtabclick="onTabCLick" bindchange="onChange">

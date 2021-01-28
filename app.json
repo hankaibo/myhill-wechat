@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/prepaper/index",
     "pages/paper/index",
+    "pages/paper/before/index",
     "pages/circle/index",
+    "pages/circle/add/index",
     "pages/hub/index",
-    "pages/me/index",
-    "pages/logs/logs"
+    "pages/me/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f7f7f7",
@@ -20,7 +20,7 @@
     "borderStyle": "white",
     "backgroundColor": "#f7f7f7",
     "list": [{
-        "pagePath": "pages/prepaper/index",
+        "pagePath": "pages/paper/before/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
         "text": "Demo"

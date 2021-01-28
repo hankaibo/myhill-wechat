@@ -11,7 +11,7 @@ Page({
    */
   data: {
     dialogShow: false,
-    theme: 'light',
+    theme: 'dark',
     userInfo: {},
   },
 

@@ -1,5 +1,5 @@
 <!--pages/prepaper/index.wxml-->
-<view class="container" bindtap="close" data-weui-theme="{{theme}}">
+<view class="container" bindtap="close" data-weui-theme="dark">
 	<view class="card card-bordered card-contain-grid">
 		<view class="card-head">
 			<view class="card-head-wrapper">

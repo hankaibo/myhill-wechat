@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "排行榜",
   "usingComponents": {
+    "mp-tabs": "/components/tabs/index",
     "mp-cells": "weui-miniprogram/cells/cells",
     "mp-cell": "weui-miniprogram/cell/cell",
     "mp-icon": "weui-miniprogram/icon/icon"

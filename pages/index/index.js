@@ -20,7 +20,7 @@ Page({
   },
   handleEnter() {
     wx.switchTab({
-      url: '../prepaper/index',
+      url: '../paper/before/index',
     })
   },
   // 页面生命周期函数
@@ -29,14 +29,14 @@ Page({
       .then(({
         data
       }) => {
-        if (Array.isArray(data)) {
+        if (Array.isArray(data) && data.length > 0) {
           const imgUrls = data.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
           this.setData({
             imgUrls
           })
         } else {
           wx.switchTab({
-            url: '../prepaper/index',
+            url: '../paper/before/index',
           })
         }
       })
