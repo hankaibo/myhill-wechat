@@ -20,15 +20,35 @@
 }
 
 .tab-content {
-  height: 100px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding: 40rpx;
 }
 
 .weui-tabs-bar__title {
   margin: 0px 50px;
+}
+
+.icon-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.item {
+  background-color: #10AEFF;
+  color: white;
+  padding: 0px 6px;
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  line-height: 60px;
+  box-sizing: border-box;
+}
+
+.btn {
+  height: 40px;
 }

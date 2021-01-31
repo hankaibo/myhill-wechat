@@ -1,0 +1,22 @@
+<!--pages/me/setting/theme/index.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="page__bd">
+    <mp-cells>
+      <mp-cell>
+        <h4 class="weui-media-box__title">跟随系统</h4>
+        <view class="weui-media-box__desc">开启后，将跟随系统打开或关闭深色模式</view>
+        <view slot="footer">
+          <switch checked bindchange="handleSwitch" />
+        </view>
+      </mp-cell>
+    </mp-cells>
+
+    <mp-cells title="手动选择" wx:if="{{!useSystem}}">
+      <mp-checkbox-group multi="{{false}}" bindchange="handleRadio">
+        <mp-checkbox wx:for="{{radioThemes}}" wx:key="value" label="{{item.name}}" value="{{item.value}}"
+          checked="{{item.checked}}"></mp-checkbox>
+      </mp-checkbox-group>
+    </mp-cells>
+
+  </view>
+</view>

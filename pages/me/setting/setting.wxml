@@ -1,0 +1,9 @@
+<!--pages/me/setting/index.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="page__bd">
+    <mp-cells>
+      <mp-cell link hover value="深色模式" footer="已开启" bindtap="gotoTheme">
+      </mp-cell>
+    </mp-cells>
+  </view>
+</view>

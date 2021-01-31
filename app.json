@@ -6,19 +6,24 @@
     "pages/circle/index",
     "pages/circle/add/index",
     "pages/hub/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/me/setting/setting",
+    "pages/me/setting/theme/theme"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#f7f7f7",
-    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "@navigationBarBackgroundColor",
+    "navigationBarTextStyle": "@navigationBarTextStyle",
     "enablePullDownRefresh": true,
-    "backgroundColor": "#f7f7f7"
+    "backgroundColor": "@backgroundColor",
+    "backgroundTextStyle": "@backgroundTextStyle",
+    "backgroundColorTop": "@backgroundColorTop",
+    "backgroundColorBottom": "backgroundColorBottom"
   },
   "tabBar": {
-    "color": "#191919",
+    "color": "@color",
     "selectedColor": "#07c160",
-    "borderStyle": "white",
-    "backgroundColor": "#f7f7f7",
+    "borderStyle": "@borderStyle",
+    "backgroundColor": "@tabBarBackgroundColor",
     "list": [{
         "pagePath": "pages/paper/before/index",
         "iconPath": "images/icon_tabbar.png",
@@ -52,6 +57,8 @@
     "downloadFile": 10000
   },
   "debug": true,
+  "darkmode": true,
+  "themeLocation": "style/theme.json",
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "useExtendedLib": {

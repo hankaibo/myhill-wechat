@@ -10,29 +10,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    dialogShow: false,
-    theme: 'dark',
-    userInfo: {},
+    dialogLogin: false,
   },
 
-  handleAuth(res) {
-    if (res && res.detail && res.detail.userInfo) {
-      this.setData({
-        userInfo: res.detail.userInfo
-      });
-      app.globalData.userInfo = res.detail.userInfo
-      this.setData({
-        dialogShow: false
-      })
-    }
+  gotoSetting() {
+    wx.navigateTo({
+      url: './setting/setting'
+    });
   },
 
-  handleClose() {
-    this.setData({
-      dialogShow: false
-    })
-  },
-
+  // pc端扫码登录
   handleScan() {
     if (this.data.userInfo) {
       wx.scanCode({
@@ -80,15 +67,37 @@ Page({
     }
   },
 
+  // 登录
+  handleAuth(res) {
+    if (res && res.detail && res.detail.userInfo) {
+      app.globalData.userInfo = res.detail.userInfo
+      this.setData({
+        userInfo: res.detail.userInfo,
+        dialogLogin: false
+      });
+    }
+  },
+
+  // 关闭登录框
+  handleClose() {
+    this.setData({
+      dialogLogin: false
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     //调用应用实例的方法获取全局数据
+    const {
+      userInfo,
+      theme
+    } = app.globalData;
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo,
+      theme
     })
-
   },
 
   /**
@@ -138,11 +147,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  themeChanged: function (theme) {
-    this.setData({
-      theme
-    })
   }
 })

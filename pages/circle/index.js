@@ -17,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['我的圈子', '你的圈子']
+    const titles = ['我的圈子', '发现']
     const tabs = titles.map(item => ({
       title: item
     }))

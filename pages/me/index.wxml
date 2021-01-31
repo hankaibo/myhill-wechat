@@ -1,70 +1,39 @@
 <!--pages/me/index.wxml-->
 <view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
-		<view class="weui-panel weui-panel_access">
-			<view class="weui-panel__bd">
-				<navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-					<view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-						<image class="weui-media-box__thumb" src="{{userInfo.avatarUrl}}" />
-					</view>
-					<view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-						<view class="weui-media-box__desc">微信号：{{userInfo.nickName}}</view>
-					</view>
-				</navigator>
-			</view>
-		</view>
-		<view class="weui-panel">
-			<view class="weui-panel__bd">
-				<view class="weui-media-box weui-media-box_small-appmsg">
-					<view class="weui-cells weui-cells_in-small-appmsg">
-						<navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
-							<view class="weui-cell__hd">
-								<mp-icon icon="album" color="black" size="{{20}}"></mp-icon>
-							</view>
-							<view class="weui-cell__bd weui-cell_primary">
-								<view>趋势</view>
-							</view>
-							<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-						</navigator>
-						<navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
-							<view class="weui-cell__hd">
-								<mp-icon icon="note" color="black" size="{{20}}"></mp-icon>
-							</view>
-							<view class="weui-cell__bd weui-cell_primary">
-								<view>收藏</view>
-							</view>
-							<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-						</navigator>
-						<view class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
-							<view class="weui-cell__hd">
-								<mp-icon icon="qr-code" color="black" size="{{20}}"></mp-icon>
-							</view>
-							<view class="weui-cell__bd weui-cell_primary" bindtap="handleScan">
-								<view>扫码</view>
-							</view>
-						</view>
-					</view>
+		<mp-cells>
+			<mp-cell hover>
+				<image slot="icon" src="{{userInfo.avatarUrl}}" alt="头像"
+					style="margin-right: 16px;vertical-align: middle;width:60px; height: 60px;" />
+				<view class="weui-media-box__bd">
+					<h4 class="weui-media-box__title">{{userInfo.username}}</h4>
+					<view class="weui-media-box__desc">{{userInfo.nickname}}</view>
 				</view>
-			</view>
-		</view>
-		<view class="weui-panel">
-			<view class="weui-panel__bd">
-				<view class="weui-media-box weui-media-box_small-appmsg">
-					<view class="weui-cells weui-cells_in-small-appmsg">
-						<navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
-							<view class="weui-cell__hd">
-								<mp-icon icon="setting" color="black" size="{{20}}"></mp-icon>
-							</view>
-							<view class="weui-cell__bd weui-cell_primary">
-								<view>设置</view>
-							</view>
-							<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-						</navigator>
-					</view>
-				</view>
-			</view>
-		</view>
-		<mp-dialog title="你还未登录" show="{{dialogShow}}" buttons="{{[]}}">
+			</mp-cell>
+		</mp-cells>
+
+		<mp-cells>
+			<mp-cell hover value="扫码">
+				<mp-icon slot="icon" extClass="icon" icon="album"></mp-icon>
+			</mp-cell>
+		</mp-cells>
+
+		<mp-cells>
+			<mp-cell hover value="趋势">
+				<mp-icon slot="icon" extClass="icon" icon="album"></mp-icon>
+			</mp-cell>
+			<mp-cell hover value="收藏">
+				<mp-icon slot="icon" extClass="icon" icon="note"></mp-icon>
+			</mp-cell>
+		</mp-cells>
+
+		<mp-cells>
+			<mp-cell link hover value="设置" bindtap="gotoSetting">
+				<mp-icon slot="icon" extClass="icon" icon="setting"></mp-icon>
+			</mp-cell>
+		</mp-cells>
+
+		<mp-dialog title="你还未登录" show="{{dialogLogin}}" buttons="{{[]}}">
 			<view>
 				<text>请登录后再进行扫码操作！</text>
 				<button bindtap="handleClose">取消</button>

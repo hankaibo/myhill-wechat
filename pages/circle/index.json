@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "排行榜",
+  "navigationBarTitleText": "圈子",
   "usingComponents": {
     "mp-tabs": "/components/tabs/index",
     "mp-cells": "weui-miniprogram/cells/cells",

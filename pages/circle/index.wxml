@@ -3,9 +3,16 @@
 	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected"
 		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" bindtabclick="onTabCLick" bindchange="onChange">
 		<view class="tab-content" slot="tab-content-0">
-			<button bindtap="handleSelect">新建圈子</button>
+			<view class="icon-box">
+				<span class="item">活动圈</span>
+				<span class="item">学习圈</span>
+				<span class="item">绘图圈</span>
+			</view>
+			<button bindtap="handleSelect" class="btn">
+				<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
+			</button>
 			<view class="page__bd">
-				
+
 			</view>
 		</view>
 
