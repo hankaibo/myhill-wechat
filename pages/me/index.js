@@ -1,10 +1,25 @@
 // pages/me/index.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
-//获取应用实例
-const app = getApp()
-Page({
+
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
@@ -56,7 +71,7 @@ Page({
               openid,
               uuid
             };
-            request(`${app.globalData.remote}/mini/api/v1/token`, 'post', user);
+            request(`${remote}/mini/api/v1/token`, 'post', user);
           }
         }
       })
@@ -89,15 +104,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //调用应用实例的方法获取全局数据
-    const {
-      userInfo,
-      theme
-    } = app.globalData;
-    this.setData({
-      userInfo,
-      theme
-    })
+
   },
 
   /**
@@ -148,4 +155,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))

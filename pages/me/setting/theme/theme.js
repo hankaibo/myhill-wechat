@@ -1,10 +1,22 @@
 // pages/me/setting/theme/theme.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app
+} from '../../../../stores/index.js';
 const {
   request
 } = require('../../../../utils/request.js')
-//获取应用实例
-const app = getApp()
-Page({
+
+const connect = mapToData(function (state, opt) {
+  return {
+    useSystem: state.app.useSystem,
+    theme: state.app.theme
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
@@ -23,10 +35,7 @@ Page({
 
   handleSwitch(e) {
     const value = e.detail.value;
-    this.setData({
-      useSystem: value
-    })
-    app.globalData.useSystem = value;
+    app.changeUseSystem(value);
     // 调用后台接口，更新配置
     // TODO
     // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {
@@ -52,10 +61,9 @@ Page({
       }
 
       this.setData({
-        theme: value,
         radioThemes: radioThemes
       });
-      app.globalData.theme = value;
+      app.changeTheme(value);
       // 调用后台接口，更新配置
       // TODO
       // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {
@@ -68,14 +76,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const {
-      useSystem,
-      theme
-    } = app.globalData;
-    this.setData({
-      useSystem,
-      theme
-    })
+
   },
 
   /**
@@ -126,4 +127,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))

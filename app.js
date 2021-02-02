@@ -1,8 +1,11 @@
 //app.js
+require('./stores/index');
+import {
+  app
+} from './stores/index.js';
 const {
   request
-} = require('./utils/request.js')
-const base64 = require("./images/base64");
+} = require('./utils/request.js');
 
 App({
   /**
@@ -67,34 +70,11 @@ App({
    * @param {*} theme 
    */
   onThemeChange: function (theme) {
-    this.globalData.theme = theme;
-  },
-
-  watch: function (method, key) {
-    const obj = this.globalData;
-    Object.defineProperty(obj, key, {
-      configurable: true,
-      enumerable: true,
-      set: function (value) {
-        this[key] = value;
-        method(value);
-      },
-      get: function () {
-        return this[key];
-      }
-    })
+    app.changeTheme(theme);
   },
 
   globalData: {
     hasLogin: false,
-    // 用户信息(包含敏感信息)
-    userInfo: {
-      avatarUrl: base64.icon60,
-      nickName: '游客'
-    },
-    useSystem: true,
-    // 系统默认主题色
-    theme: '',
     // remote: 'https://wantongcun.com'
     remote: 'http://192.168.0.108:8080'
   }

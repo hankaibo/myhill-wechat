@@ -1,0 +1,1 @@
+const{storeMap:storeMap,notifyStack:notifyStack}=require("./constant"),{isEqualObj:isEqualObj,cloneObj:cloneObj}=require("./utils"),timeout=5;let batch=0;exports.notifyUpdate=function(){batch++,setTimeout(()=>{if(0==--batch){for(let t=notifyStack.length-1;t>=0;t--){const[o,e,a,i]=notifyStack[t],n=e(storeMap,i);isEqualObj(a,n)||(notifyStack[t][2]=cloneObj(n),o.setData(n))}}},5)};

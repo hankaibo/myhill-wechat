@@ -1,7 +1,18 @@
-// pages/me/setting/index.js
-//获取应用实例
-const app = getApp()
-Page({
+// pages/me/setting/setting.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app
+} from '../../../stores/index.js';
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
@@ -18,9 +29,7 @@ Page({
 
   updateTheme(value) {
     if (value === 'dark' || value === 'light') {
-      this.setData({
-        theme: value
-      })
+      app.changeTheme(value);
     }
   },
 
@@ -28,19 +37,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const {
-      theme
-    } = app.globalData;
-    this.setData({
-      theme
-    });
-    app.watch(this.updateTheme, 'theme');
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () {
+
+  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -83,4 +88,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))
