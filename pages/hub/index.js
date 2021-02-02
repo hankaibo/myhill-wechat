@@ -1,5 +1,22 @@
 // pages/hub/index.js
-Page({
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../stores/index.js';
+
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
@@ -9,6 +26,36 @@ Page({
     inputVal: "",
     tabs: [],
     activeTab: 0,
+  },
+
+  search: function (value) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve([{
+          text: '搜索结果',
+          value: 1
+        }, {
+          text: '搜索结果2',
+          value: 2
+        }])
+      }, 200)
+    })
+  },
+  selectResult: function (e) {
+    console.log('select result', e.detail)
+  },
+  onTabCLick(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
+  },
+
+  onChange(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
   },
 
   /**
@@ -72,35 +119,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  search: function (value) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([{
-          text: '搜索结果',
-          value: 1
-        }, {
-          text: '搜索结果2',
-          value: 2
-        }])
-      }, 200)
-    })
-  },
-  selectResult: function (e) {
-    console.log('select result', e.detail)
-  },
-  onTabCLick(e) {
-    const index = e.detail.index
-    this.setData({
-      activeTab: index
-    })
-  },
-
-  onChange(e) {
-    const index = e.detail.index
-    this.setData({
-      activeTab: index
-    })
   }
-})
+}))

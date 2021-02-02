@@ -1,9 +1,9 @@
 {
+  "navigationBarTitleText": "题库",
   "usingComponents": {
     "mp-searchbar": "weui-miniprogram/searchbar/searchbar",
-    "mp-tabs": "/components/tabs/index",
+    "mp-tabs": "@miniprogram-component-plus/tabs",
     "mp-cells": "weui-miniprogram/cells/cells",
     "mp-cell": "weui-miniprogram/cell/cell"
-  },
-  "navigationBarTitleText": "题库"
+  }
 }

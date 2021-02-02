@@ -1,16 +1,18 @@
 <!--pages/hub/index.wxml-->
-<view class="page" data-weui-theme="dark">
+<view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
 		<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+
 		<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected"
 			tabActiveTextColor="#07c160" activeTab="{{activeTab}}" bindtabclick="onTabCLick" bindchange="onChange">
 			<block wx:for="{{tabs}}" wx:key="title">
-				<view class="tab-content" slot="tab-content-{{index}}"> {{item.title}}
-					<mp-cells>
-						<mp-cell link hover value="设置" footer="">
-							<mp-icon extClass="icon" icon="setting"></mp-icon>
-						</mp-cell>
-					</mp-cells>
+				<view class="tab-content" slot="tab-content-{{index}}" data-set="{{item}}">
+					<view class="item-title">
+						{{item.name}}
+					</view>
+					<view class="item-desc">
+						{{item.name}}
+					</view>
 				</view>
 			</block>
 		</mp-tabs>

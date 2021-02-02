@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hankaibo/mini-hill#readme",
   "dependencies": {
+    "@miniprogram-component-plus/tabs": "^1.0.0",
     "minii": "^1.3.2"
   }
 }

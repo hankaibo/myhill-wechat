@@ -1,10 +1,5 @@
 /* pages/hub/index.wxss */
 
-.page {
-  background-color: #FFFFFF;
-  height: 100%;
-}
-
 .weui-tabs-bar__wrp {
   border-bottom: 10px solid #eee;
   margin-top: 10px;
