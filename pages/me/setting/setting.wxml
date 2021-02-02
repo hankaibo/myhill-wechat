@@ -1,4 +1,4 @@
-<!--pages/me/setting/index.wxml-->
+<!--pages/me/setting/setting.wxml-->
 <view class="page" data-weui-theme="{{theme}}">
   <view class="page__bd">
     <mp-cells>
