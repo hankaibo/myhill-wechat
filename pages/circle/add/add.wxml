@@ -1,8 +1,6 @@
+<!--pages/circle/add.wxml-->
 <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
-<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
-  <view class="page__hd">
-    <view class="page__title">新建圈子</view>
-  </view>
+<view class="page" data-weui-theme="{{theme}}">
   <view class="page__bd">
     <mp-form id="form" rules="{{rules}}" models="{{formData}}">
       <mp-cells>

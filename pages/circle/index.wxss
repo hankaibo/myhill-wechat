@@ -1,11 +1,8 @@
-/* pages/ranking/index.wxss */
-.page {
-  min-height: 100vh;
-}
-
-
+/* pages/circle/index.wxss */
 .weui-tabs-bar__wrp {
-  border-bottom: 10px solid #eee;
+  padding: 8px;
+  background: var(--weui-BG-2) !important;
+  border-bottom: 1px solid #eee;
   margin-top: 10px;
 }
 
@@ -14,39 +11,23 @@
   height: 100px;
 }
 
-.tab-bar-title__selected {
-  font-size: 20px;
-  font-weight: bold;
-}
-
 .tab-content {
+  height: 100px;
   width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  padding: 40rpx;
 }
 
 .weui-tabs-bar__title {
-  margin: 0px 50px;
+  margin: 0px 10px;
 }
 
-.icon-box {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-}
-
-.item {
-  background-color: #10AEFF;
-  color: white;
-  padding: 0px 6px;
-  border-radius: 30px;
-  height: 60px;
-  width: 60px;
-  line-height: 60px;
-  box-sizing: border-box;
+.tab-bar-title__selected {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .btn {

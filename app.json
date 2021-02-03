@@ -4,7 +4,7 @@
     "pages/paper/index",
     "pages/paper/before/index",
     "pages/circle/index",
-    "pages/circle/add/index",
+    "pages/circle/add/add",
     "pages/hub/index",
     "pages/me/index",
     "pages/me/setting/setting",

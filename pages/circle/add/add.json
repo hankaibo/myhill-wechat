@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "新建圈子",
   "usingComponents": {
     "mp-toptips": "weui-miniprogram/toptips/toptips",
     "mp-cells": "weui-miniprogram/cells/cells",

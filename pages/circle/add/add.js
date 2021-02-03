@@ -1,4 +1,11 @@
-const app = getApp()
+// pages/circle/index.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../../stores/index.js';
 const {
   request
 } = require('../../../utils/request.js')
@@ -8,7 +15,17 @@ const {
 } = require('../../../utils/util')
 
 const datetime = new Date();
-Page({
+
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
@@ -110,7 +127,6 @@ Page({
     })
   },
   chooseImage: function (e) {
-    debugger
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -263,4 +279,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))

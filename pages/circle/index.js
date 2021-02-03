@@ -1,30 +1,66 @@
-// pages/ranking/index.js
-//获取应用实例
-const app = getApp()
-Page({
+// pages/circle/index.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../stores/index.js';
 
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
   /**
    * 页面的初始数据
    */
   data: {
     tabs: [],
     activeTab: 0,
-    myCircleList: [],
-    userInfo: {}
+    myCircleList: []
+  },
+
+
+  handleSelect(e) {
+    const {
+      item
+    } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: './add/add',
+    });
+  },
+
+  onTabCLick(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
+  },
+
+  onChange(e) {
+    const index = e.detail.index
+    this.setData({
+      activeTab: index
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['我的圈子', '发现']
+    const titles = ['活动圈', '学习圈', '绘本圈', '我创建的', '我参加的', '发现']
     const tabs = titles.map(item => ({
       title: item
     }))
     //调用应用实例的方法获取全局数据
     this.setData({
       tabs,
-      userInfo: app.globalData.userInfo,
     })
   },
   /**
@@ -75,28 +111,4 @@ Page({
   onShareAppMessage: function () {
 
   },
-
-  handleSelect(e) {
-    const {
-      item
-    } = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: './add/index',
-    });
-  },
-
-  onTabCLick(e) {
-    const index = e.detail.index
-    this.setData({
-      activeTab: index
-    })
-  },
-
-  onChange(e) {
-    const index = e.detail.index
-    this.setData({
-      activeTab: index
-    })
-  }
-
-})
+}))
