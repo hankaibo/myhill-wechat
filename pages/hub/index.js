@@ -62,7 +62,7 @@ Page(connect({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['大厅', '我的']
+    const titles = ['我的', '发现']
     const tabs = titles.map(item => ({
       title: item
     }))

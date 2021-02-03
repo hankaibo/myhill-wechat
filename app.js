@@ -21,7 +21,7 @@ App({
     wx.getSystemInfo({
       success: (res) => {
         const theme = res.theme;
-        this.globalData.theme = theme;
+        app.changeTheme(theme);
       }
     })
     // 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户的唯一标识（openid）及本次登录的会话密钥（session_key）等。
