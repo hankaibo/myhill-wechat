@@ -1,4 +1,5 @@
-<!--index.wxml-->
+<!--pages/index/index.wxml-->
 <view>
-	<mp-gallery show="{{show}}" img-urls="{{imgUrls}}" current="{{current}}" bindgoto="handleEnter" bindchange="handleChange"></mp-gallery>
+	<mp-gallery show="{{show}}" img-urls="{{imgUrls}}" current="{{current}}" bindgoto="handleEnter"
+		bindchange="handleChange"></mp-gallery>
 </view>

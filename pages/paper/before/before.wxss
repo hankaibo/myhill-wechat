@@ -1,9 +1,4 @@
-/* pages/prepaper/index.wxss */
-.container {
-  padding: 24rpx;
-  box-sizing: border-box;
-}
-
+/* pages/before/before.wxss */
 .card {
   position: relative;
   margin: 0;

@@ -16,6 +16,20 @@ class App {
   changeTheme(theme) {
     this.theme = theme;
   }
+
+  setRemote(remote) {
+    this.remote = remote;
+  }
+  getRemote() {
+    return this.remote;
+  }
+
+  setTheme(theme) {
+    this.theme = theme;
+  }
+  getTheme() {
+    return this.theme;
+  }
 }
 
 export default observe(new App(), 'app');

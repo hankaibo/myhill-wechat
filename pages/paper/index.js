@@ -1,6 +1,11 @@
 // pages/python/python.js
-//获取应用实例
-const app = getApp()
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
@@ -8,16 +13,21 @@ const {
   formatDate
 } = require('../../utils/util')
 
-Page({
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
 
   /**
    * 页面的初始数据
    */
   data: {
-    // 用户与主题
-    userInfo: {},
-    hasUserInfo: false,
-    theme: 'dark',
     // 年级与课程
     grade: {},
     course: {},
@@ -389,7 +399,7 @@ Page({
       course,
       selectedDay
     } = this.data;
-    request(`${app.globalData.remote}/mini/api/v1/papers/detail?gradeValue=${grade.value}&courseValue=${course.value}&date=${selectedDay}`, 'get')
+    request(`${remote}/mini/api/v1/papers/detail?gradeValue=${grade.value}&courseValue=${course.value}&date=${selectedDay}`, 'get')
       .then(({
         data
       }) => {
@@ -409,13 +419,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (params) {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        theme: app.globalData.theme,
-        hasUserInfo: true
-      })
-    }
     // 监听acceptDataFromOpenerPage事件， 获取上一页面通过eventChannel传送到当前页面的数据
     const eventChannel = this.getOpenerEventChannel();
     eventChannel.on('acceptDataFromOpenerPage', data => {
@@ -488,4 +491,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))

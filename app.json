@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/paper/index",
-    "pages/paper/before/index",
+    "pages/paper/before/before",
     "pages/circle/index",
     "pages/circle/add/add",
     "pages/hub/index",
@@ -25,7 +25,7 @@
     "borderStyle": "@borderStyle",
     "backgroundColor": "@tabBarBackgroundColor",
     "list": [{
-        "pagePath": "pages/paper/before/index",
+        "pagePath": "pages/paper/before/before",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
         "text": "Demo"

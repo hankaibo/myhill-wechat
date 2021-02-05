@@ -1,11 +1,26 @@
-// pages/prepaper/index.js
-// 获取应用实例
-const app = getApp()
+// pages/before/before.js
+import {
+  mapToData
+} from 'minii';
+import {
+  app,
+  user
+} from '../../../stores/index.js';
 const {
   request
 } = require('../../../utils/request.js')
 
-Page({
+const connect = mapToData(function (state, opt) {
+  return {
+    remote: state.app.remote,
+    theme: state.app.theme,
+    hasLogin: state.user.hasLogin,
+    avatarUrl: state.user.avatarUrl,
+    nickName: state.user.nickName
+  }
+})
+
+Page(connect({
   data: {
     gradeList: [],
     gradeSelected: {},
@@ -15,8 +30,6 @@ Page({
     btnValue: [{
       text: '确定'
     }],
-    // 主题
-    theme: 'dark' || app.globalData.theme
   },
   change(e) {
     this.setData({
@@ -36,6 +49,7 @@ Page({
     // 关闭select
     this.selectComponent('#select').close()
   },
+
   handleSelect(e) {
     const {
       item
@@ -71,8 +85,8 @@ Page({
   onLoad: function (options) {
     const that = this;
     // 非登录用户查询所有年级及课程
-    if (app.userInfo == null) {
-      request(`${app.globalData.remote}/mini/api/v1/grades`, 'get')
+    if (!false) {
+      request(`${this.data.remote}/mini/api/v1/grades`, 'get')
         .then(({
           data
         }) => {
@@ -84,7 +98,7 @@ Page({
             gradeList: list,
           })
         })
-      request(`${app.globalData.remote}/mini/api/v1/courses`, 'get')
+      request(`${this.data.remote}/mini/api/v1/courses`, 'get')
         .then(({
           data
         }) => {
@@ -148,4 +162,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+}))
