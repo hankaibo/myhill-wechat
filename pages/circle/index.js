@@ -6,13 +6,16 @@ import {
   app,
   user
 } from '../../stores/index.js';
+const {
+  request
+} = require('../../utils/request.js')
 
 const connect = mapToData(function (state, opt) {
   return {
     remote: state.app.remote,
     theme: state.app.theme,
-    avatarUrl: state.user.avatarUrl,
-    nickName: state.user.nickName
+    hasLogin: state.user.hasLogin,
+    userInfo: state.user.userInfo
   }
 })
 
@@ -23,14 +26,25 @@ Page(connect({
   data: {
     tabs: [],
     activeTab: 0,
-    myCircleList: []
+    playParams: {
+      current: 1,
+      pageSize: 10,
+      name: ''
+    },
+    playList: []
   },
 
-
-  handleSelect(e) {
+  // 获取用户信息之后才让其添加
+  handleGetUserInfo(e) {
     const {
-      item
-    } = e.currentTarget.dataset;
+      userInfo
+    } = e.detail;
+    if (userInfo) {
+      user.setUserInfo(userInfo);
+      this.handleAdd();
+    }
+  },
+  handleAdd() {
     wx.navigateTo({
       url: './add/add',
     });
@@ -48,6 +62,26 @@ Page(connect({
     this.setData({
       activeTab: index
     })
+    this.getPlayData();
+  },
+
+  getPlayData() {
+    const {
+      current,
+      pageSize,
+      name
+    } = this.data.playParams;
+    request(`${this.data.remote}/mini/api/v1/circle/play?current=${current}&pageSize=${pageSize}&name=${name}`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          playList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
   },
 
   /**
@@ -63,11 +97,12 @@ Page(connect({
       tabs,
     })
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getPlayData();
   },
 
   /**

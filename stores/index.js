@@ -1,2 +1,2 @@
-export userStore from './user'
+export user from './user'
 export app from './app'

@@ -1,1 +1,4 @@
 /* pages/circle/add/add.wxss */
+radio {
+  margin-right: 10px;
+}

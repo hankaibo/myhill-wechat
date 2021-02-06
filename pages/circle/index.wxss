@@ -12,13 +12,18 @@
 }
 
 .tab-content {
-  height: 100px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   padding: 40rpx;
+}
+
+.tab-content__hd,
+.tab-content__bd {
+  width: 100%;
 }
 
 .weui-tabs-bar__title {
@@ -30,6 +35,11 @@
   font-weight: bold;
 }
 
-.btn {
-  height: 40px;
+button {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.block {
+  width: 100% !important;
 }

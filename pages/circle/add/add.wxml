@@ -4,9 +4,10 @@
   <view class="page__bd">
     <mp-form id="form" rules="{{rules}}" models="{{formData}}">
       <mp-cells>
-        <mp-cell prop="radio" title="" ext-class="">
+        <mp-cell prop="radio" title="类型" ext-class="">
           <radio-group bindchange="radioChange">
-            <radio wx:for="{{radioItems}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
+            <radio wx:for="{{radioItems}}" wx:key="value" value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">
+              {{item.name}}</radio>
           </radio-group>
         </mp-cell>
         <mp-cell prop="name" title="名称" ext-class="">
@@ -27,7 +28,7 @@
         <mp-cell prop="place" title="地点" ext-class="">
           <input bindinput="formInputChange" data-field="place" class="weui-input" placeholder="请输入地点" />
         </mp-cell>
-        <mp-cell prop="isOpen" title="是否开放" ext-class="">
+        <mp-cell prop="isOpen" title="开放" ext-class="">
           <switch checked bindchange="formSwitchChange" />
         </mp-cell>
         <mp-cell prop="description" title="简介" ext-class="">

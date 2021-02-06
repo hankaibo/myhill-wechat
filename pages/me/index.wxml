@@ -6,14 +6,13 @@
 				<image slot="icon" src="{{userInfo.avatarUrl}}" alt="头像"
 					style="margin-right: 16px;vertical-align: middle;width:60px; height: 60px;" />
 				<view class="weui-media-box__bd">
-					<h4 class="weui-media-box__title">{{userInfo.username}}</h4>
-					<view class="weui-media-box__desc">{{userInfo.nickname}}</view>
+					<h4 class="weui-media-box__title">{{userInfo.nickName}}</h4>
 				</view>
 			</mp-cell>
 		</mp-cells>
 
 		<mp-cells>
-			<mp-cell hover value="扫码">
+			<mp-cell hover value="扫码" bindtap="handleScan">
 				<mp-icon slot="icon" extClass="icon" icon="album"></mp-icon>
 			</mp-cell>
 		</mp-cells>
@@ -33,7 +32,7 @@
 			</mp-cell>
 		</mp-cells>
 
-		<mp-dialog title="你还未登录" show="{{dialogLogin}}" buttons="{{[]}}">
+		<mp-dialog title="你还未登录" show="{{show}}" buttons="{{[]}}">
 			<view>
 				<text>请登录后再进行扫码操作！</text>
 				<button bindtap="handleClose">取消</button>

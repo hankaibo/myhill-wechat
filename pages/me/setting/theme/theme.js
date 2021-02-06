@@ -35,7 +35,7 @@ Page(connect({
 
   handleSwitch(e) {
     const value = e.detail.value;
-    app.changeUseSystem(value);
+    app.setUseSystem(value);
     // 调用后台接口，更新配置
     // TODO
     // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {
@@ -63,7 +63,7 @@ Page(connect({
       this.setData({
         radioThemes: radioThemes
       });
-      app.changeTheme(value);
+      app.setTheme(value);
       // 调用后台接口，更新配置
       // TODO
       // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {

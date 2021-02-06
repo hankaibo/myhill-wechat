@@ -15,8 +15,7 @@ const connect = mapToData(function (state, opt) {
     remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
-    avatarUrl: state.user.avatarUrl,
-    nickName: state.user.nickName
+    userInfo: state.user.userInfo
   }
 })
 

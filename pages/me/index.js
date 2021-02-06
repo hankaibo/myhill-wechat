@@ -14,8 +14,8 @@ const connect = mapToData(function (state, opt) {
   return {
     remote: state.app.remote,
     theme: state.app.theme,
-    avatarUrl: state.user.avatarUrl,
-    nickName: state.user.nickName
+    hasLogin: state.user.hasLogin,
+    userInfo: state.user.userInfo
   }
 })
 
@@ -25,7 +25,7 @@ Page(connect({
    * 页面的初始数据
    */
   data: {
-    dialogLogin: false,
+    show: false,
   },
 
   gotoSetting() {
@@ -36,7 +36,7 @@ Page(connect({
 
   // pc端扫码登录
   handleScan() {
-    if (this.data.userInfo) {
+    if (this.data.userInfo.nickName) {
       wx.scanCode({
         onlyFromCamera: false,
         scanType: ['qrCode'],
@@ -71,13 +71,13 @@ Page(connect({
               openid,
               uuid
             };
-            request(`${remote}/mini/api/v1/token`, 'post', user);
+            request(`${this.data.remote}/mini/api/v1/token`, 'post', user);
           }
         }
       })
     } else {
       this.setData({
-        dialogShow: true
+        show: true
       })
     }
   },
@@ -85,18 +85,17 @@ Page(connect({
   // 登录
   handleAuth(res) {
     if (res && res.detail && res.detail.userInfo) {
-      app.globalData.userInfo = res.detail.userInfo
+      user.setUserInfo(res.detail.userInfo)
       this.setData({
-        userInfo: res.detail.userInfo,
-        dialogLogin: false
-      });
+        show: false
+      })
     }
   },
 
   // 关闭登录框
   handleClose() {
     this.setData({
-      dialogLogin: false
+      show: false
     })
   },
 

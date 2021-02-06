@@ -29,7 +29,7 @@ Page(connect({
 
   updateTheme(value) {
     if (value === 'dark' || value === 'light') {
-      app.changeTheme(value);
+      app.setTheme(value);
     }
   },
 

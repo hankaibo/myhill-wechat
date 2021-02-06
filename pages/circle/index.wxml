@@ -4,17 +4,34 @@
 		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
 		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindtabclick="onTabCLick"
 		bindchange="onChange">
+		<!-- 活动圈 -->
 		<view class="tab-content" slot="tab-content-0">
-			<button type="primary" bindtap="handleSelect" class="btn">
-				<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
-			</button>
-			<view class="page__bd">
-
+			<view class="tab-content__hd">
+				<button class="block" type="primary" bindtap="handleAdd" wx:if="{{hasLogin}}">
+					<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
+				</button>
+				<button class="block" type="primary" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo" wx:else>
+					<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
+				</button>
+			</view>
+			5555555555555
+			<view class="tab-content__bd">
+				<mp-cells>
+					4444444444444444444444444
+					<mp-cell wx:for="{{playList}}" wx:key="id" hover value="{{item.name}}">
+						1111111111111{{item.startTime}}222222222222222222222
+						<image slot="icon" src="{{item.imgUrl}}" alt="封面"
+							style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
+						<view class="weui-media-box__bd">
+							<h4 class="weui-media-box__title">{{item.startTime}}</h4>
+							<view class="weui-media-box__desc">{{item.place}}</view>
+						</view>
+					</mp-cell>
+				</mp-cells>
 			</view>
 		</view>
 
 		<view class="tab-content" slot="tab-content-1">
-			test
 		</view>
 	</mp-tabs>
 </view>

@@ -20,8 +20,8 @@ const connect = mapToData(function (state, opt) {
   return {
     remote: state.app.remote,
     theme: state.app.theme,
-    avatarUrl: state.user.avatarUrl,
-    nickName: state.user.nickName
+    hasLogin: state.user.hasLogin,
+    userInfo: state.user.userInfo
   }
 })
 
@@ -33,17 +33,22 @@ Page(connect({
   data: {
     files: [],
     radioItems: [{
-        name: '学习圈',
+        name: '学习',
         value: '1',
+        disabled: true,
         checked: true
       },
       {
-        name: '绘本圈',
-        value: '2'
+        name: '绘画',
+        value: '2',
+        disabled: true,
+        checked: false
       },
       {
-        name: '活动圈',
-        value: '3'
+        name: '活动',
+        value: '3',
+        disabled: true,
+        checked: true
       }
     ],
     radio: '',
@@ -156,7 +161,7 @@ Page(connect({
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: `${app.globalData.remote}/mini/api/v1/circle/play/upload`,
+        url: `${this.data.remote}/mini/api/v1/circle/play/upload`,
         filePath: tempFilePaths,
         name: 'file',
         success(res) {
@@ -198,7 +203,7 @@ Page(connect({
           time,
         } = values;
         console.log('values,', values);
-        request(`${app.globalData.remote}/mini/api/v1/circle/play`, 'post', {
+        request(`${this.data.remote}/mini/api/v1/circle/play`, 'post', {
             ...values,
             startTime: `${date} ${time}:00`
           })

@@ -9,12 +9,11 @@ class App {
     this.theme = 'dark';
   }
 
-  changeUseSystem(value) {
-    this.useSystem = value;
+  setUseSystem(useSystem) {
+    this.useSystem = useSystem;
   }
-
-  changeTheme(theme) {
-    this.theme = theme;
+  getUseSystem() {
+    return this.useSystem;
   }
 
   setRemote(remote) {
