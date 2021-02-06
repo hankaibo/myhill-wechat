@@ -25,8 +25,7 @@
 			<view class="weui-flex__item" wx:for="{{courseList}}" wx:key="id" wx:for-item="item" data-item="{{item}}"
 				bindtap="handleSelect">
 				<view wx:if="{{item.coverUrl}}">
-					<image style="width: 100%; background-color: #eeeeee;" mode="scaleToFill"
-						src="{{item.coverUrl}}"></image>
+					<image style="width: 100%;" mode="scaleToFill" src="{{item.coverUrl}}"></image>
 				</view>
 				<view class="placeholder" wx:else>#{{item.name}}</view>
 			</view>
