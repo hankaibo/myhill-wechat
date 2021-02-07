@@ -4,32 +4,12 @@
 		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
 		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindtabclick="onTabCLick"
 		bindchange="onChange">
-
-		<!-- 全部 -->
+		<!-- 活动圈 -->
 		<view class="tab-content" slot="tab-content-0">
 			<mp-cells>
-				<mp-cell wx:for="{{allList}}" wx:key="id" hover>
-					<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
-						style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
-					<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc">
-						未提供图片
-					</view>
-					<view class="weui-media-box__bd">
-						<h4 class="weui-media-box__title">{{item.name}}</h4>
-						<view class="weui-media-box__desc">
-							<view><text>{{item.startTime}}</text></view>
-							<view><text>{{item.place}}</text></view>
-							<view><text>{{item.description}}</text></view>
-						</view>
-					</view>
-				</mp-cell>
-			</mp-cells>
-		</view>
-
-		<!-- 活动圈 -->
-		<view class="tab-content" slot="tab-content-1">
-			<mp-cells>
+				4444444444444444444444444
 				<mp-cell wx:for="{{playList}}" wx:key="id" hover value="{{item.name}}">
+					1111111111111{{item.startTime}}222222222222222222222
 					<image slot="icon" src="{{item.imgUrl}}" alt="封面"
 						style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 					<view class="weui-media-box__bd">
@@ -40,7 +20,7 @@
 			</mp-cells>
 		</view>
 
-		<view class="tab-content" slot="tab-content-2">
+		<view class="tab-content" slot="tab-content-1">
 		</view>
 	</mp-tabs>
 </view>

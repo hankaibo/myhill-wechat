@@ -88,7 +88,7 @@ Page(connect({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['活动圈', '学习圈', '绘本圈', '我创建的', '我参加的', '发现']
+    const titles = ['我创建的', '我参加的']
     const tabs = titles.map(item => ({
       title: item
     }))

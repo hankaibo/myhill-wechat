@@ -1,11 +1,11 @@
 {
+  "entryPagePath": "pages/welcome/index",
   "pages": [
+    "pages/welcome/index",
     "pages/index/index",
-    "pages/paper/index",
-    "pages/paper/before/before",
+    "pages/find/index",
     "pages/circle/index",
     "pages/circle/add/add",
-    "pages/hub/index",
     "pages/me/index",
     "pages/me/setting/setting",
     "pages/me/setting/theme/theme"
@@ -25,22 +25,22 @@
     "borderStyle": "@borderStyle",
     "backgroundColor": "@tabBarBackgroundColor",
     "list": [{
-        "pagePath": "pages/paper/before/before",
+        "pagePath": "pages/index/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
-        "text": "Demo"
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/find/index",
+        "iconPath": "images/icon_tabbar.png",
+        "selectedIconPath": "images/icon_tabbar.png",
+        "text": "发现"
       },
       {
         "pagePath": "pages/circle/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
         "text": "圈子"
-      },
-      {
-        "pagePath": "pages/hub/index",
-        "iconPath": "images/icon_tabbar.png",
-        "selectedIconPath": "images/icon_tabbar.png",
-        "text": "题库"
       },
       {
         "pagePath": "pages/me/index",

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "每日一练",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon",
-    "calendar": "/components/calendar/index"
-  }
-}

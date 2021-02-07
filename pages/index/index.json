@@ -1,5 +1,9 @@
 {
+  "navigationBarTitleText": "首页",
   "usingComponents": {
-    "mp-gallery": "/components/gallery/index"
+    "mp-tabs": "@miniprogram-component-plus/tabs",
+    "mp-cells": "weui-miniprogram/cells/cells",
+    "mp-cell": "weui-miniprogram/cell/cell",
+    "mp-icon": "weui-miniprogram/icon/icon"
   }
 }

@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "mp-select": "/components/select/index",
-    "mp-cell": "weui-miniprogram/cell/cell",
-    "mp-dialog": "weui-miniprogram/dialog/dialog"
-  }
-}

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "圈子",
+  "navigationBarTitleText": "发现",
   "usingComponents": {
     "mp-tabs": "@miniprogram-component-plus/tabs",
     "mp-cells": "weui-miniprogram/cells/cells",

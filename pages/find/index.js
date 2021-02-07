@@ -1,4 +1,4 @@
-// pages/hub/index.js
+// pages/circle/index.js
 import {
   mapToData
 } from 'minii';
@@ -6,6 +6,9 @@ import {
   app,
   user
 } from '../../stores/index.js';
+const {
+  request
+} = require('../../utils/request.js')
 
 const connect = mapToData(function (state, opt) {
   return {
@@ -17,33 +20,36 @@ const connect = mapToData(function (state, opt) {
 })
 
 Page(connect({
-
   /**
    * 页面的初始数据
    */
   data: {
-    inputShowed: false,
-    inputVal: "",
     tabs: [],
     activeTab: 0,
+    playParams: {
+      current: 1,
+      pageSize: 10,
+      name: ''
+    },
+    playList: []
   },
 
-  search: function (value) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([{
-          text: '搜索结果',
-          value: 1
-        }, {
-          text: '搜索结果2',
-          value: 2
-        }])
-      }, 200)
-    })
+  // 获取用户信息之后才让其添加
+  handleGetUserInfo(e) {
+    const {
+      userInfo
+    } = e.detail;
+    if (userInfo) {
+      user.setUserInfo(userInfo);
+      this.handleAdd();
+    }
   },
-  selectResult: function (e) {
-    console.log('select result', e.detail)
+  handleAdd() {
+    wx.navigateTo({
+      url: './add/add',
+    });
   },
+
   onTabCLick(e) {
     const index = e.detail.index
     this.setData({
@@ -56,19 +62,39 @@ Page(connect({
     this.setData({
       activeTab: index
     })
+    this.getPlayData();
+  },
+
+  getPlayData() {
+    const {
+      current,
+      pageSize,
+      name
+    } = this.data.playParams;
+    request(`${this.data.remote}/mini/api/v1/circle/play?current=${current}&pageSize=${pageSize}&name=${name}`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          playList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['我的', '发现']
+    const titles = ['关注', '推荐']
     const tabs = titles.map(item => ({
       title: item
     }))
+    //调用应用实例的方法获取全局数据
     this.setData({
-      search: this.search.bind(this),
-      tabs
+      tabs,
     })
   },
 
@@ -76,7 +102,7 @@ Page(connect({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getPlayData();
   },
 
   /**
@@ -119,5 +145,5 @@ Page(connect({
    */
   onShareAppMessage: function () {
 
-  }
+  },
 }))
