@@ -27,12 +27,22 @@ App({
         if (res.code) {
           request(`${app.getRemote()}/mini/api/v1/login?code=${res.code}`)
             .then(response => {
+              const {
+                token,
+                openid
+              } = response.data;
+              // 存储用户 openid
+              user.setUserInfo({
+                openid
+              });
+              // 存储 token
+              app.setToken(token);
               wx.setStorage({
-                data: JSON.stringify(response.data),
+                data: token,
                 key: 'miniToken',
               })
             }).catch(err => {
-              console.log('登录失败' + err)
+              console.log('登录失败' + err);
             })
         }
       }
@@ -45,12 +55,12 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              user.setUserInfo(res.userInfo)
+              user.setUserInfo(res.userInfo);
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
+                this.userInfoReadyCallback(res);
               }
             }
           })
