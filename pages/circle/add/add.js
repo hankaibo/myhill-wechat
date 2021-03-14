@@ -1,4 +1,4 @@
-// pages/circle/index.js
+// pages/circle/add/add.js
 import {
   mapToData
 } from 'minii';

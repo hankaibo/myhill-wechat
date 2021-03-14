@@ -1,4 +1,4 @@
-/* pages/circle/index.wxss */
+/* pages/find/index.wxss */
 .weui-tabs-bar__wrp {
   padding: 8px;
   background: var(--weui-BG-2) !important;
