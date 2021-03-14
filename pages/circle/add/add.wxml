@@ -4,9 +4,10 @@
   <view class="page__bd">
     <mp-form id="form" rules="{{rules}}" models="{{formData}}">
       <mp-cells>
-        <mp-cell prop="radio" title="类型" ext-class="">
+        <mp-cell prop="type" title="类型" ext-class="">
           <radio-group bindchange="radioChange">
-            <radio wx:for="{{radioItems}}" wx:key="value" value="{{item.value}}" checked="{{item.checked}}" disabled="{{item.disabled}}">
+            <radio wx:for="{{radioItems}}" wx:key="value" value="{{item.value}}" checked="{{item.checked}}"
+              disabled="{{item.disabled}}">
               {{item.name}}</radio>
           </radio-group>
         </mp-cell>
@@ -14,8 +15,7 @@
           <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" />
         </mp-cell>
         <mp-cell prop="date" title="日期" ext-class="">
-          <picker data-field="date" mode="date" value="{{date}}" start="2021-01-01" end="2021-12-31"
-            bindchange="bindDatetimeChange">
+          <picker data-field="date" mode="date" value="{{date}}" start="{{date}}" bindchange="bindDatetimeChange">
             <view class="weui-input">{{date}}</view>
           </picker>
         </mp-cell>
@@ -34,10 +34,10 @@
         <mp-cell prop="description" title="简介" ext-class="">
           <textarea bindinput="formInputChange" data-field="description" class="weui-textarea" placeholder="请输入文本"
             style="height: 5em" />
-          <view class="weui-textarea-counter">0/200</view>
+          <view class="weui-textarea-counter">{{formData.description.length}}/200</view>
         </mp-cell>
         <mp-cell prop="imgUrl" title="封面图片" ext-class="">
-            <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}"  max-count="5" title="" files="{{files}}"></mp-uploader>
+            <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}"  max-count="1" title="" files="{{files}}"></mp-uploader>
         </mp-cell>
       </mp-cells>
       <view class="weui-btn-area">
@@ -45,4 +45,5 @@
       </view>
     </mp-form>
   </view>
+
 </view>

@@ -43,3 +43,5 @@ button {
 .block {
   width: 100% !important;
 }
+
+.cell {}

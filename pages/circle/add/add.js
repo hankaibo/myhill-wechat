@@ -15,6 +15,7 @@ const {
 } = require('../../../utils/util')
 
 const datetime = new Date();
+datetime.setDate(datetime.getDate() + 1);
 
 const connect = mapToData(function (state, opt) {
   return {
@@ -51,7 +52,7 @@ Page(connect({
         checked: true
       }
     ],
-    radio: '',
+    type: '3',
     name: '',
     date: formatDate(datetime),
     time: '10:00',
@@ -59,40 +60,53 @@ Page(connect({
     isOpen: true,
     description: '',
     formData: {
+      type: '3',
       date: formatDate(datetime),
       time: '10:00',
       isOpen: true,
+      description: ''
     },
-    rulse: [{
-        name: 'radio',
+    rules: [{
+        name: 'type',
         rules: {
-          required: true
+          required: true,
+          message: '类型是必填项'
         }
       },
       {
         name: 'name',
         rules: {
-          required: true
+          required: true,
+          message: '名称是必填项'
         }
       },
       {
         name: 'date',
         rules: {
-          required: true
+          required: true,
+          message: '日期是必填项'
         }
       },
       {
         name: 'time',
         rules: {
-          required: true
+          required: true,
+          message: '时间是必填项'
         }
       },
       {
         name: 'place',
         rules: {
-          required: true
+          required: true,
+          message: '地点是必填项'
         }
       },
+      {
+        name: 'description',
+        rules: {
+          maxlength: 20
+        }
+      }
     ]
   },
   radioChange: function (e) {
