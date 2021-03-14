@@ -30,7 +30,7 @@ Page(connect({
 
   handleEnter() {
     wx.switchTab({
-      url: '../index/index',
+      url: '../home/index',
     })
   },
 
@@ -49,7 +49,7 @@ Page(connect({
           })
         } else {
           wx.switchTab({
-            url: '../index/index',
+            url: '../home/index',
           })
         }
       })

@@ -2,7 +2,7 @@
   "entryPagePath": "pages/welcome/index",
   "pages": [
     "pages/welcome/index",
-    "pages/index/index",
+    "pages/home/index",
     "pages/find/index",
     "pages/circle/index",
     "pages/circle/add/add",
@@ -24,8 +24,9 @@
     "selectedColor": "#07c160",
     "borderStyle": "@borderStyle",
     "backgroundColor": "@tabBarBackgroundColor",
-    "list": [{
-        "pagePath": "pages/index/index",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
         "text": "首页"
