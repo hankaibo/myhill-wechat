@@ -6,6 +6,7 @@
     "pages/find/index",
     "pages/circle/index",
     "pages/circle/add/add",
+    "pages/circle/detail/detail",
     "pages/me/index",
     "pages/me/setting/setting",
     "pages/me/setting/theme/theme"
