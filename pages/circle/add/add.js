@@ -2,10 +2,6 @@
 import {
   mapToData
 } from 'minii';
-import {
-  app,
-  user
-} from '../../../stores/index.js';
 const {
   request
 } = require('../../../utils/request.js')
@@ -211,14 +207,20 @@ Page(connect({
           })
         }
       } else {
-        const values = this.data.formData;
+        const {
+          formData,
+          userInfo
+        } = this.data;
         const {
           date,
           time,
-        } = values;
-        console.log('values,', values);
-        request(`${this.data.remote}/mini/api/v1/circle/play`, 'post', {
-            ...values,
+        } = formData;
+        const {
+          openid
+        } = userInfo;
+        console.log('values,', formData);
+        request(`${this.data.remote}/mini/api/v1/circle/${openid}/play`, 'post', {
+            ...formData,
             startTime: `${date} ${time}:00`
           })
           .then(({
