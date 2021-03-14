@@ -12,7 +12,7 @@
 					<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
 						style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 					<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc">
-						未提供图片
+
 					</view>
 					<view class="weui-media-box__bd">
 						<h4 class="weui-media-box__title">{{item.name}}</h4>
