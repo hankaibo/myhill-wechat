@@ -3,7 +3,6 @@ import {
   mapToData
 } from 'minii';
 import {
-  app,
   user
 } from '../../stores/index.js';
 const {
@@ -26,12 +25,11 @@ Page(connect({
   data: {
     tabs: [],
     activeTab: 0,
-    playParams: {
-      current: 1,
+    params: {
+      pageNum: 1,
       pageSize: 10,
-      name: ''
     },
-    playList: []
+    list: []
   },
 
   // 获取用户信息之后才让其添加
@@ -41,13 +39,8 @@ Page(connect({
     } = e.detail;
     if (userInfo) {
       user.setUserInfo(userInfo);
-      this.handleAdd();
+      this.getData();
     }
-  },
-  handleAdd() {
-    wx.navigateTo({
-      url: './add/add',
-    });
   },
 
   onTabCLick(e) {
@@ -62,21 +55,33 @@ Page(connect({
     this.setData({
       activeTab: index
     })
-    this.getPlayData();
+    this.getData();
   },
 
-  getPlayData() {
+  getData() {
     const {
-      current,
-      pageSize,
-      name
-    } = this.data.playParams;
-    request(`${this.data.remote}/mini/api/v1/circle/play?current=${current}&pageSize=${pageSize}&name=${name}`, 'get')
+      hasLogin
+    } = this.data;
+    if (!hasLogin) {
+      return
+    }
+    const {
+      params,
+      userInfo
+    } = this.data;
+    const {
+      pageNum,
+      pageSize
+    } = params;
+    const {
+      openid
+    } = userInfo;
+    request(`${this.data.remote}/mini/api/v1/circle/play?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
       .then(({
         data
       }) => {
         this.setData({
-          playList: data.list
+          list: data.list
         });
       })
       .catch(e => {
@@ -102,7 +107,7 @@ Page(connect({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getPlayData();
+    this.getData();
   },
 
   /**
