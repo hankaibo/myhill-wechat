@@ -7,6 +7,7 @@ class User {
   constructor() {
     this.hasLogin = false;
     this.userInfo = {
+      openid: '',
       nickName: '',
       avatarUrl: base64.icon60,
       gender: 0,
@@ -22,7 +23,10 @@ class User {
   }
 
   setUserInfo(userInfo) {
-    this.userInfo = userInfo;
+    this.userInfo = {
+      ...this.userInfo,
+      ...userInfo
+    };
     if (userInfo.nickName) {
       this.hasLogin = true;
     } else {
