@@ -3,9 +3,11 @@
 	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected"
 		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
 		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindtabclick="onTabCLick"
-		bindchange="onChange">
-		<!-- 活动圈 -->
-		<view class="tab-content" slot="tab-content-0">
+		bindchange="onChange" swiperStyle="height: {{weuiTabsSwiperHeight}}px">
+		<!-- 我创建的 -->
+		<scroll-view class="tab-content" slot="tab-content-0" scroll-y="true" style="height: calc(100vh - 51px)"
+			bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}"
+			scroll-top="{{scrollTop}}">
 			<view class="tab-content__hd">
 				<button class="block" type="primary" bindtap="handleAdd" wx:if="{{hasLogin}}">
 					<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
@@ -14,12 +16,9 @@
 					<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
 				</button>
 			</view>
-			5555555555555
 			<view class="tab-content__bd">
 				<mp-cells>
-					4444444444444444444444444
 					<mp-cell wx:for="{{playList}}" wx:key="id" hover value="{{item.name}}">
-						1111111111111{{item.startTime}}222222222222222222222
 						<image slot="icon" src="{{item.imgUrl}}" alt="封面"
 							style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 						<view class="weui-media-box__bd">
@@ -29,9 +28,24 @@
 					</mp-cell>
 				</mp-cells>
 			</view>
-		</view>
+		</scroll-view>
 
-		<view class="tab-content" slot="tab-content-1">
-		</view>
+		<!-- 我参加的 -->
+		<scroll-view class="tab-content" slot="tab-content-1" scroll-y="true" style="height: calc(100vh - 51px)"
+			bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}"
+			scroll-top="{{scrollTop}}">
+			<view class="tab-content__bd">
+				<mp-cells>
+					<mp-cell wx:for="{{playList}}" wx:key="id" hover value="{{item.name}}">
+						<image slot="icon" src="{{item.imgUrl}}" alt="封面"
+							style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
+						<view class="weui-media-box__bd">
+							<h4 class="weui-media-box__title">{{item.startTime}}</h4>
+							<view class="weui-media-box__desc">{{item.place}}</view>
+						</view>
+					</mp-cell>
+				</mp-cells>
+			</view>
+		</scroll-view>
 	</mp-tabs>
 </view>
