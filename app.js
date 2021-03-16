@@ -35,12 +35,11 @@ App({
               user.setUserInfo({
                 openid
               });
-              // 存储 token
-              app.setToken(token);
-              wx.setStorage({
-                data: token,
-                key: 'miniToken',
-              })
+              try {
+                wx.setStorageSync('miniToken', token)
+              } catch (error) {
+                console.log('---------->', error);
+              }
             }).catch(err => {
               console.log('登录失败' + err);
             })
