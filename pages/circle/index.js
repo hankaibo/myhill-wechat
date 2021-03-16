@@ -29,7 +29,13 @@ Page(connect({
       pageNum: 1,
       pageSize: 10
     },
-    list: []
+    list: [],
+    slideButtons: [{
+      text: '编辑',
+    }, {
+      type: 'warn',
+      text: '删除',
+    }],
   },
 
   // 获取用户信息之后才让其添加
@@ -44,10 +50,61 @@ Page(connect({
   },
   handleAdd() {
     wx.navigateTo({
-      url: './add/add',
+      url: './form/form',
     });
   },
+  slideButtonTap(e) {
+    console.log(e);
+    const {
+      index
+    } = e.detail;
+    const {
+      field: {
+        id
+      }
+    } = e.currentTarget.dataset;
+    if (index === 0) {
+      this.handleEdit(e);
+    }
+    if (index === 1) {
+      this.handleDel(id);
+    }
+  },
+  // 编辑
+  handleEdit(e) {
+    const {
+      field
+    } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: './form/form',
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          edit: true,
+          circle: field
+        })
+      }
+    })
+  },
+  // 删除
+  handleDel(id) {
+    const {
+      openid
+    } = this.data.userInfo;
+    request(`${this.data.remote}/mini/api/v1/circle/${openid}/play/${id}`, 'delete')
+      .then(() => {
+        this.getData();
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
+  // 查看
+  handleView() {
 
+  },
+
+  // 切换标签
   onTabCLick(e) {
     const index = e.detail.index
     this.setData({

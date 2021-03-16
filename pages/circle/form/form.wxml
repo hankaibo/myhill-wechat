@@ -1,4 +1,4 @@
-<!--pages/circle/add.wxml-->
+<!--pages/circle/form/form.wxml-->
 <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
 <view class="page" data-weui-theme="{{theme}}">
   <view class="page__bd">
@@ -12,31 +12,34 @@
           </radio-group>
         </mp-cell>
         <mp-cell prop="name" title="名称" ext-class="">
-          <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" />
+          <input value="{{formData.name}}" bindinput="formInputChange" data-field="name" class="weui-input"
+            placeholder="请输入名称" />
         </mp-cell>
         <mp-cell prop="date" title="日期" ext-class="">
-          <picker data-field="date" mode="date" value="{{date}}" start="{{date}}" bindchange="bindDatetimeChange">
-            <view class="weui-input">{{date}}</view>
+          <picker data-field="date" mode="date" value="{{formData.date}}" start="{{formData.date}}"
+            bindchange="bindDatetimeChange">
+            <view class="weui-input">{{formData.date}}</view>
           </picker>
         </mp-cell>
         <mp-cell prop="time" title="时间" ext-class="">
-          <picker data-field="time" mode="time" value="{{time}}" start="00:00" end="23:59"
+          <picker data-field="time" mode="time" value="{{formData.time}}" start="00:00" end="23:59"
             bindchange="bindDatetimeChange">
-            <view class="weui-input">{{time}}</view>
+            <view class="weui-input">{{formData.time}}</view>
           </picker>
         </mp-cell>
         <mp-cell prop="place" title="地点" ext-class="">
-          <input bindinput="formInputChange" data-field="place" class="weui-input" placeholder="请输入地点" />
+          <input value="{{formData.place}}" bindinput="formInputChange" data-field="place" class="weui-input"
+            placeholder="请输入地点" />
         </mp-cell>
         <mp-cell prop="isOpen" title="开放" ext-class="">
-          <switch checked bindchange="formSwitchChange" />
+          <switch checked="{{formData.isOpen}}" bindchange="formSwitchChange" />
         </mp-cell>
         <mp-cell prop="description" title="简介" ext-class="">
-          <textarea bindinput="formInputChange" data-field="description" class="weui-textarea" placeholder="请输入文本"
-            style="height: 5em" />
+          <textarea value="{{formData.description}}" bindinput="formInputChange" data-field="description"
+            class="weui-textarea" placeholder="请输入文本" style="height: 5em" />
           <view class="weui-textarea-counter">{{formData.description.length}}/200</view>
         </mp-cell>
-        <mp-cell prop="imgUrl" title="封面图片" ext-class="">
+        <mp-cell title="封面图片" ext-class="">
             <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}"  max-count="1" title="" files="{{files}}"></mp-uploader>
         </mp-cell>
       </mp-cells>

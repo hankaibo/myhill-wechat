@@ -1,4 +1,4 @@
-// pages/circle/add/add.js
+// pages/circle/form/form.js
 import {
   mapToData
 } from 'minii';
@@ -48,13 +48,6 @@ Page(connect({
         checked: true
       }
     ],
-    type: '3',
-    name: '',
-    date: formatDate(datetime),
-    time: '10:00',
-    place: '',
-    isOpen: true,
-    description: '',
     formData: {
       type: '3',
       date: formatDate(datetime),
@@ -123,7 +116,6 @@ Page(connect({
       field
     } = e.currentTarget.dataset
     this.setData({
-      [field]: e.detail.value,
       [`formData.${field}`]: e.detail.value
     })
   },
@@ -137,7 +129,6 @@ Page(connect({
   },
   formSwitchChange(e) {
     this.setData({
-      isOpen: e.detail.value,
       [`formData.isOpen`]: e.detail.value
     })
   },
@@ -249,6 +240,47 @@ Page(connect({
     this.setData({
       selectFile: this.selectFile.bind(this),
       uplaodFile: this.uplaodFile.bind(this)
+    })
+    const eventChannel = this.getOpenerEventChannel()
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      const {
+        edit,
+        circle
+      } = data;
+      if (edit) {
+        wx.setNavigationBarTitle({
+          title: '编辑圈子',
+        })
+      }
+      if (circle) {
+        console.log(circle)
+        const {
+          id,
+          name,
+          startTime,
+          place,
+          isOpen,
+          description,
+        } = circle;
+        const datetimeArr = startTime.split(' ');
+        let date = null;
+        let time = null;
+        if (datetimeArr.length === 2) {
+          date = datetimeArr[0];
+          time = datetimeArr[1];
+        }
+        this.setData({
+          formData: {
+            name,
+            date,
+            time,
+            place,
+            isOpen,
+            description,
+          }
+        })
+      }
     })
   },
 
