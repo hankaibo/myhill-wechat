@@ -100,8 +100,19 @@ Page(connect({
       })
   },
   // 查看
-  handleView() {
-
+  handleView(e) {
+    const {
+      field
+    } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: './detail/detail',
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          id: field
+        })
+      }
+    })
   },
 
   // 切换标签

@@ -23,7 +23,7 @@
 				<mp-cells>
 					<mp-slideview buttons="{{slideButtons}}" data-field="{{item}}" bindbuttontap="slideButtonTap"
 						wx:for="{{list}}" wx:key="id">
-						<mp-cell hover extClass="cell" data-field="{{item}}" bindtap="handleView">
+						<mp-cell hover extClass="cell" data-field="{{item.id}}" bindtap="handleView">
 							<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
 								style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 							<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />

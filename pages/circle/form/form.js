@@ -203,6 +203,7 @@ Page(connect({
           userInfo
         } = this.data;
         const {
+          id,
           date,
           time,
         } = formData;
@@ -210,25 +211,44 @@ Page(connect({
           openid
         } = userInfo;
         console.log('values,', formData);
-        request(`${this.data.remote}/mini/api/v1/circle/${openid}/play`, 'post', {
-            ...formData,
-            startTime: `${date} ${time}:00`
-          })
-          .then(({
-            data
-          }) => {
-            wx.showToast({
-              title: '成功',
-              icon: 'success',
-              duration: 2000
+        // 编辑
+        if (id) {
+          request(`${this.data.remote}/mini/api/v1/circle/${openid}/play/${id}`, 'put', {
+              ...formData,
+              startTime: `${date} ${time.substr(0,5)}:00`
             })
-            wx.navigateBack({
-              delta: 1
+            .then(() => {
+              wx.showToast({
+                title: '修改成功',
+                icon: 'success',
+                duration: 2000
+              })
+              wx.navigateBack({
+                delta: 1
+              })
             })
-          })
-          .catch(e => {
-            console.log(e)
-          })
+            .catch(e => {
+              console.log(e)
+            })
+        } else {
+          request(`${this.data.remote}/mini/api/v1/circle/${openid}/play`, 'post', {
+              ...formData,
+              startTime: `${date} ${time}:00`
+            })
+            .then(() => {
+              wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+                duration: 2000
+              })
+              wx.navigateBack({
+                delta: 1
+              })
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        }
       }
     })
   },
@@ -257,6 +277,7 @@ Page(connect({
         console.log(circle)
         const {
           id,
+          type = 3,
           name,
           startTime,
           place,
@@ -272,6 +293,8 @@ Page(connect({
         }
         this.setData({
           formData: {
+            id,
+            type,
             name,
             date,
             time,
