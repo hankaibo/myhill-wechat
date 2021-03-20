@@ -29,27 +29,21 @@ Page(connect({
    */
   data: {
     files: [],
-    radioItems: [{
+    typeList: [{
         name: '学习',
-        value: '1',
-        disabled: true,
-        checked: true
+        value: 'study',
       },
       {
         name: '绘画',
-        value: '2',
-        disabled: true,
-        checked: false
+        value: 'book',
       },
       {
         name: '活动',
-        value: '3',
-        disabled: true,
-        checked: true
+        value: 'play',
       }
     ],
     formData: {
-      type: '3',
+      type: 0,
       date: formatDate(datetime),
       time: '10:00',
       isOpen: true,
@@ -98,23 +92,10 @@ Page(connect({
       }
     ]
   },
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
-
-    var radioItems = this.data.radioItems;
-    for (var i = 0, len = radioItems.length; i < len; ++i) {
-      radioItems[i].checked = radioItems[i].value == e.detail.value;
-    }
-
-    this.setData({
-      radioItems: radioItems,
-      [`formData.radio`]: e.detail.value
-    });
-  },
-  bindDatetimeChange: function (e) {
+  formPickerChange: function (e) {
     const {
       field
-    } = e.currentTarget.dataset
+    } = e.currentTarget.dataset;
     this.setData({
       [`formData.${field}`]: e.detail.value
     })
@@ -155,14 +136,19 @@ Page(connect({
     console.log('files', files)
     // 返回false可以阻止某次文件上传
   },
-  uplaodFile(files) {
+  uploadFile(files) {
+    const {
+      userInfo: {
+        openid
+      }
+    } = this.data;
     let that = this;
     console.log('upload files', files);
     const tempFilePaths = files.tempFilePaths[0];
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: `${this.data.remote}/mini/api/v1/circle/play/upload`,
+        url: `${this.data.remote}/mini/api/v1/circle/${openid}/upload`,
         filePath: tempFilePaths,
         name: 'file',
         success(res) {
@@ -182,10 +168,15 @@ Page(connect({
     })
   },
   uploadError(e) {
-    console.log('upload error', e.detail)
+    wx.showToast({
+      title: '上传图片失败',
+      icon: 'error'
+    })
   },
   uploadSuccess(e) {
-    console.log('upload success', e.detail)
+    wx.showToast({
+      title: '上传图片成功'
+    })
   },
   submitForm() {
     this.selectComponent('#form').validate((valid, errors) => {
@@ -200,17 +191,15 @@ Page(connect({
       } else {
         const {
           formData,
-          userInfo
+          userInfo: {
+            openid
+          }
         } = this.data;
         const {
           id,
           date,
           time,
         } = formData;
-        const {
-          openid
-        } = userInfo;
-        console.log('values,', formData);
         // 编辑
         if (id) {
           request(`${this.data.remote}/mini/api/v1/circle/${openid}/play/${id}`, 'put', {
@@ -259,7 +248,7 @@ Page(connect({
   onLoad: function (options) {
     this.setData({
       selectFile: this.selectFile.bind(this),
-      uplaodFile: this.uplaodFile.bind(this)
+      uploadFile: this.uploadFile.bind(this)
     })
     const eventChannel = this.getOpenerEventChannel()
     // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
