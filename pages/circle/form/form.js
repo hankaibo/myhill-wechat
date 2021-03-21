@@ -30,20 +30,29 @@ Page(connect({
   data: {
     files: [],
     typeList: [{
-        name: '学习',
-        value: 'study',
+        name: '学习圈',
+        value: 'STUDY',
       },
       {
-        name: '绘画',
-        value: 'book',
+        name: '活动圈',
+        value: 'PLAY',
       },
       {
-        name: '活动',
-        value: 'play',
+        name: '绘画圈',
+        value: 'PAINING',
+      },
+      {
+        name: '图书圈',
+        value: 'BOOK',
+      },
+      {
+        name: '知识圈',
+        value: 'KNOW',
       }
     ],
     formData: {
       type: 0,
+      status: 'ENABLED',
       date: formatDate(datetime),
       time: '10:00',
       isOpen: true,
@@ -180,7 +189,6 @@ Page(connect({
   },
   submitForm() {
     this.selectComponent('#form').validate((valid, errors) => {
-      console.log('valid', valid, errors)
       if (!valid) {
         const firstError = Object.keys(errors)
         if (firstError.length) {
@@ -190,6 +198,7 @@ Page(connect({
         }
       } else {
         const {
+          typeList,
           formData,
           userInfo: {
             openid
@@ -197,14 +206,16 @@ Page(connect({
         } = this.data;
         const {
           id,
+          type,
           date,
           time,
         } = formData;
         // 编辑
         if (id) {
-          request(`${this.data.remote}/mini/api/v1/circle/${openid}/play/${id}`, 'put', {
+          request(`${this.data.remote}/mini/api/v1/circle/${openid}/${id}`, 'put', {
               ...formData,
-              startTime: `${date} ${time.substr(0,5)}:00`
+              startTime: `${date} ${time.substr(0,5)}:00`,
+              type: typeList[type].value
             })
             .then(() => {
               wx.showToast({
@@ -220,9 +231,10 @@ Page(connect({
               console.log(e)
             })
         } else {
-          request(`${this.data.remote}/mini/api/v1/circle/${openid}/play`, 'post', {
+          request(`${this.data.remote}/mini/api/v1/circle/${openid}`, 'post', {
               ...formData,
-              startTime: `${date} ${time}:00`
+              startTime: `${date} ${time}:00`,
+              type: typeList[type].value
             })
             .then(() => {
               wx.showToast({

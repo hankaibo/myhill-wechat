@@ -76,7 +76,7 @@ Page(connect({
     const {
       openid
     } = userInfo;
-    request(`${this.data.remote}/mini/api/v1/circle/play?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
+    request(`${this.data.remote}/mini/api/v1/circle/${openid}/star?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
       .then(({
         data
       }) => {

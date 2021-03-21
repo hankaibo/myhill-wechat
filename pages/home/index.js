@@ -26,54 +26,131 @@ Page(connect({
   data: {
     tabs: [],
     activeTab: 0,
-    // 全部参数及数据
-    allParams: {
-      current: 1,
-      pageSize: 20
-    },
+    // 全部
     allList: [],
-    // 活动圈参数及数据
-    playParams: {
-      current: 1,
-      pageSize: 10,
-      name: ''
+    allParams: {
+      pageNum: 1,
+      pageSize: 10
     },
-    playList: []
+    // 学习
+    studyList: [],
+    studyParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    // 活动
+    playList: [],
+    playParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    // 绘画
+    painingList: [],
+    painingParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    // 图书
+    bookList: [],
+    bookParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
+    // 知识
+    knowList: [],
+    knowParams: {
+      pageNum: 1,
+      pageSize: 10
+    },
   },
 
-  // 获取用户信息之后才让其添加
-  handleGetUserInfo(e) {
+  handleView(e) {
     const {
-      userInfo
-    } = e.detail;
-    if (userInfo) {
-      user.setUserInfo(userInfo);
-      this.handleAdd();
-    }
+      field
+    } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: './detail/detail',
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          id: field
+        })
+      }
+    })
   },
 
   onTabCLick(e) {
-    const index = e.detail.index
+    const {
+      index
+    } = e.detail;
     this.setData({
       activeTab: index
     })
+    this.getData(index);
   },
 
   onChange(e) {
-    const index = e.detail.index
+    const {
+      index
+    } = e.detail;
     this.setData({
       activeTab: index
     })
-    this.getPlayData();
+    this.getData(index);
+  },
+
+  getData(index) {
+    const {
+      allList,
+      studyList,
+      playList,
+      painingList,
+      bookList,
+      knowList
+    } = this.data;
+    switch (index) {
+      case 0:
+        if (allList.length === 0) {
+          this.getAllData();
+        }
+        break;
+      case 1:
+        if (studyList.length === 0) {
+          this.getStudyData();
+        }
+        break;
+      case 2:
+        if (playList.length === 0) {
+          this.getPlayData();
+        }
+        break;
+      case 3:
+        if (painingList.length === 0) {
+          this.getPainingData();
+        }
+        break;
+      case 4:
+        if (bookList.length === 0) {
+          this.getBookData();
+        }
+        break;
+      case 5:
+        if (knowList.length === 0) {
+          this.getKnowData();
+        }
+        break;
+      default:
+        this.getAllData();
+    }
   },
 
   // 查询全部
   getAllData() {
     const {
-      current,
-      pageSize
+      pageNum,
+      pageSize,
     } = this.data.allParams;
-    request(`${this.data.remote}/mini/api/v1/circle/play?current=${current}&pageSize=${pageSize}`, 'get')
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
       .then(({
         data
       }) => {
@@ -85,15 +162,31 @@ Page(connect({
         console.log(e)
       })
   },
-
+  // 查询学习圈
+  getStudyData() {
+    const {
+      pageNum,
+      pageSize,
+    } = this.data.studyParams;
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=STUDY`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          studyList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
   // 查询活动圈
   getPlayData() {
     const {
-      current,
+      pageNum,
       pageSize,
-      name
     } = this.data.playParams;
-    request(`${this.data.remote}/mini/api/v1/circle/play?current=${current}&pageSize=${pageSize}&name=${name}`, 'get')
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=PLAY`, 'get')
       .then(({
         data
       }) => {
@@ -105,12 +198,66 @@ Page(connect({
         console.log(e)
       })
   },
+  // 查询绘画圈
+  getPainingData() {
+    const {
+      pageNum,
+      pageSize,
+    } = this.data.painingParams;
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=PAINING`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          painingList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
+  // 查询图书圈
+  getBookData() {
+    const {
+      pageNum,
+      pageSize,
+    } = this.data.bookParams;
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=BOOK`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          bookList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
+  // 查询知识圈
+  getKnowData() {
+    const {
+      pageNum,
+      pageSize,
+    } = this.data.knowParams;
+    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=KNOW`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          knowList: data.list
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['全部', '学习圈', '活动圈', '绘本圈', '热门圈', '知识圈']
+    const titles = ['全部', '学习圈', '活动圈', '绘画圈', '图书圈', '知识圈']
     const tabs = titles.map(item => ({
       title: item
     }))

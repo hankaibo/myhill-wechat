@@ -1,0 +1,6 @@
+/* pages/circle/detail/detail.wxss */
+.weui-cell__hd {
+  width: 180rpx;
+  text-align: right;
+  font-weight: 600;
+}

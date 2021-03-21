@@ -91,7 +91,7 @@ Page(connect({
     const {
       openid
     } = this.data.userInfo;
-    request(`${this.data.remote}/mini/api/v1/circle/${openid}/play/${id}`, 'delete')
+    request(`${this.data.remote}/mini/api/v1/circle/${openid}/${id}`, 'delete')
       .then(() => {
         this.getData();
       })
@@ -149,7 +149,10 @@ Page(connect({
     const {
       openid
     } = userInfo;
-    request(`${this.data.remote}/mini/api/v1/circle/${openid}/play?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
+    if (!openid) {
+      return;
+    }
+    request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
       .then(({
         data
       }) => {

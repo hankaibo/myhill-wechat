@@ -32,7 +32,7 @@ Page(connect({
       },
       remote
     } = this.data;
-    request(`${remote}/mini/api/v1/circle/${openid}/play/${id}`, 'get')
+    request(`${remote}/mini/api/v1/circle/${openid}/${id}`, 'get')
       .then(({
         data
       }) => {

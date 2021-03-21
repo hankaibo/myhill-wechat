@@ -1,58 +1,61 @@
-// pages/welcome/index.js
+// pages/circle/detail/detail.js
 import {
   mapToData
 } from 'minii';
 const {
   request
-} = require('../../utils/request.js')
+} = require('../../../utils/request.js');
 
 const connect = mapToData(function (state, opt) {
   return {
     remote: state.app.remote,
     theme: state.app.theme,
+    hasLogin: state.user.hasLogin,
+    userInfo: state.user.userInfo
   }
 })
 
 Page(connect({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    // 画廊属性
-    show: true,
-    imgUrls: [],
-    current: 0,
+
   },
 
-  // 画廊事件
-  handleChange(e) {
-    this.setData({
-      idx: e.detail.current
-    })
-  },
 
-  handleEnter() {
-    wx.switchTab({
-      url: '../home/index',
-    })
+  getData(id) {
+    const {
+      remote
+    } = this.data;
+    request(`${remote}/mini/api/v1/circle/${id}`, 'get')
+      .then(({
+        data
+      }) => {
+        this.setData({
+          ...data
+        });
+      })
+      .catch(e => {
+        console.log(e)
+      })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-    request(`${this.data.remote}/mini/api/v1/welcome`, 'get')
-      .then(({
-        data
-      }) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const imgUrls = data.sort((a, b) => a.sequence - b.sequence).map(item => item.imgUrl);
-          this.setData({
-            imgUrls
-          })
-        } else {
-          wx.switchTab({
-            url: '../home/index',
-          })
-        }
-      })
+  onLoad: function (options) {
+    const eventChannel = this.getOpenerEventChannel()
+    // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      const {
+        id,
+      } = data;
+      if (id) {
+        this.getData(id);
+      }
+    })
   },
 
   /**

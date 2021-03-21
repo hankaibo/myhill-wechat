@@ -1,0 +1,35 @@
+<!--pages/circle/detail/detail.wxml-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="page__bd">
+    <mp-cells>
+      <mp-cell prop="type" title="类型:" ext-class="">
+        {{type}}
+      </mp-cell>
+      <mp-cell prop="name" title="名称:" ext-class="label">
+        {{name}}
+      </mp-cell>
+      <mp-cell prop="date" title="日期时间:" ext-class="">
+        {{startTime}}
+      </mp-cell>
+      <mp-cell prop="place" title="地点:" ext-class="">
+        {{place}}
+      </mp-cell>
+      <mp-cell prop="isOpen" title="开放:" ext-class="">
+        {{isOpen}}
+      </mp-cell>
+      <mp-cell prop="description" title="简介:" ext-class="">
+        {{description}}
+      </mp-cell>
+      <mp-cell title="参加人员:">
+        <view wx:for="{{userList}}" wx:key="id">
+          <image mode="aspectFit" src="{{item.avatar}}"
+            style="width: 100rpx; height: 100rpx; background-color: #eeeeee; border-radius: 50rpx"></image>
+          <text>{{item.nickname}}</text>
+        </view>
+      </mp-cell>
+    </mp-cells>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+    </view>
+  </view>
+</view>

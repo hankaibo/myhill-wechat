@@ -3,6 +3,7 @@
   "pages": [
     "pages/welcome/index",
     "pages/home/index",
+    "pages/home/detail/detail",
     "pages/find/index",
     "pages/circle/index",
     "pages/circle/form/form",
@@ -25,8 +26,7 @@
     "selectedColor": "#07c160",
     "borderStyle": "@borderStyle",
     "backgroundColor": "@tabBarBackgroundColor",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/index",
         "iconPath": "images/icon_tabbar.png",
         "selectedIconPath": "images/icon_tabbar.png",
