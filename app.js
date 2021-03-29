@@ -38,10 +38,10 @@ App({
               try {
                 wx.setStorageSync('miniToken', token)
               } catch (error) {
-                console.log('---------->', error);
+                console.log('同步保存token失败，原因：', error);
               }
             }).catch(err => {
-              console.log('登录失败' + err);
+              console.log('登录失败，原因：' + err);
             })
         }
       }

@@ -54,7 +54,6 @@ Page(connect({
     });
   },
   slideButtonTap(e) {
-    console.log(e);
     const {
       index
     } = e.detail;
@@ -96,7 +95,7 @@ Page(connect({
         this.getData();
       })
       .catch(e => {
-        console.log(e)
+        console.log('删除圈子失败，原因：', e);
       })
   },
   // 查看

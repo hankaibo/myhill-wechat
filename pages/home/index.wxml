@@ -7,7 +7,7 @@
 
 		<!-- 全部 -->
 		<scroll-view class="tab-content" slot="tab-content-0" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="0">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{allList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
@@ -31,7 +31,7 @@
 		</scroll-view>
 		<!-- 学习 -->
 		<scroll-view class="tab-content" slot="tab-content-1" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="1">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{studyList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
@@ -55,7 +55,7 @@
 		</scroll-view>
 		<!-- 活动 -->
 		<scroll-view class="tab-content" slot="tab-content-2" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="2">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{playList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
@@ -79,7 +79,7 @@
 		</scroll-view>
 		<!-- 绘画 -->
 		<scroll-view class="tab-content" slot="tab-content-3" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="3">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{painingList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
@@ -103,7 +103,7 @@
 		</scroll-view>
 		<!-- 图书 -->
 		<scroll-view class="tab-content" slot="tab-content-4" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="4">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{bookList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
@@ -127,7 +127,7 @@
 		</scroll-view>
 		<!-- 知识 -->
 		<scroll-view class="tab-content" slot="tab-content-5" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower">
+			bindscrolltoupper="upper" bindscrolltolower="lower" data-index="5">
 			<view class="tab-content__bd">
 				<mp-cells>
 					<mp-cell wx:for="{{knowList}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">

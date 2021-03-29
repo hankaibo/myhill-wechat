@@ -3,7 +3,6 @@ import {
   mapToData
 } from 'minii';
 import {
-  app,
   user
 } from '../../stores/index.js';
 const {
@@ -18,6 +17,8 @@ const connect = mapToData(function (state, opt) {
     userInfo: state.user.userInfo
   }
 })
+
+const appInstance = getApp();
 
 Page(connect({
   /**
@@ -144,113 +145,301 @@ Page(connect({
     }
   },
 
+  handleSwitch(index, direction) {
+    switch (Number.parseInt(index, 10)) {
+      case 0:
+        this.getAllData(direction);
+        break;
+      case 1:
+        this.getStudyData(direction);
+        break;
+      case 2:
+        this.getPlayData(direction);
+        break;
+      case 3:
+        this.getPainingData(direction);
+        break;
+      case 4:
+        this.getBookData(direction);
+        break;
+      case 5:
+        this.getKnowData(direction);
+        break;
+      default:
+        this.getAllData(direction);
+    }
+  },
+  upper(e) {
+    const {
+      index
+    } = e.target;
+    this.handleSwitch(index, 'up');
+  },
+  lower(e) {
+    const {
+      index
+    } = e.target;
+    this.handleSwitch(index, 'down');
+  },
+
   // 查询全部
-  getAllData() {
+  getAllData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.allParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          allList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      allList
+    } = this.data;
+    // 向下，页数加1
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            allList: allList.concat(data.list),
+            allParams: {
+              pageNum: pageNum + 1,
+              pageSize,
+            }
+          });
+        })
+        .catch(e => {
+          console.log('下滑事件获取全部圈子数据失败，失败原因：', e);
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            allList: data.list,
+            allParams: {
+              pageNum: 1,
+              pageSize,
+            }
+          });
+        })
+        .catch(e => {
+          console.log('上拉事件获取全部圈子数据失败，失败原因：', e);
+        })
+    }
   },
   // 查询学习圈
-  getStudyData() {
+  getStudyData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.studyParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=STUDY`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          studyList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      studyList
+    } = this.data;
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=STUDY`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            studyList: studyList.concat(data.list),
+            studyParams: {
+              pageNum: pageNum + 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=STUDY`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            studyList: data.list,
+            studyParams: {
+              pageNum: 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   },
   // 查询活动圈
-  getPlayData() {
+  getPlayData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.playParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=PLAY`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          playList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      playList
+    } = this.data;
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=PLAY`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            playList: playList.concat(data.list),
+            playParams: {
+              pageNum: pageNum + 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=PLAY`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            playList: data.list,
+            playParams: {
+              pageNum: 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   },
   // 查询绘画圈
-  getPainingData() {
+  getPainingData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.painingParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=PAINING`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          painingList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      painingList
+    } = this.data;
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=PAINING`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            painingList: painingList.concat(data.list),
+            painingParams: {
+              pageNum: pageNum + 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=PAINING`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            painingList: data.list,
+            painingParams: {
+              pageNum: 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   },
   // 查询图书圈
-  getBookData() {
+  getBookData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.bookParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=BOOK`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          bookList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      bookList
+    } = this.data;
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=BOOK`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            bookList: bookList.concat(data.list),
+            bookParams: {
+              pageNum: pageNum + 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=BOOK`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            bookList: data.list,
+            bookParams: {
+              pageNum: 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   },
   // 查询知识圈
-  getKnowData() {
+  getKnowData(direction = 'up') {
     const {
       pageNum,
       pageSize,
     } = this.data.knowParams;
-    request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum}&pageSize=${pageSize}&type=KNOW`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          knowList: data.list
-        });
-      })
-      .catch(e => {
-        console.log(e)
-      })
+    const {
+      knowList
+    } = this.data;
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=KNOW`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            knowList: knowList.concat(data.list),
+            knowParams: {
+              pageNum: pageNum + 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=KNOW`, 'get')
+        .then(({
+          data
+        }) => {
+          this.setData({
+            knowList: data.list,
+            knowParams: {
+              pageNum: 1,
+              pageSize
+            }
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
   },
 
   /**
@@ -265,6 +454,12 @@ Page(connect({
     this.setData({
       tabs,
     })
+    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    // 所以此处加入 callback 以防止这种情况
+    appInstance.userInfoReadyCallback = res => {
+      console.log('异步保存用户信息了。')
+      user.setUserInfo(res.userInfo);
+    }
   },
 
   /**

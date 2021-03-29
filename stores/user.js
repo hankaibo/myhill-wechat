@@ -28,6 +28,7 @@ class User {
       ...userInfo
     };
     if (userInfo.nickName) {
+      console.log('用户登录')
       this.hasLogin = true;
     } else {
       this.hasLogin = false;
