@@ -5,7 +5,7 @@
 		tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
 		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindchange="onChange">
 		<block wx:for="{{tabs}}" wx:key="index">
-			<view class="tab-content" slot="tab-content-{{index}}" data-index="{{index}}" id="tabsSwiper">
+			<view class="tab-content" slot="tab-content-{{index}}" id="tabsSwiper-{{index}}">
 				<view class="tab-content__bd">
 					<mp-cells>
 						<mp-cell wx:for="{{listData[index]}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">

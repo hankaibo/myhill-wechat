@@ -144,15 +144,21 @@ Page(connect({
           console.log('上拉事件获取圈子数据失败，失败原因：', e);
         })
     }
-    this.setTableHeight();
+    setTimeout(() => {
+      this.setTableHeight();
+    }, 100)
   },
 
   // 设置高度
   setTableHeight() {
-    wx.createSelectorQuery().in(this).select('#tabsSwiper').boundingClientRect(rect => {
+    let {
+      activeTab
+    } = this.data;
+    wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
         tabHeiaght: rect.height
       })
+      console.log(rect);
     }).exec();
   },
 
