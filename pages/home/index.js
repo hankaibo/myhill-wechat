@@ -105,10 +105,10 @@ Page(connect({
     const {
       pageNum,
       pageSize,
-    } = listParam[0];
+    } = listParam[index];
     // 向下，页数加1
     if (direction === 'down') {
-      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum+1}&pageSize=${pageSize}&type=${type}`, 'get')
+      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum + 1}&pageSize=${pageSize}&type=${type}`, 'get')
         .then(({
           data
         }) => {
@@ -123,7 +123,7 @@ Page(connect({
           });
         })
         .catch(e => {
-          console.log('下滑事件获取圈子数据失败，失败原因：', e);
+          console.log('上滑事件获取圈子数据失败，失败原因：', e);
         })
     } else if (direction === 'up') {
       request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=${type}`, 'get')
@@ -141,7 +141,7 @@ Page(connect({
           });
         })
         .catch(e => {
-          console.log('上拉事件获取圈子数据失败，失败原因：', e);
+          console.log('下拉事件获取圈子数据失败，失败原因：', e);
         })
     }
     setTimeout(() => {
@@ -151,14 +151,13 @@ Page(connect({
 
   // 设置高度
   setTableHeight() {
-    let {
+    const {
       activeTab
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
         tabHeiaght: rect.height
       })
-      console.log(rect);
     }).exec();
   },
 
@@ -194,14 +193,14 @@ Page(connect({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['全部', '学习圈', '活动圈', '绘画圈', '图书圈', '知识圈']
+    const titles = ['全部', '学习圈', '活动圈', '绘画圈', '图书圈', '知识圈'];
     const tabs = titles.map(item => ({
       title: item
-    }))
+    }));
     //调用应用实例的方法获取全局数据
     this.setData({
       tabs,
-    })
+    });
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
     appInstance.userInfoReadyCallback = res => {
