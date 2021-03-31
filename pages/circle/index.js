@@ -18,6 +18,8 @@ const connect = mapToData(function (state, opt) {
   }
 })
 
+const appInstance = getApp();
+
 Page(connect({
   /**
    * 页面的初始数据
@@ -25,11 +27,20 @@ Page(connect({
   data: {
     tabs: [],
     activeTab: 0,
-    params: {
-      pageNum: 1,
-      pageSize: 10
-    },
-    list: [],
+    listData: [
+      [],
+      [],
+    ],
+    listParam: [
+      {
+        pageNum: 1,
+        pageSize: 10
+      },
+      {
+        pageNum: 1,
+        pageSize: 10
+      },
+    ],
     slideButtons: [{
       text: '编辑',
     }, {
@@ -98,7 +109,7 @@ Page(connect({
         console.log('删除圈子失败，原因：', e);
       })
   },
-  // 查看
+  // 进入详情
   handleView(e) {
     const {
       field
@@ -114,68 +125,117 @@ Page(connect({
     })
   },
 
-  // 切换标签
-  onTabCLick(e) {
-    const index = e.detail.index
-    this.setData({
-      activeTab: index
-    })
-  },
-
   onChange(e) {
-    const index = e.detail.index
+    const { index } = e.detail;
     this.setData({
       activeTab: index
     })
-    this.getData();
+    let type = this.getTypeByIndex(index);
+    this.getData('up', index, type);
   },
 
-  getData() {
+  // 获取数据
+  getData(direction = 'up', index = 0, type = '') {
     const {
-      hasLogin
+      hasLogin,
+      userInfo,
+      listData,
+      listParam,
     } = this.data;
     if (!hasLogin) {
       return
     }
-    const {
-      params,
-      userInfo
-    } = this.data;
+    const { openid } = userInfo;
     const {
       pageNum,
-      pageSize
-    } = params;
-    const {
-      openid
-    } = userInfo;
-    if (!openid) {
-      return;
+      pageSize,
+    } = listParam[index];
+    // 向下，页数加1
+    if (direction === 'down') {
+      request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${pageNum + 1}&pageSize=${pageSize}`, 'get')
+        .then(({
+          data
+        }) => {
+          listData[index].concat(data.list);
+          listParam[index] = {
+            pageNum: pageNum + 1,
+            pageSize,
+          };
+          this.setData({
+            listData,
+            listParam,
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } else if (direction === 'up') {
+      request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${1}&pageSize=${pageSize}`, 'get')
+        .then(({
+          data
+        }) => {
+          listData[index] = data.list;
+          listParam[index] = {
+            pageNum: 1,
+            pageSize,
+          };
+          this.setData({
+            listData,
+            listParam,
+          });
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
-    request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
-      .then(({
-        data
-      }) => {
-        this.setData({
-          list: data.list
-        });
+  },
+
+  // 设置高度
+  setTableHeight() {
+    const {
+      activeTab
+    } = this.data;
+    wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
+      this.setData({
+        tabHeiaght: rect.height
       })
-      .catch(e => {
-        console.log(e)
-      })
+    }).exec();
+  },
+
+  // 根据索引获取类型
+  getTypeByIndex(index) {
+    let type = '';
+    switch (index) {
+      case 0:
+        type = '';
+        break;
+      case 1:
+        type = 'xxx';
+        break;
+      default:
+        type = '';
+    }
+    return type;
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const titles = ['我创建的', '我参加的']
+    const titles = ['我创建的', '我参加的'];
     const tabs = titles.map(item => ({
       title: item
-    }))
+    }));
     //调用应用实例的方法获取全局数据
     this.setData({
       tabs,
-    })
+    });
+    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    // 所以此处加入 callback 以防止这种情况
+    appInstance.userInfoReadyCallback = res => {
+      console.log('异步保存用户信息了。')
+      user.setUserInfo(res.userInfo);
+    }
   },
 
   /**
@@ -189,7 +249,7 @@ Page(connect({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getData();
+
   },
 
   /**
@@ -210,14 +270,18 @@ Page(connect({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    let index = this.data.activeTab;
+    let type = this.getTypeByIndex(index);
+    this.getData('up', index, type);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let index = this.data.activeTab;
+    let type = this.getTypeByIndex(index);
+    this.getData('down', index, type);
   },
 
   /**

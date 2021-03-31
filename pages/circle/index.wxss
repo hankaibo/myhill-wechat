@@ -14,12 +14,6 @@
   font-weight: bold;
 }
 
-.weui-tabs-swiper {
-  width: 100%;
-  /* 动态修改 */
-  height: calc(100vh - 51px);
-}
-
 .tab-content {
   width: 100%;
   display: flex;
