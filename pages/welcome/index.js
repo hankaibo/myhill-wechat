@@ -8,7 +8,6 @@ const {
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
   }
 })
@@ -38,7 +37,7 @@ Page(connect({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    request(`${this.data.remote}/mini/api/v1/welcome`, 'get')
+    request('/mini/api/v1/welcome', 'get')
       .then(({
         data
       }) => {

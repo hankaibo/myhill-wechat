@@ -11,7 +11,6 @@ const {
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
     userInfo: state.user.userInfo
@@ -101,7 +100,7 @@ Page(connect({
     const {
       openid
     } = this.data.userInfo;
-    request(`${this.data.remote}/mini/api/v1/circle/${openid}/${id}`, 'delete')
+    request(`/mini/api/v1/circle/${openid}/${id}`, 'delete')
       .then(() => {
         this.getData();
       })
@@ -152,7 +151,7 @@ Page(connect({
     } = listParam[index];
     // 向下，页数加1
     if (direction === 'down') {
-      request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${pageNum + 1}&pageSize=${pageSize}`, 'get')
+      request(`/mini/api/v1/circle/${openid}/list?pageNum=${pageNum + 1}&pageSize=${pageSize}`, 'get')
         .then(({
           data
         }) => {
@@ -170,7 +169,7 @@ Page(connect({
           console.log(e)
         })
     } else if (direction === 'up') {
-      request(`${this.data.remote}/mini/api/v1/circle/${openid}/list?pageNum=${1}&pageSize=${pageSize}`, 'get')
+      request(`/mini/api/v1/circle/${openid}/list?pageNum=${1}&pageSize=${pageSize}`, 'get')
         .then(({
           data
         }) => {

@@ -7,7 +7,6 @@ import {
 } from '../../../stores/index.js';
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme
   }
 })

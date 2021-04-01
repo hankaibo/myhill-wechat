@@ -1,7 +1,11 @@
+import {
+  app,
+} from '../stores/index.js';
+
 const request = (url, method = 'GET', data) => {
   let promise = new Promise((resolve, reject) => {
     wx.request({
-      url,
+      url: `${app.getRemote()}${url}`,
       method,
       data,
       header: {

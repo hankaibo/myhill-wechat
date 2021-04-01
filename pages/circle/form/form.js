@@ -7,7 +7,6 @@ const {
 } = require('../../../utils/request.js')
 const {
   formatDate,
-  formatTime
 } = require('../../../utils/util')
 
 const datetime = new Date();
@@ -15,7 +14,6 @@ datetime.setDate(datetime.getDate() + 1);
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
     userInfo: state.user.userInfo
@@ -30,25 +28,25 @@ Page(connect({
   data: {
     files: [],
     typeList: [{
-        name: '学习圈',
-        value: 'STUDY',
-      },
-      {
-        name: '活动圈',
-        value: 'PLAY',
-      },
-      {
-        name: '绘画圈',
-        value: 'PAINING',
-      },
-      {
-        name: '图书圈',
-        value: 'BOOK',
-      },
-      {
-        name: '知识圈',
-        value: 'KNOW',
-      }
+      name: '学习圈',
+      value: 'STUDY',
+    },
+    {
+      name: '活动圈',
+      value: 'PLAY',
+    },
+    {
+      name: '绘画圈',
+      value: 'PAINING',
+    },
+    {
+      name: '图书圈',
+      value: 'BOOK',
+    },
+    {
+      name: '知识圈',
+      value: 'KNOW',
+    }
     ],
     formData: {
       type: 0,
@@ -59,46 +57,46 @@ Page(connect({
       description: ''
     },
     rules: [{
-        name: 'type',
-        rules: {
-          required: true,
-          message: '类型是必填项'
-        }
-      },
-      {
-        name: 'name',
-        rules: {
-          required: true,
-          message: '名称是必填项'
-        }
-      },
-      {
-        name: 'date',
-        rules: {
-          required: true,
-          message: '日期是必填项'
-        }
-      },
-      {
-        name: 'time',
-        rules: {
-          required: true,
-          message: '时间是必填项'
-        }
-      },
-      {
-        name: 'place',
-        rules: {
-          required: true,
-          message: '地点是必填项'
-        }
-      },
-      {
-        name: 'description',
-        rules: {
-          maxlength: 20
-        }
+      name: 'type',
+      rules: {
+        required: true,
+        message: '类型是必填项'
       }
+    },
+    {
+      name: 'name',
+      rules: {
+        required: true,
+        message: '名称是必填项'
+      }
+    },
+    {
+      name: 'date',
+      rules: {
+        required: true,
+        message: '日期是必填项'
+      }
+    },
+    {
+      name: 'time',
+      rules: {
+        required: true,
+        message: '时间是必填项'
+      }
+    },
+    {
+      name: 'place',
+      rules: {
+        required: true,
+        message: '地点是必填项'
+      }
+    },
+    {
+      name: 'description',
+      rules: {
+        maxlength: 20
+      }
+    }
     ]
   },
   formPickerChange: function (e) {
@@ -157,7 +155,7 @@ Page(connect({
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: `${this.data.remote}/mini/api/v1/circle/${openid}/upload`,
+        url: `/mini/api/v1/circle/${openid}/upload`,
         filePath: tempFilePaths,
         name: 'file',
         success(res) {
@@ -212,11 +210,11 @@ Page(connect({
         } = formData;
         // 编辑
         if (id) {
-          request(`${this.data.remote}/mini/api/v1/circle/${openid}/${id}`, 'put', {
-              ...formData,
-              startTime: `${date} ${time.substr(0,5)}:00`,
-              type: typeList[type].value
-            })
+          request(`/mini/api/v1/circle/${openid}/${id}`, 'put', {
+            ...formData,
+            startTime: `${date} ${time.substr(0, 5)}:00`,
+            type: typeList[type].value
+          })
             .then(() => {
               wx.showToast({
                 title: '修改成功',
@@ -231,11 +229,11 @@ Page(connect({
               console.log(e)
             })
         } else {
-          request(`${this.data.remote}/mini/api/v1/circle/${openid}`, 'post', {
-              ...formData,
-              startTime: `${date} ${time}:00`,
-              type: typeList[type].value
-            })
+          request(`/mini/api/v1/circle/${openid}`, 'post', {
+            ...formData,
+            startTime: `${date} ${time}:00`,
+            type: typeList[type].value
+          })
             .then(() => {
               wx.showToast({
                 title: '添加成功',

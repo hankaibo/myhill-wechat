@@ -38,7 +38,7 @@ Page(connect({
     app.setUseSystem(value);
     // 调用后台接口，更新配置
     // TODO
-    // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {
+    // request(`/mini/api/v1/config`, 'put', {
     //   useSystem: value
     // });
     // 不跟随系统后，默认主题
@@ -66,7 +66,7 @@ Page(connect({
       app.setTheme(value);
       // 调用后台接口，更新配置
       // TODO
-      // request(`${app.globalData.remote}/mini/api/v1/config`, 'put', {
+      // request(`/mini/api/v1/config`, 'put', {
       //   theme: value
       // });
     }

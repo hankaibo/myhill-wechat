@@ -8,7 +8,6 @@ const {
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
     userInfo: state.user.userInfo
@@ -29,10 +28,9 @@ Page(connect({
     const {
       userInfo: {
         openid
-      },
-      remote
+      }
     } = this.data;
-    request(`${remote}/mini/api/v1/circle/${openid}/${id}`, 'get')
+    request(`/mini/api/v1/circle/${openid}/${id}`, 'get')
       .then(({
         data
       }) => {

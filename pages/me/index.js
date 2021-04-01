@@ -3,7 +3,6 @@ import {
   mapToData
 } from 'minii';
 import {
-  app,
   user
 } from '../../stores/index.js';
 const {
@@ -12,7 +11,6 @@ const {
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
     userInfo: state.user.userInfo
@@ -71,7 +69,7 @@ Page(connect({
               openid,
               uuid
             };
-            request(`${this.data.remote}/mini/api/v1/token`, 'post', user);
+            request(`/mini/api/v1/token`, 'post', user);
           }
         }
       })

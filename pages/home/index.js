@@ -11,7 +11,6 @@ const {
 
 const connect = mapToData(function (state, opt) {
   return {
-    remote: state.app.remote,
     theme: state.app.theme,
     hasLogin: state.user.hasLogin,
     userInfo: state.user.userInfo
@@ -108,7 +107,7 @@ Page(connect({
     } = listParam[index];
     // 向下，页数加1
     if (direction === 'down') {
-      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${pageNum + 1}&pageSize=${pageSize}&type=${type}`, 'get')
+      request(`/mini/api/v1/circle?pageNum=${pageNum + 1}&pageSize=${pageSize}&type=${type}`, 'get')
         .then(({
           data
         }) => {
@@ -126,7 +125,7 @@ Page(connect({
           console.log('上滑事件获取圈子数据失败，失败原因：', e);
         })
     } else if (direction === 'up') {
-      request(`${this.data.remote}/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=${type}`, 'get')
+      request(`/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=${type}`, 'get')
         .then(({
           data
         }) => {

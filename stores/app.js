@@ -4,8 +4,8 @@ import {
 
 class App {
   constructor() {
-    this.remote = 'http://192.168.0.108:8080';
-    // this.remote = 'https://wantongcun.com';
+    // this.remote = 'http://192.168.0.108:8080';
+    this.remote = 'https://wantongcun.com';
     this.useSystem = false;
     this.theme = 'dark';
   }

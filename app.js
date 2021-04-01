@@ -25,7 +25,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openid, sessionKey, unionId
         if (res.code) {
-          request(`${app.getRemote()}/mini/api/v1/login?code=${res.code}`)
+          request(`/mini/api/v1/login?code=${res.code}`)
             .then(response => {
               const {
                 token,
