@@ -1,20 +1,11 @@
 // pages/circle/detail/detail.js
-import {
-  mapToData
-} from 'minii';
 const {
   request
 } = require('../../../utils/request.js');
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-Page(connect({
+Page({
 
   /**
    * 页面的初始数据
@@ -102,4 +93,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

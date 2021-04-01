@@ -1,11 +1,10 @@
-import {
-  app,
-} from '../stores/index.js';
+const remote = 'http://192.168.0.108:8080';
+// const remote = 'https://wantongcun.com';
 
 const request = (url, method = 'GET', data) => {
   let promise = new Promise((resolve, reject) => {
     wx.request({
-      url: `${app.getRemote()}${url}`,
+      url: `${remote}${url}`,
       method,
       data,
       header: {

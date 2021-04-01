@@ -1,13 +1,13 @@
 <!--pages/circle/index.wxml-->
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{$state.theme}}">
 	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" swiperStyle="height: {{tabHeiaght}}px"
 		activeClass="tab-bar-title__selected" tabActiveTextColor="#07c160" activeTab="{{activeTab}}"
 		tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
 		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindchange="onChange">
 		<block wx:for="{{tabs}}" wx:key="index">
 			<view class="tab-content" slot="tab-content-{{index}}" id="tabsSwiper-{{index}}">
-				<view class="tab-content__hd">
-					<button class="block" type="primary" bindtap="handleAdd" wx:if="{{hasLogin}}">
+				<view class="tab-content__hd" wx:if="{{index===0}}">
+					<button class="block" type="primary" bindtap="handleAdd" wx:if="{{$state.user.nickName}}">
 						<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
 					</button>
 					<view wx:else>
@@ -21,8 +21,7 @@
 					<mp-cells>
 						<mp-slideview buttons="{{slideButtons}}" data-field="{{item}}" bindbuttontap="slideButtonTap"
 							wx:for="{{list}}" wx:key="id">
-							<mp-cell hover wx:for="{{listData[index]}}" wx:key="id" hover data-field="{{item.id}}"
-								bindtap="handleView">
+							<mp-cell hover wx:for="{{listData[index]}}" wx:key="id" data-field="{{item.id}}" bindtap="handleView">
 								<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
 									style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 								<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />

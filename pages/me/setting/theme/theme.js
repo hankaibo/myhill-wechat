@@ -1,22 +1,7 @@
 // pages/me/setting/theme/theme.js
-import {
-  mapToData
-} from 'minii';
-import {
-  app
-} from '../../../../stores/index.js';
-const {
-  request
-} = require('../../../../utils/request.js')
+const app = getApp();
 
-const connect = mapToData(function (state, opt) {
-  return {
-    useSystem: state.app.useSystem,
-    theme: state.app.theme
-  }
-})
-
-Page(connect({
+Page({
 
   /**
    * 页面的初始数据
@@ -35,26 +20,37 @@ Page(connect({
 
   handleSwitch(e) {
     const value = e.detail.value;
-    app.setUseSystem(value);
-    // 调用后台接口，更新配置
-    // TODO
-    // request(`/mini/api/v1/config`, 'put', {
-    //   useSystem: value
-    // });
-    // 不跟随系统后，默认主题
-    if (value === false) {
-      this.checkedTheme(this.data.theme);
+    app.store.setState({
+      useSystem: value
+    });
+    // 跟随系统
+    if (value) {
+      wx.getSystemInfo({
+        success: (res) => {
+          const theme = res.theme;
+          app.store.setState({
+            theme
+          });
+        }
+      });
+    } else {
+      const {
+        theme
+      } = app.store.getState();
+      this.checkedTheme(theme);
     }
   },
 
   handleRadio(e) {
     const value = e.detail.value;
     this.checkedTheme(value);
+    app.store.setState({
+      theme: value
+    })
   },
 
   checkedTheme(value) {
     if (value === 'dark' || value === 'light') {
-
       const radioThemes = this.data.radioThemes;
       for (let i = 0, len = radioThemes.length; i < len; ++i) {
         radioThemes[i].checked = radioThemes[i].value == value;
@@ -63,12 +59,6 @@ Page(connect({
       this.setData({
         radioThemes: radioThemes
       });
-      app.setTheme(value);
-      // 调用后台接口，更新配置
-      // TODO
-      // request(`/mini/api/v1/config`, 'put', {
-      //   theme: value
-      // });
     }
   },
 
@@ -76,7 +66,10 @@ Page(connect({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const {
+      theme
+    } = app.store.getState();
+    this.checkedTheme(theme);
   },
 
   /**
@@ -127,4 +120,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

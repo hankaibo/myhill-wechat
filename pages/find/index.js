@@ -1,23 +1,11 @@
 // pages/find/index.js
-import {
-  mapToData
-} from 'minii';
-import {
-  user
-} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-Page(connect({
+Page({
   /**
    * 页面的初始数据
    */
@@ -37,7 +25,9 @@ Page(connect({
       userInfo
     } = e.detail;
     if (userInfo) {
-      user.setUserInfo(userInfo);
+      app.store.setState({
+        user: userInfo
+      });
       this.getData();
     }
   },
@@ -59,22 +49,21 @@ Page(connect({
 
   getData() {
     const {
-      hasLogin
-    } = this.data;
-    if (!hasLogin) {
+      openid,
+      user: {
+        nickName
+      }
+    } = app.store.getState();
+    if (!nickName) {
       return
     }
     const {
       params,
-      userInfo
     } = this.data;
     const {
       pageNum,
       pageSize
     } = params;
-    const {
-      openid
-    } = userInfo;
     request(`/mini/api/v1/circle/${openid}/star?pageNum=${pageNum}&pageSize=${pageSize}`, 'get')
       .then(({
         data
@@ -150,4 +139,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   },
-}))
+})

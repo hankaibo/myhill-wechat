@@ -1,17 +1,7 @@
 // pages/me/setting/setting.js
-import {
-  mapToData
-} from 'minii';
-import {
-  app
-} from '../../../stores/index.js';
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme
-  }
-})
+const app = getApp();
 
-Page(connect({
+Page({
 
   /**
    * 页面的初始数据
@@ -24,12 +14,6 @@ Page(connect({
     wx.navigateTo({
       url: './theme/theme'
     });
-  },
-
-  updateTheme(value) {
-    if (value === 'dark' || value === 'light') {
-      app.setTheme(value);
-    }
   },
 
   /**
@@ -87,4 +71,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

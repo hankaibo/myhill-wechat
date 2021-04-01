@@ -1,5 +1,5 @@
 <!--pages/circle/detail/detail.wxml-->
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{$state.theme}}">
   <view class="page__bd">
     <mp-cells>
       <mp-cell prop="type" title="类型:" ext-class="">

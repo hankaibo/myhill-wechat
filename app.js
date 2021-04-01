@@ -1,9 +1,5 @@
 //app.js
-require('./stores/index');
-import {
-  app,
-  user,
-} from './stores/index.js';
+import store from './store/index.js'
 const {
   request
 } = require('./utils/request.js');
@@ -17,7 +13,9 @@ App({
     wx.getSystemInfo({
       success: (res) => {
         const theme = res.theme;
-        app.setTheme(theme);
+        store.setState({
+          theme
+        });
       }
     })
     // 调用接口获取登录凭证（code）。通过凭证进而换取用户登录态信息，包括用户的唯一标识（openid）及本次登录的会话密钥（session_key）等。
@@ -32,8 +30,8 @@ App({
                 openid
               } = response.data;
               // 存储用户 openid
-              user.setUserInfo({
-                openid
+              store.setState({
+                openid,
               });
               try {
                 wx.setStorageSync('miniToken', token)
@@ -54,7 +52,9 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              user.setUserInfo(res.userInfo);
+              store.setState({
+                user: res.userInfo
+              });
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -74,7 +74,10 @@ App({
    * @param {*} theme 
    */
   onThemeChange: function (theme) {
-    app.setTheme(theme);
+    store.setState({
+      theme
+    });
   },
 
+  store: store,
 })

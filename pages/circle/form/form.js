@@ -1,7 +1,4 @@
 // pages/circle/form/form.js
-import {
-  mapToData
-} from 'minii';
 const {
   request
 } = require('../../../utils/request.js')
@@ -12,15 +9,9 @@ const {
 const datetime = new Date();
 datetime.setDate(datetime.getDate() + 1);
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-Page(connect({
+Page({
 
   /**
    * 页面的初始数据
@@ -28,25 +19,25 @@ Page(connect({
   data: {
     files: [],
     typeList: [{
-      name: '学习圈',
-      value: 'STUDY',
-    },
-    {
-      name: '活动圈',
-      value: 'PLAY',
-    },
-    {
-      name: '绘画圈',
-      value: 'PAINING',
-    },
-    {
-      name: '图书圈',
-      value: 'BOOK',
-    },
-    {
-      name: '知识圈',
-      value: 'KNOW',
-    }
+        name: '学习圈',
+        value: 'STUDY',
+      },
+      {
+        name: '活动圈',
+        value: 'PLAY',
+      },
+      {
+        name: '绘画圈',
+        value: 'PAINING',
+      },
+      {
+        name: '图书圈',
+        value: 'BOOK',
+      },
+      {
+        name: '知识圈',
+        value: 'KNOW',
+      }
     ],
     formData: {
       type: 0,
@@ -57,46 +48,46 @@ Page(connect({
       description: ''
     },
     rules: [{
-      name: 'type',
-      rules: {
-        required: true,
-        message: '类型是必填项'
+        name: 'type',
+        rules: {
+          required: true,
+          message: '类型是必填项'
+        }
+      },
+      {
+        name: 'name',
+        rules: {
+          required: true,
+          message: '名称是必填项'
+        }
+      },
+      {
+        name: 'date',
+        rules: {
+          required: true,
+          message: '日期是必填项'
+        }
+      },
+      {
+        name: 'time',
+        rules: {
+          required: true,
+          message: '时间是必填项'
+        }
+      },
+      {
+        name: 'place',
+        rules: {
+          required: true,
+          message: '地点是必填项'
+        }
+      },
+      {
+        name: 'description',
+        rules: {
+          maxlength: 20
+        }
       }
-    },
-    {
-      name: 'name',
-      rules: {
-        required: true,
-        message: '名称是必填项'
-      }
-    },
-    {
-      name: 'date',
-      rules: {
-        required: true,
-        message: '日期是必填项'
-      }
-    },
-    {
-      name: 'time',
-      rules: {
-        required: true,
-        message: '时间是必填项'
-      }
-    },
-    {
-      name: 'place',
-      rules: {
-        required: true,
-        message: '地点是必填项'
-      }
-    },
-    {
-      name: 'description',
-      rules: {
-        maxlength: 20
-      }
-    }
     ]
   },
   formPickerChange: function (e) {
@@ -145,10 +136,8 @@ Page(connect({
   },
   uploadFile(files) {
     const {
-      userInfo: {
-        openid
-      }
-    } = this.data;
+      openid
+    } = app.store.getState();
     let that = this;
     console.log('upload files', files);
     const tempFilePaths = files.tempFilePaths[0];
@@ -196,11 +185,11 @@ Page(connect({
         }
       } else {
         const {
+          openid
+        } = app.store.getState();
+        const {
           typeList,
-          formData,
-          userInfo: {
-            openid
-          }
+          formData
         } = this.data;
         const {
           id,
@@ -211,10 +200,10 @@ Page(connect({
         // 编辑
         if (id) {
           request(`/mini/api/v1/circle/${openid}/${id}`, 'put', {
-            ...formData,
-            startTime: `${date} ${time.substr(0, 5)}:00`,
-            type: typeList[type].value
-          })
+              ...formData,
+              startTime: `${date} ${time.substr(0, 5)}:00`,
+              type: typeList[type].value
+            })
             .then(() => {
               wx.showToast({
                 title: '修改成功',
@@ -230,10 +219,10 @@ Page(connect({
             })
         } else {
           request(`/mini/api/v1/circle/${openid}`, 'post', {
-            ...formData,
-            startTime: `${date} ${time}:00`,
-            type: typeList[type].value
-          })
+              ...formData,
+              startTime: `${date} ${time}:00`,
+              type: typeList[type].value
+            })
             .then(() => {
               wx.showToast({
                 title: '添加成功',
@@ -273,7 +262,6 @@ Page(connect({
         })
       }
       if (circle) {
-        console.log(circle)
         const {
           id,
           type = 3,
@@ -354,4 +342,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

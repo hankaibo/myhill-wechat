@@ -1,5 +1,5 @@
 <!--pages/home/index.wxml-->
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{$state.theme}}">
 	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" swiperStyle="height: {{tabHeiaght}}px"
 		activeClass="tab-bar-title__selected" tabActiveTextColor="#07c160" activeTab="{{activeTab}}"
 		tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"

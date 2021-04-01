@@ -1,25 +1,11 @@
 // pages/circle/index.js
-import {
-  mapToData
-} from 'minii';
-import {
-  user
-} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-const appInstance = getApp();
-
-Page(connect({
+Page({
   /**
    * 页面的初始数据
    */
@@ -30,8 +16,7 @@ Page(connect({
       [],
       [],
     ],
-    listParam: [
-      {
+    listParam: [{
         pageNum: 1,
         pageSize: 10
       },
@@ -54,7 +39,9 @@ Page(connect({
       userInfo
     } = e.detail;
     if (userInfo) {
-      user.setUserInfo(userInfo);
+      app.store.setState({
+        user: userInfo
+      });
       this.getData();
     }
   },
@@ -99,7 +86,8 @@ Page(connect({
   handleDel(id) {
     const {
       openid
-    } = this.data.userInfo;
+    } = app.store.getState();
+
     request(`/mini/api/v1/circle/${openid}/${id}`, 'delete')
       .then(() => {
         this.getData();
@@ -125,7 +113,9 @@ Page(connect({
   },
 
   onChange(e) {
-    const { index } = e.detail;
+    const {
+      index
+    } = e.detail;
     this.setData({
       activeTab: index
     })
@@ -136,15 +126,18 @@ Page(connect({
   // 获取数据
   getData(direction = 'up', index = 0, type = '') {
     const {
-      hasLogin,
-      userInfo,
+      openid,
+      user: {
+        nickName
+      }
+    } = app.store.getState();
+    const {
       listData,
       listParam,
     } = this.data;
-    if (!hasLogin) {
+    if (!nickName) {
       return
     }
-    const { openid } = userInfo;
     const {
       pageNum,
       pageSize,
@@ -187,6 +180,10 @@ Page(connect({
           console.log(e)
         })
     }
+
+    setTimeout(() => {
+      this.setTableHeight();
+    }, 500)
   },
 
   // 设置高度
@@ -196,7 +193,7 @@ Page(connect({
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
-        tabHeiaght: rect.height
+        tabHeiaght: Math.max(rect.height, 500)
       })
     }).exec();
   },
@@ -231,9 +228,11 @@ Page(connect({
     });
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
-    appInstance.userInfoReadyCallback = res => {
-      console.log('异步保存用户信息了。')
-      user.setUserInfo(res.userInfo);
+    app.userInfoReadyCallback = res => {
+      console.log('异步保存用户信息了。');
+      app.store.setState({
+        user: res.userInfo
+      })
     }
   },
 
@@ -289,4 +288,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   },
-}))
+})

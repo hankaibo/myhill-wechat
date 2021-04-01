@@ -1,29 +1,17 @@
 // pages/me/index.js
-import {
-  mapToData
-} from 'minii';
-import {
-  user
-} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-Page(connect({
+Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    show: false,
+    show: true,
   },
 
   gotoSetting() {
@@ -34,7 +22,18 @@ Page(connect({
 
   // pc端扫码登录
   handleScan() {
-    if (this.data.userInfo.nickName) {
+    const {
+      user: {
+        avatarUrl,
+        city,
+        country,
+        gender,
+        language,
+        nickName,
+        province
+      }
+    } = app.store.getState();
+    if (nickName) {
       wx.scanCode({
         onlyFromCamera: false,
         scanType: ['qrCode'],
@@ -49,15 +48,6 @@ Page(connect({
               miniToken = JSON.parse(miniTokenStr);
               openid = miniToken.openid;
             }
-            const {
-              avatarUrl,
-              city,
-              country,
-              gender,
-              language,
-              nickName,
-              province
-            } = this.data.userInfo;
             const user = {
               avatar: avatarUrl,
               city,
@@ -83,7 +73,9 @@ Page(connect({
   // 登录
   handleAuth(res) {
     if (res && res.detail && res.detail.userInfo) {
-      user.setUserInfo(res.detail.userInfo)
+      app.store.setState({
+        user: res.detail.userInfo
+      })
       this.setData({
         show: false
       })
@@ -115,7 +107,18 @@ Page(connect({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const {
+      user
+    } = app.store.getState();
+    if (!user.nickName) {
+      this.setData({
+        show: true
+      })
+    } else {
+      this.setData({
+        show: false
+      })
+    }
   },
 
   /**
@@ -152,4 +155,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

@@ -1,25 +1,11 @@
 // pages/home/index.js
-import {
-  mapToData
-} from 'minii';
-import {
-  user
-} from '../../stores/index.js';
 const {
   request
 } = require('../../utils/request.js')
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-    hasLogin: state.user.hasLogin,
-    userInfo: state.user.userInfo
-  }
-})
+const app = getApp();
 
-const appInstance = getApp();
-
-Page(connect({
+Page({
   /**
    * 页面的初始数据
    */
@@ -202,9 +188,11 @@ Page(connect({
     });
     // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
     // 所以此处加入 callback 以防止这种情况
-    appInstance.userInfoReadyCallback = res => {
-      console.log('异步保存用户信息了。')
-      user.setUserInfo(res.userInfo);
+    app.userInfoReadyCallback = res => {
+      console.log('异步保存用户信息了。');
+      app.store.setState({
+        user: res.userInfo
+      });
     }
   },
 
@@ -260,4 +248,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   },
-}))
+})

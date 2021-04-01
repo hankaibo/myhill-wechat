@@ -1,18 +1,9 @@
 // pages/welcome/index.js
-import {
-  mapToData
-} from 'minii';
 const {
   request
 } = require('../../utils/request.js')
 
-const connect = mapToData(function (state, opt) {
-  return {
-    theme: state.app.theme,
-  }
-})
-
-Page(connect({
+Page({
   data: {
     // 画廊属性
     show: true,
@@ -102,4 +93,4 @@ Page(connect({
   onShareAppMessage: function () {
 
   }
-}))
+})

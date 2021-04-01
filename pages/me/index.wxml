@@ -1,12 +1,12 @@
 <!--pages/me/index.wxml-->
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{$state.theme}}">
 	<view class="page__bd">
 		<mp-cells>
 			<mp-cell hover>
-				<image slot="icon" src="{{userInfo.avatarUrl}}" alt="头像"
+				<image slot="icon" src="{{$state.user.avatarUrl}}" alt="头像"
 					style="margin-right: 16px;vertical-align: middle;width:60px; height: 60px;" />
 				<view class="weui-media-box__bd">
-					<h4 class="weui-media-box__title">{{userInfo.nickName}}</h4>
+					<h4 class="weui-media-box__title">{{$state.user.nickName}}</h4>
 				</view>
 			</mp-cell>
 		</mp-cells>
