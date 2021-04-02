@@ -46,3 +46,12 @@ button {
 .block {
   width: 100% !important;
 }
+
+.flag {
+  transform: rotate(45deg) translateX(50%);
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}

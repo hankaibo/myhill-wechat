@@ -20,8 +20,8 @@
 				<view class="tab-content__bd">
 					<mp-cells>
 						<mp-slideview buttons="{{slideButtons}}" data-field="{{item}}" bindbuttontap="slideButtonTap"
-							wx:for="{{list}}" wx:key="id">
-							<mp-cell hover wx:for="{{listData[index]}}" wx:key="id" data-field="{{item.id}}" bindtap="handleView">
+							wx:for="{{listData[index]}}" wx:key="id">
+							<mp-cell hover data-field="{{item.id}}" bindtap="handleView">
 								<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
 									style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
 								<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />
@@ -31,6 +31,9 @@
 										<view><text>{{item.startTime}}</text></view>
 										<view><text>{{item.place}}</text></view>
 										<view><text>{{item.description}}</text></view>
+									</view>
+									<view class="flag">
+										<text>{{approvalStatus[item.approvalStatus]}}</text>
 									</view>
 								</view>
 							</mp-cell>

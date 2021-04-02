@@ -31,6 +31,12 @@ Page({
       type: 'warn',
       text: '删除',
     }],
+    approvalStatus: {
+      UNDER_REVIEW: '审核中',
+      SUCCESS: '通过',
+      REJECTED: '被拒绝',
+      WITHDRAWN: '已撤回'
+    }
   },
 
   // 获取用户信息之后才让其添加
@@ -195,7 +201,7 @@ Page({
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
-        tabHeiaght: Math.max(rect.height, 500)
+        tabHeiaght: rect.height,
       })
     }).exec();
   },
@@ -233,15 +239,13 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    this.getData();
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getData();
   },
 
   /**
