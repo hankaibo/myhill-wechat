@@ -21,15 +21,16 @@ Page({
 
   // 获取用户信息之后才让其添加
   handleGetUserInfo(e) {
-    const {
-      userInfo
-    } = e.detail;
-    if (userInfo) {
-      app.store.setState({
-        user: userInfo
-      });
-      this.getData();
-    }
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        app.store.setState({
+          user: res.userInfo
+        });
+        app.onUserUpdate(res.userInfo);
+        this.getData();
+      }
+    })
   },
 
   onTabCLick(e) {

@@ -3,8 +3,6 @@ const {
   request
 } = require('../../utils/request.js')
 
-const app = getApp();
-
 Page({
   /**
    * 页面的初始数据
@@ -186,14 +184,6 @@ Page({
     this.setData({
       tabs,
     });
-    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    // 所以此处加入 callback 以防止这种情况
-    app.userInfoReadyCallback = res => {
-      console.log('异步保存用户信息了。');
-      app.store.setState({
-        user: res.userInfo
-      });
-    }
   },
 
   /**

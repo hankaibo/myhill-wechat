@@ -35,15 +35,16 @@ Page({
 
   // 获取用户信息之后才让其添加
   handleGetUserInfo(e) {
-    const {
-      userInfo
-    } = e.detail;
-    if (userInfo) {
-      app.store.setState({
-        user: userInfo
-      });
-      this.getData();
-    }
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        app.store.setState({
+          user: res.userInfo
+        });
+        app.onUserUpdate(res.userInfo);
+        this.getData();
+      }
+    })
   },
   handleAdd() {
     wx.navigateTo({
@@ -135,7 +136,8 @@ Page({
       listData,
       listParam,
     } = this.data;
-    if (!nickName) {
+    // 未登录、未授权
+    if (!openid || !nickName) {
       return
     }
     const {
@@ -226,14 +228,6 @@ Page({
     this.setData({
       tabs,
     });
-    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    // 所以此处加入 callback 以防止这种情况
-    app.userInfoReadyCallback = res => {
-      console.log('异步保存用户信息了。');
-      app.store.setState({
-        user: res.userInfo
-      })
-    }
   },
 
   /**

@@ -33,6 +33,7 @@ Page({
         province
       }
     } = app.store.getState();
+    // 通过昵称判断是否授权
     if (nickName) {
       wx.scanCode({
         onlyFromCamera: false,
@@ -70,19 +71,23 @@ Page({
     }
   },
 
-  // 登录
+  // 用户授权
   handleAuth(res) {
-    if (res && res.detail && res.detail.userInfo) {
-      app.store.setState({
-        user: res.detail.userInfo
-      })
-      this.setData({
-        show: false
-      })
-    }
+    wx.getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        app.store.setState({
+          user: res.userInfo
+        });
+        app.onUserUpdate(res.userInfo);
+        this.setData({
+          show: false
+        });
+      }
+    })
   },
 
-  // 关闭登录框
+  // 关闭授权框
   handleClose() {
     this.setData({
       show: false
@@ -110,6 +115,7 @@ Page({
     const {
       user
     } = app.store.getState();
+    // 用户未受权
     if (!user.nickName) {
       this.setData({
         show: true

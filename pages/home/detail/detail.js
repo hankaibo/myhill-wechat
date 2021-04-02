@@ -3,8 +3,6 @@ const {
   request
 } = require('../../../utils/request.js');
 
-const app = getApp();
-
 Page({
 
   /**
@@ -13,7 +11,6 @@ Page({
   data: {
 
   },
-
 
   getData(id) {
     request(`/mini/api/v1/circle/${id}`, 'get')

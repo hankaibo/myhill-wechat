@@ -12,7 +12,7 @@
 					</button>
 					<view wx:else>
 						您未登录，如需进一步体验，请登录。
-						<button class="block" type="primary" open-type="getUserInfo" bindgetuserinfo="handleGetUserInfo">
+						<button class="block" type="primary" bindtap="handleGetUserInfo">
 							登录
 						</button>
 					</view>

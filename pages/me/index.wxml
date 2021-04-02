@@ -36,7 +36,7 @@
 			<view>
 				<text>请登录后再进行扫码操作！</text>
 				<button bindtap="handleClose">取消</button>
-				<button open-type="getUserInfo" bindgetuserinfo="handleAuth">登录</button>
+				<button bindtap="handleAuth">登录</button>
 			</view>
 		</mp-dialog>
 	</view>

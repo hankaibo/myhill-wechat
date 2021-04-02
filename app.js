@@ -49,18 +49,16 @@ App({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
+          wx.getUserProfile({
+            desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+            success: (res) => {
               store.setState({
                 user: res.userInfo
               });
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res);
-              }
+              app.onUserUpdate(res.userInfo);
+              this.setData({
+                show: false
+              });
             }
           })
         }
@@ -77,6 +75,35 @@ App({
     store.setState({
       theme
     });
+  },
+
+  /**
+   * 授权之后更新用户
+   */
+  onUserUpdate: function (userInfo) {
+    const {
+      avatarUrl: avatar,
+      city,
+      country,
+      gender: sex,
+      language,
+      nickName: nickname,
+      province
+    } = userInfo;
+    request('/mini/api/v1/users', 'put', {
+        avatar,
+        city,
+        country,
+        sex,
+        language,
+        nickname,
+        province,
+      })
+      .then(() => {
+        console.log('用户登录更新成功。')
+      }).catch(err => {
+        console.log('用户登录更新失败：' + err);
+      })
   },
 
   store: store,
