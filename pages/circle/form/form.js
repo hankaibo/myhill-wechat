@@ -88,7 +88,18 @@ Page({
           maxlength: 20
         }
       }
-    ]
+    ],
+    // popup
+    show: false,
+    // map
+    latitude: 39.90,
+    longitude: 116.38,
+    markers: [{
+      id: 1,
+      latitude: 39.90,
+      longitude: 116.38,
+      iconPath: '/images/location.png'
+    }],
   },
   formPickerChange: function (e) {
     const {
@@ -111,6 +122,62 @@ Page({
       [`formData.isOpen`]: e.detail.value
     })
   },
+  //全屏弹框
+  popup(e) {
+    this.setData({
+      show: true,
+    });
+  },
+  onAfterEnter(res) {
+    this.mapCtx = wx.createMapContext('mapId');
+    wx.getLocation({
+      type: 'wgs84',
+      success: (res) => {
+        const latitude = res.latitude;
+        const longitude = res.longitude;
+        this.setData({
+          latitude,
+          longitude
+        });
+        // move
+        this.mapCtx.moveToLocation({
+          latitude,
+          longitude
+        });
+        // marker
+        const markers = [{
+          id: 1,
+          latitude,
+          longitude,
+          iconPath: '/images/location.png'
+        }];
+        this.mapCtx.addMarkers({
+          markers,
+          clear: true,
+          complete(res) {
+            console.log('ersssssss->', res)
+          }
+        })
+      }
+    });
+  },
+  onBeforeLeave(res) {
+    console.log(res)
+  },
+  onMapCancel() {
+    this.setData({
+      show: false
+    });
+  },
+  onMapOk() {
+    this.setData({
+      show: false
+    });
+    this.setData({
+      'formData.place': 'test'
+    })
+  },
+  // 上传图片
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -174,6 +241,7 @@ Page({
       title: '上传图片成功'
     })
   },
+  // 提交
   submitForm() {
     this.selectComponent('#form').validate((valid, errors) => {
       if (!valid) {
@@ -264,7 +332,7 @@ Page({
       if (circle) {
         const {
           id,
-          type = 3,
+          type,
           name,
           startTime,
           place,
@@ -278,10 +346,16 @@ Page({
           date = datetimeArr[0];
           time = datetimeArr[1];
         }
+        let selectedTypeIndex = 0;
+        for (let i = 0; i < this.data.typeList.length; i += 1) {
+          if (this.data.typeList[i].value = type) {
+            selectedTypeIndex = i;
+          }
+        }
         this.setData({
           formData: {
             id,
-            type,
+            type: selectedTypeIndex,
             name,
             date,
             time,

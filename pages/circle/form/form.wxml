@@ -29,7 +29,7 @@
           </picker>
         </mp-cell>
         <mp-cell prop="place" title="地点" ext-class="">
-          <input value="{{formData.place}}" bindinput="formInputChange" data-field="place" class="weui-input"
+          <input value="{{formData.place}}" bindtap="popup" data-position="bottom" data-field="place" class="weui-input"
             placeholder="请输入地点" />
         </mp-cell>
         <mp-cell prop="isOpen" title="开放" ext-class="">
@@ -49,5 +49,44 @@
       </view>
     </mp-form>
   </view>
-
 </view>
+
+<page-container 
+show="{{show}}"
+bindafterenter="onAfterEnter"
+bindbeforeleave="onBeforeLeave"
+custom-style="height: 100%;z-index:999"
+overlayStyle='z-index:99'
+>
+<view class="detail-page">
+  <map
+    id="mapId"
+    class="map"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    markers="{{markers}}"
+    enable-poi="{{true}}"
+    >
+  </map>
+  <view class="weui-flex map-action">
+    <view class="weui-flex__item">
+      <text bindtap="onMapCancel">取消</text>
+    </view>
+    <view class="weui-flex__item text-right">
+      <button size="mini" type="primary" bindtap="onMapOk">确定</button>
+    </view>
+  </view>
+  <view class="weui-flex map-content">
+    <view class="weui-flex__item">
+      <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+    </view>
+    <view class="weui-flex__item">
+      <scroll-view scroll-y="true" style="height: 300rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view id="demo1" class="scroll-view-item demo-text-1"></view>
+        <view id="demo2"  class="scroll-view-item demo-text-2"></view>
+        <view id="demo3" class="scroll-view-item demo-text-3"></view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+</page-container>

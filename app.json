@@ -58,6 +58,11 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于圈子地点的精确定位。取消将使用默认位置。"
+    }
+  },
   "debug": true,
   "darkmode": true,
   "themeLocation": "style/theme.json",
