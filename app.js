@@ -38,32 +38,38 @@ App({
               } catch (error) {
                 console.log('同步保存token失败，原因：', error);
               }
+            })
+            .then(() => {
+              return request('/mini/api/v1/users/info')
+            })
+            .then(response => {
+              const {
+                nickname: nickName,
+                avatar: avatarUrl,
+                sex: gender,
+                country,
+                province,
+                city,
+                language
+              } = response.data;
+              store.setState({
+                user: {
+                  nickName,
+                  avatarUrl,
+                  gender,
+                  country,
+                  province,
+                  city,
+                  language,
+                }
+              });
             }).catch(err => {
               console.log('登录失败，原因：' + err);
             })
         }
       }
     })
-    // 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserProfile({
-            desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-            success: (res) => {
-              store.setState({
-                user: res.userInfo
-              });
-              app.onUserUpdate(res.userInfo);
-              this.setData({
-                show: false
-              });
-            }
-          })
-        }
-      }
-    })
+
 
   },
 
