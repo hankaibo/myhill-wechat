@@ -1,5 +1,5 @@
-const remote = 'http://192.168.0.108:8080';
-// const remote = 'https://wantongcun.com';
+// const remote = 'http://192.168.0.102:8080';
+const remote = 'https://wantongcun.com';
 
 const request = (url, method = 'GET', data) => {
   let promise = new Promise((resolve, reject) => {
