@@ -267,8 +267,9 @@ Page({
         } = formData;
         // 编辑
         if (id) {
-          request(`/mini/api/v1/circle/${openid}/${id}`, 'put', {
+          request(`/mini/api/v1/circles/${id}`, 'put', {
               ...formData,
+              openid,
               startTime: `${date} ${time.substr(0, 5)}:00`,
               type: typeList[type].value
             })
@@ -286,8 +287,9 @@ Page({
               console.log(e)
             })
         } else {
-          request(`/mini/api/v1/circle/${openid}`, 'post', {
+          request(`/mini/api/v1/circles`, 'post', {
               ...formData,
+              openid,
               startTime: `${date} ${time}:00`,
               type: typeList[type].value
             })

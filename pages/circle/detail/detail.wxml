@@ -29,7 +29,7 @@
       </mp-cell>
     </mp-cells>
     <view class="weui-btn-area">
-      <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+      <button class="weui-btn" type="primary" bindtap="handleBack">返回</button>
     </view>
   </view>
 </view>

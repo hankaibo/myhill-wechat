@@ -8,22 +8,49 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-
-  },
+  data: {},
 
   getData(id) {
-    request(`/mini/api/v1/circle/${id}`, 'get')
+    request(`/mini/api/v1/circles/${id}`, 'get')
       .then(({
         data
       }) => {
+        const typeList = [{
+            name: '学习圈',
+            value: 'STUDY',
+          },
+          {
+            name: '活动圈',
+            value: 'PLAY',
+          },
+          {
+            name: '绘画圈',
+            value: 'PAINING',
+          },
+          {
+            name: '图书圈',
+            value: 'BOOK',
+          },
+          {
+            name: '知识圈',
+            value: 'KNOW',
+          }
+        ];
+        let type = typeList.filter(item => item.value === data.type)[0].name;
         this.setData({
-          ...data
+          ...data,
+          type,
         });
       })
       .catch(e => {
         console.log(e)
       })
+  },
+
+  onBack() {
+    wx.navigateBack({
+      delta: 1
+    })
   },
 
   /**

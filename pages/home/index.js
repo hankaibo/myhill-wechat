@@ -68,6 +68,18 @@ Page({
     })
   },
 
+  // 加入
+  handleJoin(e) {
+    const {
+      field
+    } = e.currentTarget.dataset;
+    request(`/mini/api/v1/circles/${field}/relational`, 'post')
+      .then(() => {
+        this.getData();
+      })
+      .catch(e => {})
+  },
+
   onChange(e) {
     const {
       index
@@ -91,7 +103,7 @@ Page({
     } = listParam[index];
     // 向下，页数加1
     if (direction === 'down') {
-      request(`/mini/api/v1/circle?pageNum=${pageNum + 1}&pageSize=${pageSize}&type=${type}`, 'get')
+      request(`/mini/api/v1/circles?pageNum=${pageNum + 1}&pageSize=${pageSize}&type=${type}`, 'get')
         .then(({
           data
         }) => {
@@ -109,7 +121,7 @@ Page({
           console.log('上滑事件获取圈子数据失败，失败原因：', e);
         })
     } else if (direction === 'up') {
-      request(`/mini/api/v1/circle?pageNum=${1}&pageSize=${pageSize}&type=${type}`, 'get')
+      request(`/mini/api/v1/circles?pageNum=${1}&pageSize=${pageSize}&type=${type}`, 'get')
         .then(({
           data
         }) => {
@@ -139,7 +151,7 @@ Page({
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
-        tabHeiaght: rect.height
+        tabHeiaght: Math.max(rect.height, 300)
       })
     }).exec();
   },

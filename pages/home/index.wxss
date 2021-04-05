@@ -33,7 +33,9 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  padding: 0px 10px;
-  background-color: #07c160;
-  border-radius: 9px;
+}
+
+button[size='mini'].btn{
+  padding: 0 0.5em;
+  font-size: 12px;
 }

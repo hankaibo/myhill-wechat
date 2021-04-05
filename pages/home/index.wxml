@@ -2,8 +2,8 @@
 <view class="page" data-weui-theme="{{$state.theme}}">
 	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" swiperStyle="height: {{tabHeiaght}}px"
 		activeClass="tab-bar-title__selected" tabActiveTextColor="#07c160" activeTab="{{activeTab}}"
-		tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
-		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindchange="onChange">
+		tabBackgroundColor="{{$state.theme==='dark'?'#191919':'#ffffff'}}"
+		tabInactiveTextColor="{{$state.theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindchange="onChange">
 		<block wx:for="{{tabs}}" wx:key="index">
 			<view class="tab-content" slot="tab-content-{{index}}" id="tabsSwiper-{{index}}">
 				<view class="tab-content__bd">
@@ -19,7 +19,9 @@
 									<view><text>{{item.place}}</text></view>
 									<view><text>{{item.description}}</text></view>
 									<view class="weui-media-box__add">
-										<mp-icon type="outline" icon="add" color="block" size="{{9}}"></mp-icon>加入
+										<button size="mini" type="primary" class="btn" data-field="{{item.id}}" bindtap="handleJoin">
+											加入
+										</button>
 									</view>
 								</view>
 							</view>

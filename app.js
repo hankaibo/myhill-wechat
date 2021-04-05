@@ -40,7 +40,7 @@ App({
               }
             })
             .then(() => {
-              return request('/mini/api/v1/users/info')
+              return request('/mini/api/v1/users')
             })
             .then(response => {
               const {

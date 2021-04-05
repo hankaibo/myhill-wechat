@@ -14,9 +14,6 @@
       <mp-cell prop="place" title="地点:" ext-class="">
         {{place}}
       </mp-cell>
-      <mp-cell prop="isOpen" title="开放:" ext-class="">
-        {{isOpen}}
-      </mp-cell>
       <mp-cell prop="description" title="简介:" ext-class="">
         {{description}}
       </mp-cell>
@@ -29,7 +26,7 @@
       </mp-cell>
     </mp-cells>
     <view class="weui-btn-area">
-      <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+      <button class="weui-btn" type="default" bindtap="onBack">返回</button>
     </view>
   </view>
 </view>

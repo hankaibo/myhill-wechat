@@ -95,7 +95,7 @@ Page({
       openid
     } = app.store.getState();
 
-    request(`/mini/api/v1/circle/${openid}/${id}`, 'delete')
+    request(`/mini/api/v1/circles/${id}`, 'delete')
       .then(() => {
         this.getData();
       })
@@ -152,7 +152,7 @@ Page({
     } = listParam[index];
     // 向下，页数加1
     if (direction === 'down') {
-      request(`/mini/api/v1/circle/${openid}/list?pageNum=${pageNum + 1}&pageSize=${pageSize}`, 'get')
+      request(`/mini/api/v1/circles?pageNum=${pageNum + 1}&pageSize=${pageSize}&openid=${openid}`, 'get')
         .then(({
           data
         }) => {
@@ -170,7 +170,7 @@ Page({
           console.log(e)
         })
     } else if (direction === 'up') {
-      request(`/mini/api/v1/circle/${openid}/list?pageNum=${1}&pageSize=${pageSize}`, 'get')
+      request(`/mini/api/v1/circles?pageNum=${1}&pageSize=${pageSize}&openid=${openid}`, 'get')
         .then(({
           data
         }) => {
@@ -201,7 +201,7 @@ Page({
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
-        tabHeiaght: rect.height,
+        tabHeiaght: Math.max(rect.height,300),
       })
     }).exec();
   },
