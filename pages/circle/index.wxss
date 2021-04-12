@@ -71,4 +71,12 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+}
+
+.popup-title {
+  color: var(--weui-FG-0);
+  margin-bottom: 80rpx;
+  font-size: 17px;
+  line-height: 1.4;
 }

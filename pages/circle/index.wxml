@@ -42,7 +42,7 @@
 
 <page-container show="{{show}}">
 	<view class="popup-page">
-		<h4 class="weui-media-box__title">
+		<h4 class="popup-title">
 			体验用户只能新建一次，如果想新建更多，请登录。
 		</h4>
 		<button class="block" type="primary" bindtap="handleGetUserInfo">

@@ -24,7 +24,7 @@
 									<view class="weui-media-box__desc_place">
 										<text>{{item.description}}</text>
 									</view>
-									<view class="weui-media-box__add">
+									<view class="weui-media-box__add" wx:if="{{$state.user.nickName}}">
 										<button size="mini" type="primary" class="btn" data-field="{{item.id}}" bindtap="handleJoin">
 											加入
 										</button>
