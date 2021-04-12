@@ -1,76 +1,40 @@
 <!--pages/find/index.wxml-->
 <view class="page" data-weui-theme="{{$state.theme}}">
-	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected"
-		tabActiveTextColor="#07c160" activeTab="{{activeTab}}" tabBackgroundColor="{{theme==='dark'?'#191919':'#ffffff'}}"
-		tabInactiveTextColor="{{theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindtabclick="onTabCLick"
-		bindchange="onChange">
-		<!-- 关注 -->
-		<scroll-view class="tab-content" slot="tab-content-0" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}"
-			scroll-top="{{scrollTop}}">
-			<view class="tab-content__hd">
-				<view wx:if="{{!hasLogin}}">
-					您未登录，如需进一步体验，请登录。
-					<button class="block" type="primary" bindtap="handleGetUserInfo">
-						登录
-					</button>
-				</view>
-			</view>
-			<view class="tab-content__bd">
-				<mp-cells>
-					<mp-cell wx:for="{{list}}" wx:key="id" hover>
-						<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
-							style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
-						<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />
-						<view class="weui-media-box__bd">
-							<h4 class="weui-media-box__title">{{item.name}}</h4>
-							<view class="weui-media-box__desc">
-								<view><text>{{item.startTime}}</text></view>
-								<view><text>{{item.place}}</text></view>
-								<view><text>{{item.description}}</text></view>
-								<view class="weui-media-box__add">
-									<mp-icon type="outline" icon="add" color="block" size="{{9}}"></mp-icon>加入
+	<mp-tabs tabs="{{tabs}}" swiperClass="weui-tabs-swiper" swiperStyle="height: {{tabHeiaght}}px"
+		activeClass="tab-bar-title__selected" tabActiveTextColor="#07c160" activeTab="{{activeTab}}"
+		tabBackgroundColor="{{$state.theme==='dark'?'#191919':'#ffffff'}}"
+		tabInactiveTextColor="{{$state.theme==='dark'?'hsla(0,0%,100%,.5)':'#000000'}}" bindchange="onChange">
+		<block wx:for="{{tabs}}" wx:key="index">
+			<view class="tab-content" slot="tab-content-{{index}}" id="tabsSwiper-{{index}}">
+				<view class="tab-content__bd">
+					<mp-cells>
+						<mp-cell wx:for="{{listData[index]}}" wx:key="id" hover data-field="{{item.id}}" bindtap="handleView">
+							<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
+								style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
+							<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />
+							<view class="weui-media-box__bd">
+								<h4 class="weui-media-box__title">{{item.name}}</h4>
+								<view class="weui-media-box__desc">
+									<view>
+										<text>{{item.startTime}}</text>
+									</view>
+									<view class="weui-media-box__desc_place">
+										<text>{{item.place}}</text>
+									</view>
+									<view class="weui-media-box__desc_place">
+										<text>{{item.description}}</text>
+									</view>
+									<view class="weui-media-box__add">
+										<button size="mini" type="primary" class="btn" data-field="{{item.id}}" bindtap="handleJoin">
+											加入
+										</button>
+									</view>
 								</view>
 							</view>
-						</view>
-					</mp-cell>
-				</mp-cells>
-			</view>
-		</scroll-view>
-
-		<!-- 推荐 -->
-		<scroll-view class="tab-content" slot="tab-content-1" scroll-y="true" style="height: calc(100vh - 51px)"
-			bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}"
-			scroll-top="{{scrollTop}}">
-			<view class="tab-content__hd">
-				<view wx:if="{{!hasLogin}}">
-					您未登录，如需进一步体验，请登录。
-					<button class="block" type="primary" bindtap="handleGetUserInfo">
-						登录
-					</button>
+						</mp-cell>
+					</mp-cells>
 				</view>
 			</view>
-			<view class="tab-content__bd">
-				<mp-cells>
-					<mp-cell wx:for="{{list}}" wx:key="id" hover>
-						<image wx:if="{{item.imgUrl}}" slot="icon" src="{{item.imgUrl}}" alt="封面"
-							style="margin-right: 16px;vertical-align: middle;width:120px; height: 120px;" />
-						<view wx:else slot="icon" style="margin-right: 16px;width:120px; height: 120px; background: #ccc" />
-						<view class="weui-media-box__bd">
-							<h4 class="weui-media-box__title">{{item.name}}</h4>
-							<view class="weui-media-box__desc">
-								<view><text>{{item.startTime}}</text></view>
-								<view><text>{{item.place}}</text></view>
-								<view><text>{{item.description}}</text></view>
-								<view class="weui-media-box__add">
-									<mp-icon type="outline" icon="add" color="block" size="{{9}}"></mp-icon>加入
-								</view>
-							</view>
-						</view>
-					</mp-cell>
-				</mp-cells>
-			</view>
-		</scroll-view>
-
+		</block>
 	</mp-tabs>
 </view>

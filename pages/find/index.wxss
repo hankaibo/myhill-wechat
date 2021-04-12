@@ -14,11 +14,6 @@
   font-weight: bold;
 }
 
-.weui-tabs-swiper {
-  width: 100%;
-  height: calc(100vh - 51px);
-}
-
 .tab-content {
   width: 100%;
   display: flex;
@@ -34,11 +29,29 @@
   width: 100%;
 }
 
+.weui-media-box__add {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.weui-media-box__desc {
+  height: 60px;
+}
+
+.weui-media-box__desc_place {
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+button[size='mini'].btn {
+  padding: 0 0.5em;
+  font-size: 12px;
+}
+
 button {
   margin-top: 30rpx;
   margin-bottom: 30rpx;
-}
-
-.block {
-  width: 100% !important;
 }

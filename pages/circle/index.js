@@ -1,7 +1,7 @@
 // pages/circle/index.js
 const {
   request
-} = require('../../utils/request.js')
+} = require('../../utils/request.js');
 
 const app = getApp();
 
@@ -17,13 +17,13 @@ Page({
       [],
     ],
     listParam: [{
-        pageNum: 1,
-        pageSize: 10
-      },
-      {
-        pageNum: 1,
-        pageSize: 10
-      },
+      pageNum: 1,
+      pageSize: 10
+    },
+    {
+      pageNum: 1,
+      pageSize: 10
+    },
     ],
     slideButtons: [{
       text: '编辑',
@@ -138,14 +138,14 @@ Page({
         nickName
       }
     } = app.store.getState();
-    const {
-      listData,
-      listParam,
-    } = this.data;
     // 未登录、未授权
     if (!openid || !nickName) {
       return
     }
+    const {
+      listData,
+      listParam,
+    } = this.data;
     const {
       pageNum,
       pageSize,
@@ -156,7 +156,11 @@ Page({
         .then(({
           data
         }) => {
-          listData[index].concat(data.list);
+          const list = data.list.map(item => ({
+            ...item,
+            startTime: item.startTime.substr(5, 11)
+          }));
+          listData[index].concat(list);
           listParam[index] = {
             pageNum: pageNum + 1,
             pageSize,
@@ -174,7 +178,11 @@ Page({
         .then(({
           data
         }) => {
-          listData[index] = data.list;
+          const list = data.list.map(item => ({
+            ...item,
+            startTime: item.startTime.substr(5, 11)
+          }));
+          listData[index] = list;
           listParam[index] = {
             pageNum: 1,
             pageSize,
@@ -201,7 +209,7 @@ Page({
     } = this.data;
     wx.createSelectorQuery().in(this).select(`#tabsSwiper-${activeTab}`).boundingClientRect(rect => {
       this.setData({
-        tabHeiaght: Math.max(rect.height,300),
+        tabHeiaght: Math.max(rect.height, 300),
       })
     }).exec();
   },
@@ -239,7 +247,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示

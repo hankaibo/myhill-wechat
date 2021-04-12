@@ -15,9 +15,15 @@
 							<view class="weui-media-box__bd">
 								<h4 class="weui-media-box__title">{{item.name}}</h4>
 								<view class="weui-media-box__desc">
-									<view><text>{{item.startTime}}</text></view>
-									<view><text>{{item.place}}</text></view>
-									<view><text>{{item.description}}</text></view>
+									<view>
+										<text>{{item.startTime}}</text>
+									</view>
+									<view class="weui-media-box__desc_place">
+										<text>{{item.place}}</text>
+									</view>
+									<view class="weui-media-box__desc_place">
+										<text>{{item.description}}</text>
+									</view>
 									<view class="weui-media-box__add">
 										<button size="mini" type="primary" class="btn" data-field="{{item.id}}" bindtap="handleJoin">
 											加入

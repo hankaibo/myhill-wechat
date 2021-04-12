@@ -1,10 +1,11 @@
 // pages/circle/form/form.js
 const {
   request
-} = require('../../../utils/request.js')
+} = require('../../../utils/request.js');
 const {
   formatDate,
-} = require('../../../utils/util')
+} = require('../../../utils/util');
+const chooseLocation = requirePlugin('chooseLocation');
 
 const datetime = new Date();
 datetime.setDate(datetime.getDate() + 1);
@@ -19,25 +20,25 @@ Page({
   data: {
     files: [],
     typeList: [{
-        name: '学习圈',
-        value: 'STUDY',
-      },
-      {
-        name: '活动圈',
-        value: 'PLAY',
-      },
-      {
-        name: '绘画圈',
-        value: 'PAINING',
-      },
-      {
-        name: '图书圈',
-        value: 'BOOK',
-      },
-      {
-        name: '知识圈',
-        value: 'KNOW',
-      }
+      name: '学习圈',
+      value: 'STUDY',
+    },
+    {
+      name: '活动圈',
+      value: 'PLAY',
+    },
+    {
+      name: '绘画圈',
+      value: 'PAINING',
+    },
+    {
+      name: '图书圈',
+      value: 'BOOK',
+    },
+    {
+      name: '知识圈',
+      value: 'KNOW',
+    }
     ],
     formData: {
       type: 0,
@@ -48,58 +49,47 @@ Page({
       description: ''
     },
     rules: [{
-        name: 'type',
-        rules: {
-          required: true,
-          message: '类型是必填项'
-        }
-      },
-      {
-        name: 'name',
-        rules: {
-          required: true,
-          message: '名称是必填项'
-        }
-      },
-      {
-        name: 'date',
-        rules: {
-          required: true,
-          message: '日期是必填项'
-        }
-      },
-      {
-        name: 'time',
-        rules: {
-          required: true,
-          message: '时间是必填项'
-        }
-      },
-      {
-        name: 'place',
-        rules: {
-          required: true,
-          message: '地点是必填项'
-        }
-      },
-      {
-        name: 'description',
-        rules: {
-          maxlength: 20
-        }
+      name: 'type',
+      rules: {
+        required: true,
+        message: '类型是必填项'
       }
+    },
+    {
+      name: 'name',
+      rules: {
+        required: true,
+        message: '名称是必填项'
+      }
+    },
+    {
+      name: 'date',
+      rules: {
+        required: true,
+        message: '日期是必填项'
+      }
+    },
+    {
+      name: 'time',
+      rules: {
+        required: true,
+        message: '时间是必填项'
+      }
+    },
+    {
+      name: 'place',
+      rules: {
+        required: true,
+        message: '地点是必填项'
+      }
+    },
+    {
+      name: 'description',
+      rules: {
+        maxlength: 20
+      }
+    }
     ],
-    // popup
-    show: false,
-    // map
-    latitude: 39.90,
-    longitude: 116.38,
-    markers: [{
-      id: 1,
-      latitude: 39.90,
-      longitude: 116.38,
-      iconPath: '/images/location.png'
-    }],
   },
   formPickerChange: function (e) {
     const {
@@ -122,60 +112,14 @@ Page({
       [`formData.isOpen`]: e.detail.value
     })
   },
-  //全屏弹框
-  popup(e) {
-    this.setData({
-      show: true,
+  //地图插件
+  handleMap() {
+    const key = '2EWBZ-VXJ6X-YS44S-TJV5E-LO4TT-EZFIR'; //使用在腾讯位置服务申请的key
+    const referer = 'mini_hill'; //调用插件的app的名称
+
+    wx.navigateTo({
+      url: `plugin://chooseLocation/index?key=${key}&referer=${referer}`
     });
-  },
-  onAfterEnter(res) {
-    this.mapCtx = wx.createMapContext('mapId');
-    wx.getLocation({
-      type: 'wgs84',
-      success: (res) => {
-        const latitude = res.latitude;
-        const longitude = res.longitude;
-        this.setData({
-          latitude,
-          longitude
-        });
-        // move
-        this.mapCtx.moveToLocation({
-          latitude,
-          longitude
-        });
-        // marker
-        const markers = [{
-          id: 1,
-          latitude,
-          longitude,
-          iconPath: '/images/location.png'
-        }];
-        this.mapCtx.addMarkers({
-          markers,
-          clear: true,
-          complete(res) {
-            console.log('ersssssss->', res)
-          }
-        })
-      }
-    });
-  },
-  onBeforeLeave(res) {
-    console.log(res)
-  },
-  onMapCancel() {
-    this.setData({
-      show: false
-    });
-  },
-  onMapOk() {
-    this.setData({
-      show: false
-    });
-    this.setData({
-      'formData.place': 'test'
-    })
   },
   // 上传图片
   chooseImage: function (e) {
@@ -268,11 +212,11 @@ Page({
         // 编辑
         if (id) {
           request(`/mini/api/v1/circles/${id}`, 'put', {
-              ...formData,
-              openid,
-              startTime: `${date} ${time.substr(0, 5)}:00`,
-              type: typeList[type].value
-            })
+            ...formData,
+            openid,
+            startTime: `${date} ${time.substr(0, 5)}:00`,
+            type: typeList[type].value
+          })
             .then(() => {
               wx.showToast({
                 title: '修改成功',
@@ -288,11 +232,11 @@ Page({
             })
         } else {
           request(`/mini/api/v1/circles`, 'post', {
-              ...formData,
-              openid,
-              startTime: `${date} ${time}:00`,
-              type: typeList[type].value
-            })
+            ...formData,
+            openid,
+            startTime: `${date} ${time}:00`,
+            type: typeList[type].value
+          })
             .then(() => {
               wx.showToast({
                 title: '添加成功',
@@ -381,7 +325,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 从地图选点插件返回后，在页面的onShow生命周期函数中能够调用插件接口，取得选点结果对象
+    const location = chooseLocation.getLocation(); // 如果点击确认选点按钮，则返回选点结果对象，否则返回null
+    if(location) {
+      this.setData({
+        [`formData.place`]: location.name
+      })
+    }
   },
 
   /**
@@ -395,7 +345,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    // 页面卸载时设置插件选点数据为null，防止再次进入页面，geLocation返回的是上次选点结果
+    chooseLocation.setLocation(null);
   },
 
   /**

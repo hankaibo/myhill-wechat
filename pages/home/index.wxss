@@ -35,7 +35,18 @@
   right: 16px;
 }
 
-button[size='mini'].btn{
+.weui-media-box__desc {
+  height: 60px;
+}
+
+.weui-media-box__desc_place {
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+button[size='mini'].btn {
   padding: 0 0.5em;
   font-size: 12px;
 }

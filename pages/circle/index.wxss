@@ -38,6 +38,13 @@
   border-radius: 9px;
 }
 
+.weui-media-box__desc_place {
+  width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 button {
   margin-top: 30rpx;
   margin-bottom: 30rpx;

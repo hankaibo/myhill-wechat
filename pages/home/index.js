@@ -107,7 +107,11 @@ Page({
         .then(({
           data
         }) => {
-          listData[index].concat(data.list);
+          const list = data.list.map(item => ({
+            ...item,
+            startTime: item.startTime.substr(5, 11)
+          }));
+          listData[index].concat(list);
           listParam[index] = {
             pageNum: pageNum + 1,
             pageSize,
@@ -125,7 +129,11 @@ Page({
         .then(({
           data
         }) => {
-          listData[index] = data.list;
+          const list = data.list.map(item => ({
+            ...item,
+            startTime: item.startTime.substr(5, 11)
+          }));
+          listData[index] = list;
           listParam[index] = {
             pageNum: 1,
             pageSize,
