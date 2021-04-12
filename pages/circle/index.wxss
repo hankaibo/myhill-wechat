@@ -62,3 +62,13 @@ button {
   top: 0px;
   right: 20px;
 }
+
+.popup-page {
+  width: 100%;
+  min-height: 300px;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

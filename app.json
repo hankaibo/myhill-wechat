@@ -60,7 +60,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于圈子地点的精确定位。取消将使用默认位置。"
+      "desc": "你的位置信息将用于圈子地点的精确定位。"
     }
   },
   "plugins": {

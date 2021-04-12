@@ -45,6 +45,7 @@ Page({
       status: 'ENABLED',
       date: formatDate(datetime),
       time: '10:00',
+      place: '北京',
       isOpen: true,
       description: ''
     },

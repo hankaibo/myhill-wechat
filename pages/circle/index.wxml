@@ -7,15 +7,9 @@
 		<block wx:for="{{tabs}}" wx:key="index">
 			<view class="tab-content" slot="tab-content-{{index}}" id="tabsSwiper-{{index}}">
 				<view class="tab-content__hd" wx:if="{{index===0}}">
-					<button class="block" type="primary" bindtap="handleAdd" wx:if="{{$state.user.nickName}}">
+					<button class="block" type="primary" bindtap="handleAdd">
 						<mp-icon type="outline" icon="add" color="block" size="{{25}}"></mp-icon>
 					</button>
-					<view wx:else>
-						您未登录，如需进一步体验，请登录。
-						<button class="block" type="primary" bindtap="handleGetUserInfo">
-							登录
-						</button>
-					</view>
 				</view>
 				<view class="tab-content__bd">
 					<mp-cells>
@@ -45,3 +39,14 @@
 		</block>
 	</mp-tabs>
 </view>
+
+<page-container show="{{show}}">
+	<view class="popup-page">
+		<h4 class="weui-media-box__title">
+			体验用户只能新建一次，如果想新建更多，请登录。
+		</h4>
+		<button class="block" type="primary" bindtap="handleGetUserInfo">
+			登录
+		</button>
+	</view>
+</page-container>

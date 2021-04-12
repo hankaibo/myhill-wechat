@@ -36,26 +36,48 @@ Page({
       SUCCESS: '通过',
       REJECTED: '被拒绝',
       WITHDRAWN: '已撤回'
-    }
+    },
+    //  
+    show: false,
   },
-
   // 获取用户信息之后才让其添加
   handleGetUserInfo(e) {
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
+        this.setData({
+          show: false
+        });
         app.store.setState({
           user: res.userInfo
         });
         app.onUserUpdate(res.userInfo);
-        this.getData();
+        wx.navigateTo({
+          url: './form/form',
+        });
       }
     })
   },
   handleAdd() {
-    wx.navigateTo({
-      url: './form/form',
-    });
+    const {
+      openid,
+      user: {
+        nickName
+      }
+    } = app.store.getState();
+    const {
+      listData,
+    } = this.data;
+    //  如果用户未登录，只允许其新建一条数据作为体验
+    if ((nickName === '' || nickName === null || nickName === undefined) && listData[0].length > 0) {
+      this.setData({
+        show: true
+      })
+    } else if (openid) {
+      wx.navigateTo({
+        url: './form/form',
+      });
+    }
   },
   slideButtonTap(e) {
     const {
@@ -91,10 +113,6 @@ Page({
   },
   // 删除
   handleDel(id) {
-    const {
-      openid
-    } = app.store.getState();
-
     request(`/mini/api/v1/circles/${id}`, 'delete')
       .then(() => {
         this.getData();
@@ -133,13 +151,10 @@ Page({
   // 获取数据
   getData(direction = 'up', index = 0, type = '') {
     const {
-      openid,
-      user: {
-        nickName
-      }
+      openid
     } = app.store.getState();
     // 未登录、未授权
-    if (!openid || !nickName) {
+    if (!openid) {
       return
     }
     const {

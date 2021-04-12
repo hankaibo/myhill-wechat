@@ -92,7 +92,7 @@ Page({
       }
     } = app.store.getState();
     // 未登录、未授权
-    if (!openid || !nickName) {
+    if (!openid) {
       return
     }
     const {
