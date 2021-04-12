@@ -42,13 +42,9 @@ Page({
           if (res.errMsg === 'scanCode:ok') {
             console.log(res, '小程序扫码成功。');
             const uuid = res.result;
-            const miniTokenStr = wx.getStorageSync('miniToken');
-            let miniToken;
-            let openid;
-            if (miniTokenStr) {
-              miniToken = JSON.parse(miniTokenStr);
-              openid = miniToken.openid;
-            }
+            const {
+              openid,
+            } = app.store.getState();
             const user = {
               avatar: avatarUrl,
               city,
