@@ -108,8 +108,9 @@ Page({
           data
         }) => {
           const list = data.list.map(item => ({
-            ...item,
-            startTime: item.startTime.substr(5, 11)
+            ...item,            
+            date: item.startTime.substr(0, 10),
+            time: item.startTime.substr(11, 5),
           }));
           listData[index].concat(list);
           listParam[index] = {
@@ -130,8 +131,9 @@ Page({
           data
         }) => {
           const list = data.list.map(item => ({
-            ...item,
-            startTime: item.startTime.substr(5, 11)
+            ...item,            
+            date: item.startTime.substr(0, 10),
+            time: item.startTime.substr(11, 5),
           }));
           listData[index] = list;
           listParam[index] = {

@@ -145,15 +145,11 @@ Page({
     })
   },
   selectFile(files) {
-    console.log('files', files)
     // 返回false可以阻止某次文件上传
+    console.log('files', files)
   },
   uploadFile(files) {
-    const {
-      openid
-    } = app.store.getState();
     let that = this;
-    console.log('upload files', files);
     const tempFilePaths = files.tempFilePaths[0];
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
@@ -220,7 +216,7 @@ Page({
           request(`/mini/api/v1/circles/${id}`, 'put', {
             ...formData,
             openid,
-            startTime: `${date} ${time.substr(0, 5)}:00`,
+            startTime: `${date} ${time}:00`,
             type: typeList[type].value
           })
             .then(() => {
@@ -286,18 +282,12 @@ Page({
           id,
           type,
           name,
-          startTime,
+          date,
+          time,
           place,
           isOpen,
           description,
         } = circle;
-        const datetimeArr = startTime.split(' ');
-        let date = null;
-        let time = null;
-        if (datetimeArr.length === 2) {
-          date = datetimeArr[0];
-          time = datetimeArr[1];
-        }
         let selectedTypeIndex = 0;
         for (let i = 0; i < this.data.typeList.length; i += 1) {
           if (this.data.typeList[i].value = type) {

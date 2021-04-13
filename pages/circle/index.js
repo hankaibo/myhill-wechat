@@ -17,13 +17,13 @@ Page({
       [],
     ],
     listParam: [{
-      pageNum: 1,
-      pageSize: 10
-    },
-    {
-      pageNum: 1,
-      pageSize: 10
-    },
+        pageNum: 1,
+        pageSize: 10
+      },
+      {
+        pageNum: 1,
+        pageSize: 10
+      },
     ],
     slideButtons: [{
       text: '编辑',
@@ -165,15 +165,24 @@ Page({
       pageNum,
       pageSize,
     } = listParam[index];
+    let url='';
+    if(type==='attend'){
+      // 参加的圈子
+      url='/mini/api/v1/circles/attend';
+    }else {
+      // 创建的圈子
+      url='/mini/api/v1/circles';
+    }
     // 向下，页数加1
     if (direction === 'down') {
-      request(`/mini/api/v1/circles?pageNum=${pageNum + 1}&pageSize=${pageSize}&openid=${openid}`, 'get')
+      request(`${url}?pageNum=${pageNum + 1}&pageSize=${pageSize}&openid=${openid}`, 'get')
         .then(({
           data
         }) => {
           const list = data.list.map(item => ({
             ...item,
-            startTime: item.startTime.substr(5, 11)
+            date: item.startTime.substr(0, 10),
+            time: item.startTime.substr(11, 5),
           }));
           listData[index].concat(list);
           listParam[index] = {
@@ -189,13 +198,14 @@ Page({
           console.log(e)
         })
     } else if (direction === 'up') {
-      request(`/mini/api/v1/circles?pageNum=${1}&pageSize=${pageSize}&openid=${openid}`, 'get')
+      request(`${url}?pageNum=${1}&pageSize=${pageSize}&openid=${openid}`, 'get')
         .then(({
           data
         }) => {
           const list = data.list.map(item => ({
             ...item,
-            startTime: item.startTime.substr(5, 11)
+            date: item.startTime.substr(0, 10),
+            time: item.startTime.substr(11, 5),
           }));
           listData[index] = list;
           listParam[index] = {
@@ -237,7 +247,7 @@ Page({
         type = '';
         break;
       case 1:
-        type = 'xxx';
+        type = 'attend';
         break;
       default:
         type = '';
@@ -262,7 +272,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () { },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
