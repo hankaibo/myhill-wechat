@@ -10,6 +10,8 @@ const chooseLocation = requirePlugin('chooseLocation');
 const datetime = new Date();
 datetime.setDate(datetime.getDate() + 1);
 
+const remote = 'https://wantongcun.com';
+
 const app = getApp();
 
 Page({
@@ -156,9 +158,12 @@ Page({
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
       wx.uploadFile({
-        url: `/mini/api/v1/circle/${openid}/upload`,
+        url: `${remote}/mini/api/v1/circles/upload`,
         filePath: tempFilePaths,
         name: 'file',
+        header: {
+          Authorization: `Bearer ${wx.getStorageSync('miniToken')}`,
+        },
         success(res) {
           if (res.statusCode === 200) {
             that.setData({
