@@ -10,6 +10,7 @@ const chooseLocation = requirePlugin('chooseLocation');
 const datetime = new Date();
 datetime.setDate(datetime.getDate() + 1);
 
+// const remote = 'http://192.168.0.107:8080';
 const remote = 'https://wantongcun.com';
 
 const app = getApp();
